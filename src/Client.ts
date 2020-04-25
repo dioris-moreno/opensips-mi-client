@@ -115,7 +115,7 @@ export default class Client {
     listBlacklists = () => this.core.execute('list_blacklists');
 
     /**
-     * The command lists all ongoing TCP/TLS connection from OpenSIPS.
+     * The command lists all ongoing TCP/TLS connections from OpenSIPS.
      */
     listTcpConnections = () => this.core.execute('list_tcp_conns');
 
@@ -135,6 +135,11 @@ export default class Client {
      * Prints the working directory of OpenSIPS instance.
      */
     pwd = () => this.core.execute('pwd');
+
+    /**
+     * Triggers the reload of the routing block (the routes) from the script during the runtime.
+     */
+    reloadRoutes = () => this.core.execute('reload_routes');
 
     /**
      * Prints various time information about OpenSIPS - when it started to run, for how long it runs.
@@ -174,8 +179,10 @@ export default class Client {
      * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module 'localcache' the value of this parameter should be 'local';
      * @param params.attr - the label to be associated with this value;
      * @param params.value - the string to be stored;
+     * @param params.expire - expire time for the stored value;
      */
-    cacheStore = (params: { system: string; attr: string; value: string }) => this.core.execute('cache_store', params);
+    cacheStore = (params: { system: string; attr: string; value: string; expire?: string }) =>
+        this.core.execute('cache_store', params);
 
     /**
      * This command queries for a stored value.
@@ -206,6 +213,14 @@ export default class Client {
     eventsList = () => this.core.execute('events_list');
 
     /**
+     * Raises an event through the Event Interface using an MI command.
+     * @param params.event - event name
+     * @param params.params - (optional) - array of elements, or a JSON object containing key-value pairs
+     */
+    raiseEvent = (params: { event: string; params?: string[] | { [key: string]: any } }) =>
+        this.core.execute('raise_event', params);
+
+    /**
      * Lists information about the subscribers
      * @param params.event - event name
      * @param params.socket - (optional) - external application socket
@@ -213,205 +228,424 @@ export default class Client {
     subscribersList = (params: { event: string; socket?: string }) => this.core.execute('subscribers_list', params);
 
     /**
+     * Triggers a pkg memory dump for a given process. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
+     * @param params.pid - the PID of the process to perform the pkg dump
+     * @param params.level - (optional) - a log level to be used for this dump
+     */
+    memPkgDump = (params: { pid: number; level?: number }) => this.core.execute('mem_pkg_dump', params);
+
+    /**
+     * Triggers a shm memory dump. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
+     * @param params.level - (optional) - a log level to be used for this dump
+     */
+    memShmDump = (params?: { level?: number }) => this.core.execute('mem_shm_dump', params);
+
+    /**
      * Only available with QM_MALLOC + DBG_MALLOC. Fully scans the shared memory pool in order to locate any inconsistencies. If any sign of memory corruption is detected, OpenSIPS will immediately abort.
      */
     shmCheck = () => this.core.execute('shm_check');
+
+    /**
+     * Get or set the global xlogging level in OpenSIPS processes. If no argument is passed to the xlog_level command, it will print the current xlog_level. If a logging level is given, it will be globally set for all OpenSIPS processes.
+     * @param params.level - (optional) - a log level to be used
+     */
+    xlogLevel = (params?: { level?: number }) => this.core.execute('xlog_level', params);
+
+    /**
+     *  Returns a Core object related to the OpenSIPS instance.
+     */
     private get core() {
         if (!this._core) this._core = new Modules.Core(this);
         return this._core;
     }
+
+    /**
+     *  Returns a B2bEntities object related to the OpenSIPS instance.
+     */
     get b2bEntities() {
         if (!this._b2bEntities) this._b2bEntities = new Modules.B2bEntities(this);
         return this._b2bEntities;
     }
+
+    /**
+     *  Returns a B2bLogic object related to the OpenSIPS instance.
+     */
     get b2bLogic() {
         if (!this._b2bLogic) this._b2bLogic = new Modules.B2bLogic(this);
         return this._b2bLogic;
     }
+
+    /**
+     *  Returns a B2bSca object related to the OpenSIPS instance.
+     */
     get b2bSca() {
         if (!this._b2bSca) this._b2bSca = new Modules.B2bSca(this);
         return this._b2bSca;
     }
+
+    /**
+     *  Returns a Benchmark object related to the OpenSIPS instance.
+     */
     get benchmark() {
         if (!this._benchmark) this._benchmark = new Modules.Benchmark(this);
         return this._benchmark;
     }
+
+    /**
+     *  Returns a CachedbLocal object related to the OpenSIPS instance.
+     */
     get cachedbLocal() {
         if (!this._cachedbLocal) this._cachedbLocal = new Modules.CachedbLocal(this);
         return this._cachedbLocal;
     }
+
+    /**
+     *  Returns a CallCenter object related to the OpenSIPS instance.
+     */
     get callCenter() {
         if (!this._callCenter) this._callCenter = new Modules.CallCenter(this);
         return this._callCenter;
     }
+
+    /**
+     *  Returns a CarrierRoute object related to the OpenSIPS instance.
+     */
     get carrierRoute() {
         if (!this._carrierRoute) this._carrierRoute = new Modules.CarrierRoute(this);
         return this._carrierRoute;
     }
+
+    /**
+     *  Returns a Cfgutils object related to the OpenSIPS instance.
+     */
     get cfgutils() {
         if (!this._cfgutils) this._cfgutils = new Modules.Cfgutils(this);
         return this._cfgutils;
     }
+
+    /**
+     *  Returns a Clusterer object related to the OpenSIPS instance.
+     */
     get clusterer() {
         if (!this._clusterer) this._clusterer = new Modules.Clusterer(this);
         return this._clusterer;
     }
+
+    /**
+     *  Returns a CplC object related to the OpenSIPS instance.
+     */
     get cplC() {
         if (!this._cplC) this._cplC = new Modules.CplC(this);
         return this._cplC;
     }
+
+    /**
+     *  Returns a DbBerkeley object related to the OpenSIPS instance.
+     */
     get dbBerkeley() {
         if (!this._dbBerkeley) this._dbBerkeley = new Modules.DbBerkeley(this);
         return this._dbBerkeley;
     }
+
+    /**
+     *  Returns a DbFlatstore object related to the OpenSIPS instance.
+     */
     get dbFlatstore() {
         if (!this._dbFlatstore) this._dbFlatstore = new Modules.DbFlatstore(this);
         return this._dbFlatstore;
     }
+
+    /**
+     *  Returns a DbText object related to the OpenSIPS instance.
+     */
     get dbText() {
         if (!this._dbText) this._dbText = new Modules.DbText(this);
         return this._dbText;
     }
+
+    /**
+     *  Returns a DbVirtual object related to the OpenSIPS instance.
+     */
     get dbVirtual() {
         if (!this._dbVirtual) this._dbVirtual = new Modules.DbVirtual(this);
         return this._dbVirtual;
     }
+
+    /**
+     *  Returns a Dialog object related to the OpenSIPS instance.
+     */
     get dialog() {
         if (!this._dialog) this._dialog = new Modules.Dialog(this);
         return this._dialog;
     }
+
+    /**
+     *  Returns a Dialplan object related to the OpenSIPS instance.
+     */
     get dialplan() {
         if (!this._dialplan) this._dialplan = new Modules.Dialplan(this);
         return this._dialplan;
     }
+
+    /**
+     *  Returns a Dispatcher object related to the OpenSIPS instance.
+     */
     get dispatcher() {
         if (!this._dispatcher) this._dispatcher = new Modules.Dispatcher(this);
         return this._dispatcher;
     }
+
+    /**
+     *  Returns a Domain object related to the OpenSIPS instance.
+     */
     get domain() {
         if (!this._domain) this._domain = new Modules.Domain(this);
         return this._domain;
     }
+
+    /**
+     *  Returns a Drouting object related to the OpenSIPS instance.
+     */
     get drouting() {
         if (!this._drouting) this._drouting = new Modules.Drouting(this);
         return this._drouting;
     }
+
+    /**
+     *  Returns a EventFlatstore object related to the OpenSIPS instance.
+     */
     get eventFlatstore() {
         if (!this._eventFlatstore) this._eventFlatstore = new Modules.EventFlatstore(this);
         return this._eventFlatstore;
     }
+
+    /**
+     *  Returns a Gflags object related to the OpenSIPS instance.
+     */
     get gflags() {
         if (!this._gflags) this._gflags = new Modules.Gflags(this);
         return this._gflags;
     }
+
+    /**
+     *  Returns a Httpd object related to the OpenSIPS instance.
+     */
     get httpd() {
         if (!this._httpd) this._httpd = new Modules.Httpd(this);
         return this._httpd;
     }
+
+    /**
+     *  Returns a Imc object related to the OpenSIPS instance.
+     */
     get imc() {
         if (!this._imc) this._imc = new Modules.Imc(this);
         return this._imc;
     }
+
+    /**
+     *  Returns a LoadBalancer object related to the OpenSIPS instance.
+     */
     get loadBalancer() {
         if (!this._loadBalancer) this._loadBalancer = new Modules.LoadBalancer(this);
         return this._loadBalancer;
     }
+
+    /**
+     *  Returns a MediaExchange object related to the OpenSIPS instance.
+     */
     get mediaExchange() {
         if (!this._mediaExchange) this._mediaExchange = new Modules.MediaExchange(this);
         return this._mediaExchange;
     }
+
+    /**
+     *  Returns a Nathelper object related to the OpenSIPS instance.
+     */
     get nathelper() {
         if (!this._nathelper) this._nathelper = new Modules.Nathelper(this);
         return this._nathelper;
     }
+
+    /**
+     *  Returns a Permissions object related to the OpenSIPS instance.
+     */
     get permissions() {
         if (!this._permissions) this._permissions = new Modules.Permissions(this);
         return this._permissions;
     }
+
+    /**
+     *  Returns a Pike object related to the OpenSIPS instance.
+     */
     get pike() {
         if (!this._pike) this._pike = new Modules.Pike(this);
         return this._pike;
     }
+
+    /**
+     *  Returns a PiHttp object related to the OpenSIPS instance.
+     */
     get piHttp() {
         if (!this._piHttp) this._piHttp = new Modules.PiHttp(this);
         return this._piHttp;
     }
+
+    /**
+     *  Returns a Presence object related to the OpenSIPS instance.
+     */
     get presence() {
         if (!this._presence) this._presence = new Modules.Presence(this);
         return this._presence;
     }
+
+    /**
+     *  Returns a PresenceDfks object related to the OpenSIPS instance.
+     */
     get presenceDfks() {
         if (!this._presenceDfks) this._presenceDfks = new Modules.PresenceDfks(this);
         return this._presenceDfks;
     }
+
+    /**
+     *  Returns a ProtoTls object related to the OpenSIPS instance.
+     */
     get protoTls() {
         if (!this._protoTls) this._protoTls = new Modules.ProtoTls(this);
         return this._protoTls;
     }
+
+    /**
+     *  Returns a ProtoWs object related to the OpenSIPS instance.
+     */
     get protoWs() {
         if (!this._protoWs) this._protoWs = new Modules.ProtoWs(this);
         return this._protoWs;
     }
+
+    /**
+     *  Returns a ProtoWss object related to the OpenSIPS instance.
+     */
     get protoWss() {
         if (!this._protoWss) this._protoWss = new Modules.ProtoWss(this);
         return this._protoWss;
     }
+
+    /**
+     *  Returns a Qrouting object related to the OpenSIPS instance.
+     */
     get qrouting() {
         if (!this._qrouting) this._qrouting = new Modules.Qrouting(this);
         return this._qrouting;
     }
+
+    /**
+     *  Returns a Ratelimit object related to the OpenSIPS instance.
+     */
     get ratelimit() {
         if (!this._ratelimit) this._ratelimit = new Modules.Ratelimit(this);
         return this._ratelimit;
     }
+
+    /**
+     *  Returns a RateCacher object related to the OpenSIPS instance.
+     */
     get rateCacher() {
         if (!this._rateCacher) this._rateCacher = new Modules.RateCacher(this);
         return this._rateCacher;
     }
+
+    /**
+     *  Returns a Regex object related to the OpenSIPS instance.
+     */
     get regex() {
         if (!this._regex) this._regex = new Modules.Regex(this);
         return this._regex;
     }
+
+    /**
+     *  Returns a Rls object related to the OpenSIPS instance.
+     */
     get rls() {
         if (!this._rls) this._rls = new Modules.Rls(this);
         return this._rls;
     }
+
+    /**
+     *  Returns a Rtpengine object related to the OpenSIPS instance.
+     */
     get rtpengine() {
         if (!this._rtpengine) this._rtpengine = new Modules.Rtpengine(this);
         return this._rtpengine;
     }
+
+    /**
+     *  Returns a Rtpproxy object related to the OpenSIPS instance.
+     */
     get rtpproxy() {
         if (!this._rtpproxy) this._rtpproxy = new Modules.Rtpproxy(this);
         return this._rtpproxy;
     }
+
+    /**
+     *  Returns a SqlCacher object related to the OpenSIPS instance.
+     */
     get sqlCacher() {
         if (!this._sqlCacher) this._sqlCacher = new Modules.SqlCacher(this);
         return this._sqlCacher;
     }
+
+    /**
+     *  Returns a TlsMgm object related to the OpenSIPS instance.
+     */
     get tlsMgm() {
         if (!this._tlsMgm) this._tlsMgm = new Modules.TlsMgm(this);
         return this._tlsMgm;
     }
+
+    /**
+     *  Returns a Tm object related to the OpenSIPS instance.
+     */
     get tm() {
         if (!this._tm) this._tm = new Modules.Tm(this);
         return this._tm;
     }
+
+    /**
+     *  Returns a Tracer object related to the OpenSIPS instance.
+     */
     get tracer() {
         if (!this._tracer) this._tracer = new Modules.Tracer(this);
         return this._tracer;
     }
+
+    /**
+     *  Returns a UacRegistrant object related to the OpenSIPS instance.
+     */
     get uacRegistrant() {
         if (!this._uacRegistrant) this._uacRegistrant = new Modules.UacRegistrant(this);
         return this._uacRegistrant;
     }
+
+    /**
+     *  Returns a Userblacklist object related to the OpenSIPS instance.
+     */
     get userblacklist() {
         if (!this._userblacklist) this._userblacklist = new Modules.Userblacklist(this);
         return this._userblacklist;
     }
+
+    /**
+     *  Returns a Usrloc object related to the OpenSIPS instance.
+     */
     get usrloc() {
         if (!this._usrloc) this._usrloc = new Modules.Usrloc(this);
         return this._usrloc;
     }
+
+    /**
+     *  Returns a XcapClient object related to the OpenSIPS instance.
+     */
     get xcapClient() {
         if (!this._xcapClient) this._xcapClient = new Modules.XcapClient(this);
         return this._xcapClient;
