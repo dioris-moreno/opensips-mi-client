@@ -10,16 +10,23 @@
     "scripts": {
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "tslint -p tsconfig.json",
-        "test": "jest --watchAll --coverage --verbose --runInBand --detectOpenHandles --config jestconfig.json",
+        "test": "jest --config jestconfig.json",
+        "build": "tsc",
         "unitTest": "jest unit --watchAll --verbose --config jestconfig.json",
         "integrationTest": "jest integration --watchAll --coverage --verbose --runInBand --config jestconfig.json",
-        "build": "tsc"
+        "prepare": "npm run build",
+        "prepublishOnly": "npm test && npm run lint",
+        "preversion": "npm run lint",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && git push --tags"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dioris-moreno/opensips-mi-client.git"
     },
-    "keywords": [],
+    "keywords": [
+        "OpenSIPS"
+    ],
     "author": "Dioris Moreno",
     "license": "MIT",
     "bugs": {

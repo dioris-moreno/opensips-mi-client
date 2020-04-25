@@ -9,7 +9,7 @@ export default class Dialplan extends Module {
 
     /**
      * It will update the translation rules, loading the database info.
-     * @param params.partition - (optional) - Partition to be reloaded. If not specified, all partitions will be reloaded.
+     * @param params.partition - (optional) Partition to be reloaded. If not specified, all partitions will be reloaded.
      */
     reload = (params?: { partition?: string }) => this.execute('dp_reload', params);
 
@@ -23,7 +23,7 @@ export default class Dialplan extends Module {
 
     /**
      * Display partition(s) details.
-     * @param params.partition - (optional) - The partition name. If no partition is specified, all known partitions will be listed.
+     * @param params.partition - (optional) The partition name. If no partition is specified, all known partitions will be listed.
      */
     showPartiton = (params?: { partition?: string }) => this.execute('dp_show_partiton', params);
 }

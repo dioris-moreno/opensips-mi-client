@@ -9,7 +9,7 @@ export default class Nathelper extends Module {
 
     /**
      * Gets or sets the natpinging status.
-     * @param params.status - (optional) - if not provided the function returns the current natping status. Otherwise, enables natping if parameter value greater than 0 or disables natping if parameter value is 0.
+     * @param params.status - (optional) if not provided the function returns the current natping status. Otherwise, enables natping if parameter value greater than 0 or disables natping if parameter value is 0.
      */
     enablePing = (params?: { status?: string }) => this.execute('nh_enable_ping', params);
 }

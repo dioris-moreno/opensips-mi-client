@@ -17,7 +17,7 @@ export default class DbVirtual extends Module {
      * @param params.set_index - undefined
      * @param params.db_url_index - undefined
      * @param params.may_use_db_flag - undefined
-     * @param params.ignore_retries - undefined
+     * @param params.ignore_retries - (optional) undefined
      */
     set = (params: { set_index: number; db_url_index: number; may_use_db_flag: boolean; ignore_retries?: boolean }) =>
         this.execute('db_set', params);

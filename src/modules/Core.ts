@@ -29,8 +29,8 @@ export default class Core extends Module {
 
     /**
      * Get or set the logging level of one or all OpenSIPS processes. If no argument is passed to the log_level command, it will print a table with the current logging levels of all processes. If a logging level is given, it will be set for each process. If pid is also given, the logging level will change only for that process.
-     * @param params.level - logging level (-3...4)
-     * @param params.pid - Unix pid (validated by OpenSIPS)
+     * @param params.level - (optional) logging level (-3...4)
+     * @param params.pid - (optional) Unix pid (validated by OpenSIPS)
      */
     logLevel = (params?: { level?: number; pid?: number }) => this.execute('log_level', params);
 
@@ -66,19 +66,19 @@ export default class Core extends Module {
 
     /**
      * Prints the statistics (all, group or one) realtime values.
-     * @param params.statistics - an array of the following possible values: all - print all available statistics; group_name: - print only statistics from a certain group named 'group_name'; the OpenSIPS core defines the following groups: core, shmem; Modules export groups typically named like the module itself. name - print only the statistic named 'name'.
+     * @param params.statistics - (optional) an array of the following possible values: all - print all available statistics; group_name: - print only statistics from a certain group named 'group_name'; the OpenSIPS core defines the following groups: core, shmem; Modules export groups typically named like the module itself. name - print only the statistic named 'name'.
      */
     getStatistics = (params?: { statistics?: string | string[] }) => this.execute('get_statistics', params);
 
     /**
      * Prints a list of available statistics in the current configuration of OpenSIPS.
-     * @param params.statistics - an array of the same possible values as for get_statistics MI command, with the exception of 'all'. Omitting the parameter will list all available statistics.
+     * @param params.statistics - (optional) an array of the same possible values as for get_statistics MI command, with the exception of 'all'. Omitting the parameter will list all available statistics.
      */
     listStatistics = (params?: { statistics?: string | string[] }) => this.execute('list_statistics', params);
 
     /**
      * Reset (to zero) the value of a statistic variable. Note that not all variables allow reset (depending of the nature of the information they carry - example 'shmem:used_size').
-     * @param params.statistics - an array of the names of the variables to be reset.
+     * @param params.statistics - (optional) an array of the names of the variables to be reset.
      */
     resetStatistics = (params?: { statistics?: string | string[] }) => this.execute('reset_statistics', params);
 
@@ -87,7 +87,7 @@ export default class Core extends Module {
      * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module 'localcache' the value of this parameter should be 'local';
      * @param params.attr - the label to be associated with this value;
      * @param params.value - the string to be stored;
-     * @param params.expire - expire time for the stored value;
+     * @param params.expire - (optional) expire time for the stored value;
      */
     cacheStore = (params: { system: string; attr: string; value: string; expire?: string }) =>
         this.execute('cache_store', params);
@@ -110,7 +110,7 @@ export default class Core extends Module {
      * Subscribes an external application to a certain event.
      * @param params.event - event name
      * @param params.socket - external application socket
-     * @param params.expire - (optional) - expire time, in seconds - if absent, the subscription is valid only one hour (3600 s)
+     * @param params.expire - (optional) (optional) - expire time, in seconds - if absent, the subscription is valid only one hour (3600 s)
      */
     eventSubscribe = (params: { event: string; socket: string; expire?: string }) =>
         this.execute('event_subscribe', params);
@@ -123,7 +123,7 @@ export default class Core extends Module {
     /**
      * Raises an event through the Event Interface using an MI command.
      * @param params.event - event name
-     * @param params.params - (optional) - array of elements, or a JSON object containing key-value pairs
+     * @param params.params - (optional) (optional) - array of elements, or a JSON object containing key-value pairs
      */
     raiseEvent = (params: { event: string; params?: string[] | { [key: string]: any } }) =>
         this.execute('raise_event', params);
@@ -131,20 +131,20 @@ export default class Core extends Module {
     /**
      * Lists information about the subscribers
      * @param params.event - event name
-     * @param params.socket - (optional) - external application socket
+     * @param params.socket - (optional) (optional) - external application socket
      */
     subscribersList = (params: { event: string; socket?: string }) => this.execute('subscribers_list', params);
 
     /**
      * Triggers a pkg memory dump for a given process. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
      * @param params.pid - the PID of the process to perform the pkg dump
-     * @param params.level - (optional) - a log level to be used for this dump
+     * @param params.level - (optional) (optional) - a log level to be used for this dump
      */
     memPkgDump = (params: { pid: number; level?: number }) => this.execute('mem_pkg_dump', params);
 
     /**
      * Triggers a shm memory dump. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
-     * @param params.level - (optional) - a log level to be used for this dump
+     * @param params.level - (optional) (optional) - a log level to be used for this dump
      */
     memShmDump = (params?: { level?: number }) => this.execute('mem_shm_dump', params);
 
@@ -155,7 +155,7 @@ export default class Core extends Module {
 
     /**
      * Get or set the global xlogging level in OpenSIPS processes. If no argument is passed to the xlog_level command, it will print the current xlog_level. If a logging level is given, it will be globally set for all OpenSIPS processes.
-     * @param params.level - (optional) - a log level to be used
+     * @param params.level - (optional) (optional) - a log level to be used
      */
     xlogLevel = (params?: { level?: number }) => this.execute('xlog_level', params);
 }

@@ -9,8 +9,8 @@ export default class Dialog extends Module {
 
     /**
      * Lists the description of the dialogs (calls). If no parameter is given, all dialogs will be listed. If a dialog identifier is passed as parameter (callid and fromtag), only that dialog will be listed. If a index and conter parameter is passed, it will list only a number of "counter" dialogs starting with index (as offset) - this is used to get only section of dialogs.
-     * @param params.callid - (optional) - callid if a single dialog to be listed.
-     * @param params.from_tag - (optional, but cannot be present without the callid parameter) - fromtag (as per initial request) of the dialog to be listed. entry
+     * @param params.callid - (optional) callid if a single dialog to be listed.
+     * @param params.from_tag - (optional) (cannot be present without the callid parameter) - fromtag (as per initial request) of the dialog to be listed. entry
      * @param params.index - offset where the dialog listing should start.
      * @param params.counter - how many dialogs should be listed (starting from the offset)
      */
@@ -32,14 +32,14 @@ export default class Dialog extends Module {
     /**
      * Returns the number of dialogs belonging to a profile. If the profile supports values, the check can be reinforced to take into account a specific value - how many dialogs were inserted into the profile with a specific value. If not value is passed, only simply belonging of the dialog to the profile is checked. Note that the profile does not supports values, this will be silently discarded.
      * @param params.profile - name of the profile to get the value for.
-     * @param params.value - (optional)- string value to toughen the check;
+     * @param params.value - (optional) string value to toughen the check;
      */
     getSize = (params: { profile: string; value?: string }) => this.execute('profile_get_size', params);
 
     /**
      * Lists all the dialogs belonging to a profile. If the profile supports values, the check can be reinforced to take into account a specific value - list only the dialogs that were inserted into the profile with that specific value. If not value is passed, all dialogs belonging to the profile will be listed. Note that the profile does not supports values, this will be silently discarded. Also, when using shared profiles using the CacheDB interface, this command will only display the local dialogs.
      * @param params.profile - name of the profile to list the dialog for.
-     * @param params.value - (optional)- string value to toughen the check;
+     * @param params.value - (optional) string value to toughen the check;
      */
     listDlgs = (params: { profile: string; value?: string }) => this.execute('profile_list_dlgs', params);
 

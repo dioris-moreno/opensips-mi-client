@@ -24,7 +24,7 @@ export default class Usrloc extends Module {
 
     /**
      * Dumps the entire content of the USRLOC in memory cache
-     * @param params.brief - (optional, may not be present); if equals to string , a brief dump will be done (only AOR and contacts, with no other details)
+     * @param params.brief - (optional) if equals to string , a brief dump will be done (only AOR and contacts, with no other details)
      */
     dump = (params?: { brief?: string }) => this.execute('ul_dump', params);
 
@@ -67,7 +67,7 @@ export default class Usrloc extends Module {
     /**
      * Empty the location table, then synchronize it with all contacts from memory. Note that this can not be used when no database is specified or with the DB-Only scheme.
      * @param params.table_name - table where the AOR resides (Ex: location).
-     * @param params.AOR - only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
+     * @param params.AOR - (optional) only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
      */
     sync = (params: { table_name: string; AOR?: string }) => this.execute('ul_sync', params);
 

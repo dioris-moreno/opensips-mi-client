@@ -29,7 +29,7 @@ export default class LoadBalancer extends Module {
     /**
      * Gets or sets the status (enabled or disabled) of a destination.
      * @param params.destination_id - the ID (as per DB) of the destination.
-     * @param params.new_status - (optional) - If no new status is given, the function will return the current status. If a new status is given (0 - disable, 1 - enable), this status will be forced for the destination.
+     * @param params.new_status - (optional) If no new status is given, the function will return the current status. If a new status is given (0 - disable, 1 - enable), this status will be forced for the destination.
      */
     status = (params: { destination_id: string; new_status?: string }) => this.execute('lb_status', params);
 }

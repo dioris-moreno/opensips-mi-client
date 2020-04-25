@@ -17,13 +17,13 @@ export default class Dispatcher extends Module {
 
     /**
      * It lists the groups and included destinations of all the partitions.
-     * @param params.full - (optional) - adds the weight, priority and description fields to the listing
+     * @param params.full - (optional) adds the weight, priority and description fields to the listing
      */
     list = (params?: { full?: string }) => this.execute('ds_list', params);
 
     /**
      * It reloads the groups and included destinations for a specified partition or all partitions.
-     * @param params.partition - (optional) - name of the partition to be reloaded.
+     * @param params.partition - (optional) name of the partition to be reloaded.
      */
     reload = (params?: { partition?: string }) => this.execute('ds_reload', params);
 

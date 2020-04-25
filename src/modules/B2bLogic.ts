@@ -19,8 +19,8 @@ export default class B2bLogic extends Module {
      * This command can be used by an external application to tell B2BUA to bridge a call party from an on going dialog to another destination. By default the caller is bridged to the new uri and BYE is set to the callee. You can instead bridge the callee if you send 1 as the third parameter.
      * @param params.dialog_id - the , or the of the ongoing dialog.
      * @param params.new_uri - the uri of the new destination
-     * @param params.flag - (optional) - used to specify that the callee must be bridged to the new destination. If not present the caller will be bridged. Possible values are '0' or '1'.
-     * @param params.prov_media_uri - (optional) - the uri of a media server able to play provisional media starting from the beginning of the bridging scenario to the end of it. It is optional. If not present, no other entity will be envolved in the bridging scenario
+     * @param params.flag - (optional) used to specify that the callee must be bridged to the new destination. If not present the caller will be bridged. Possible values are '0' or '1'.
+     * @param params.prov_media_uri - (optional) the uri of a media server able to play provisional media starting from the beginning of the bridging scenario to the end of it. If not present, no other entity will be envolved in the bridging scenario
      */
     bridge = (params: { dialog_id: string; new_uri: string; flag?: string; prov_media_uri?: string }) =>
         this.execute('b2b_bridge', params);
