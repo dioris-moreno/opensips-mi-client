@@ -11,14 +11,14 @@ export default class Benchmark extends Module {
      * Enables/disables the module.
      * @param params.enable - value may be -1, 0 or 1. See discription of "enable" parameter.
      */
-    enableGlobal = (params: { enable: string }) => this.execute('bm_enable_global', params);
+    enableGlobal = (params: { enable: number }) => this.execute('bm_enable_global', params);
 
     /**
      * Enable or disable a single timer.
      * @param params.timer - timer name
      * @param params.enable - enable (1) or disable (0) timer
      */
-    enableTimer = (params: { timer: string; enable: string }) => this.execute('bm_enable_timer', params);
+    enableTimer = (params: { timer: string; enable: number }) => this.execute('bm_enable_timer', params);
 
     /**
      * Modifies the benchmarking granularity.

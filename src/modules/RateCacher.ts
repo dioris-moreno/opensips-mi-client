@@ -36,7 +36,7 @@ export default class RateCacher extends Module {
     /**
      * Fetches all the ratesheet information ( destination name, price, minimum, increment ) for the provided Vendor and dialled number
      * @param params.vendorName - name of the Vendor
-     * @param params.dialledNumber - number to match in the above Vendor's ratesheet
+     * @param params.dialledNumber - number to match in the above Vendors ratesheet
      */
     getVendorPrice = (params: { vendorName: string; dialledNumber: string }) =>
         this.execute('rc_getVendorPrice', params);
@@ -74,7 +74,7 @@ export default class RateCacher extends Module {
      * Fetches all the ratesheet information ( destination name, price, minimum, increment ) for the provided Client, on the specified quality ( wholesale vs retail ) and dialled number
      * @param params.ClientName - name of the Client
      * @param params.isWholesale - wholesale = 1, retail = 0
-     * @param params.dialledNumber - number to match in the above Client's ratesheet
+     * @param params.dialledNumber - number to match in the above Clients ratesheet
      */
     getClientPrice = (params: { ClientName: string; isWholesale: string; dialledNumber: string }) =>
         this.execute('rc_getClientPrice', params);

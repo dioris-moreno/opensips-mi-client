@@ -27,7 +27,7 @@ export default class Clusterer extends Module {
      * @param params.cluster_id - indicates the id of the cluster.
      * @param params.status - indicates the new status(0 - Disabled, 1 - Enabled).
      */
-    setStatus = (params: { cluster_id: string; status: string }) => this.execute('clusterer_set_status', params);
+    setStatus = (params: { cluster_id: string; status: number }) => this.execute('clusterer_set_status', params);
 
     /**
      * Dispatches a given MI command to be run on a specific node in the cluster.

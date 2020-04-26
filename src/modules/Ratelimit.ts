@@ -9,7 +9,7 @@ export default class Ratelimit extends Module {
 
     /**
      * Lists the parameters and variabiles in the ratelimit module.
-     * @param params.pipe - (optional) indicates the name of the pipe. If the parameter doesn't exist, all the active pipes are listed. Otherwise only the one specified.
+     * @param params.pipe - (optional) indicates the name of the pipe. If the parameter doesnt exist, all the active pipes are listed. Otherwise only the one specified.
      */
     list = (params?: { pipe?: string }) => this.execute('rl_list', params);
 

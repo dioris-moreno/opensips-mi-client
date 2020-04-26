@@ -66,13 +66,13 @@ export default class Core extends Module {
 
     /**
      * Prints the statistics (all, group or one) realtime values.
-     * @param params.statistics - an array of the following possible values: all - print all available statistics; group_name: - print only statistics from a certain group named 'group_name'; the OpenSIPS core defines the following groups: core, shmem; Modules export groups typically named like the module itself. name - print only the statistic named 'name'.
+     * @param params.statistics - an array of the following possible values: all - print all available statistics; group_name: - print only statistics from a certain group named group_name; the OpenSIPS core defines the following groups: core, shmem; Modules export groups typically named like the module itself. name - print only the statistic named name.
      */
     getStatistics = (params: { statistics: string[] }) => this.execute('get_statistics', params);
 
     /**
      * Prints a list of available statistics in the current configuration of OpenSIPS.
-     * @param params.statistics - (optional) an array of the same possible values as for get_statistics MI command, with the exception of 'all'. Omitting the parameter will list all available statistics.
+     * @param params.statistics - (optional) an array of the same possible values as for get_statistics MI command, with the exception of all. Omitting the parameter will list all available statistics.
      */
     listStatistics = (params?: { statistics?: string[] }) => this.execute('list_statistics', params);
 
@@ -84,7 +84,7 @@ export default class Core extends Module {
 
     /**
      * This command stores in a cache system a string value.
-     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module 'localcache' the value of this parameter should be 'local';
+     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module localcache the value of this parameter should be local;
      * @param params.attr - the label to be associated with this value;
      * @param params.value - the string to be stored;
      * @param params.expire - (optional) expire time for the stored value;
@@ -94,14 +94,14 @@ export default class Core extends Module {
 
     /**
      * This command queries for a stored value.
-     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module 'localcache' the value of this parameter should be 'local'
+     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module localcache the value of this parameter should be local
      * @param params.attr - the label associated with the value
      */
     cacheFetch = (params: { system: string; attr: string }) => this.execute('cache_fetch', params);
 
     /**
      * This command removes a record from the cache system.
-     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module 'localcache' the value of this parameter should be 'local'
+     * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module localcache the value of this parameter should be local
      * @param params.attr - the label associated with the stored value
      */
     cacheRemove = (params: { system: string; attr: string }) => this.execute('cache_remove', params);

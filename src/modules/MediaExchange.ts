@@ -20,7 +20,7 @@ export default class MediaExchange extends Module {
 
     /**
      * MI command that has the same behavior as , only that the triggering is not script driven, but exterior driven. Useful for injecting media announcements during a call.
-     * @param params.callid - the callid of the dialog that will have it's leg mixed with the new call to the Media Server
+     * @param params.callid - the callid of the dialog that will have its leg mixed with the new call to the Media Server
      * @param params.uri - the destination URI of the new call
      * @param params.leg - indicates the participant that will have its media pined into the new call. Possible values are and .
      * @param params.headers - (optional) extra headers to add to the outgoing request

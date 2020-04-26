@@ -13,7 +13,7 @@ export default class Rtpproxy extends Module {
      * @param params.setid - (optional) the rtpproxy set ID (used for better indentification of the rtpproxy instance to be enabled, for example when a rtpproxy is used in multiple sets).
      * @param params.enable - 1 - enable, 0 - disable. the config file).
      */
-    enable = (params: { url: string; setid?: string; enable: string }) => this.execute('rtpproxy_enable', params);
+    enable = (params: { url: string; setid?: string; enable: number }) => this.execute('rtpproxy_enable', params);
 
     /**
      * Displays all the rtp proxies and their information: set and status (disabled or not, weight and recheck_ticks).

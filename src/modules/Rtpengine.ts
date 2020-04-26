@@ -8,14 +8,14 @@ export default class Rtpengine extends Module {
     }
 
     /**
-     * Enables/disables a &rtp; proxy.
-     * @param params.url - the &rtp; proxy url (exactly as defined in the config file).
-     * @param params.enable - 1 - enable, 0 - disable the &rtp; proxy.
+     * Enables/disables an RTP proxy.
+     * @param params.url - the RTP proxy url (exactly as defined in the config file).
+     * @param params.enable - 1 - enable, 0 - disable the RTP proxy.
      */
-    enable = (params: { url: string; enable: string }) => this.execute('rtpengine_enable', params);
+    enable = (params: { url: string; enable: number }) => this.execute('rtpengine_enable', params);
 
     /**
-     * Displays all the &rtp; proxies and their information: set and status (disabled or not, weight and recheck_ticks).
+     * Displays all the RTP proxies and their information: set and status (disabled or not, weight and recheck_ticks).
      */
     show = () => this.execute('rtpengine_show');
 

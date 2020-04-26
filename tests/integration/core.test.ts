@@ -8,10 +8,10 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import { Client } from '../../src/index';
+import { Client } from '../../src/';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
-import { getRandomLogLevel, MIN_LOG_LEVEL, MAX_LOG_LEVEL } from '../utils/utils';
+import { getRandomLogLevel, MIN_LOG_LEVEL, MAX_LOG_LEVEL } from '../utils/';
 
 describe('Core MI Functions', () => {
     let client: Client;
