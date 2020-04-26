@@ -15,7 +15,7 @@ import { getRandomLogLevel } from '../utils/';
 
 const OK = 'OK';
 
-describe('dialplan Module', () => {
+describe('Dialplan Module', () => {
     let client: Client;
 
     beforeEach(async () => {

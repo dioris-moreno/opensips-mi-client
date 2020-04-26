@@ -20,7 +20,7 @@ export default class Rtpengine extends Module {
     show = () => this.execute('rtpengine_show');
 
     /**
-     * Reloads all rtpengine sets from the database. Used only when the parameter is set.
+     * Reloads all rtpengine sets from the database. Used only when the db_url parameter is set.
      */
     reload = () => this.execute('rtpengine_reload');
 

@@ -16,7 +16,7 @@ import { getRandomLogLevel } from '../utils/';
 const OK = 'OK';
 const testURL = 'udp:10.132.104.184:60000';
 
-describe('rtpengine Module', () => {
+describe('RTPEngine Module', () => {
     let client: Client;
 
     beforeEach(async () => {
