@@ -34,9 +34,8 @@ export default class Tm extends Module {
 
     /**
      * Gets information about the load of TM internal hash table.
-     * @param params.none - undefined
      */
-    hash = (params: { none: string }) => this.execute('t_hash', params);
+    hash = () => this.execute('t_hash');
 
     /**
      * Generates and sends a reply for an existing inbound SIP transaction.

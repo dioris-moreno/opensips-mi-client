@@ -15,7 +15,7 @@ import { getRandomLogLevel } from '../utils/';
 
 const OK = 'OK';
 
-describe('Rls Module', () => {
+describe('B2bEntities Module', () => {
     let client: Client;
 
     beforeEach(async () => {
@@ -25,9 +25,8 @@ describe('Rls Module', () => {
 
     afterEach(async () => {});
 
-    it.skip('updateSubscriptions(): should trigger updating backend subscriptions after a resources-list or rls-services document has been updated.', async () => {
-        const presentity_uri = uuid();
-        const response = await client.rls.updateSubscriptions({ presentity_uri });
-        debug(response);
+    it('list(): should list the internals of the b2b entities.', async () => {
+        const response = await client.b2bEntities.list();
+        expect(_.isArray(response)).toBeTruthy();
     });
 });
