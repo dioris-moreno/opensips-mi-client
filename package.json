@@ -8,7 +8,7 @@
         "lib/**/*"
     ],
     "scripts": {
-        "format": "prettier --write \"src/**/*.ts\"",
+        "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"tests/**/*.json\"",
         "lint": "tslint -p tsconfig.json",
         "test": "jest --config jestconfig.json",
         "build": "tsc",

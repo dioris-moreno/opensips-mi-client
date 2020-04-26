@@ -66,17 +66,6 @@ export default class Client {
     }
 
     /**
-     *  Connects to the OpenSIPS instance.
-     */
-    connect = async () => {
-        try {
-            this._availableCommands = await this.connection.execute('which');
-        } catch (err) {
-            throw err;
-        }
-    };
-
-    /**
      * Returns the connection object of the OpenSIPS instance.
      */
     get connection(): IConnection {
@@ -87,9 +76,20 @@ export default class Client {
      * Check if the MI command is available on the queried OpenSIPS instance.
      * @param command - The MI command we want to check (e.g. dlg_list, rtpengine_show).
      */
-    isCommandAvailable = (command: string) => {
-        if (this._availableCommands.length === 0) throw new Error('Client not connected. Run connect().');
+    isCommandAvailable = async (command: string) => {
+        if (this._availableCommands.length === 0) await this.loadAvailableCommands();
         return this._availableCommands.includes(command);
+    };
+
+    /**
+     * Load the list of available commands on the queried OpenSIPS instance.
+     */
+    loadAvailableCommands = async () => {
+        try {
+            this._availableCommands = await this.connection.execute('which');
+        } catch (err) {
+            throw err;
+        }
     };
 
     /**
@@ -127,7 +127,7 @@ export default class Client {
     logLevel = (params?: { level?: number; pid?: number }) => this.core.logLevel(params);
 
     /**
-     * This command can be used to list the internals of the b2b entities.
+     * The command will list all all OpenSIPS processes, along with type and description.
      */
     ps = () => this.core.ps();
 

@@ -35,7 +35,7 @@ export default class Core extends Module {
     logLevel = (params?: { level?: number; pid?: number }) => this.execute('log_level', params);
 
     /**
-     * This command can be used to list the internals of the b2b entities.
+     * The command will list all all OpenSIPS processes, along with type and description.
      */
     ps = () => this.execute('ps');
 

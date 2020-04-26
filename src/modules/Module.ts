@@ -19,7 +19,7 @@ export default class Module {
     execute(command: string, params?: CommandParameters): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!this.client.isCommandAvailable(command))
+                if (!(await this.client.isCommandAvailable(command)))
                     reject(new Error(`'${command}' command is not available in this OpenSIPS instance.`));
                 resolve(await this.client.connection.execute(command, params));
             } catch (err) {
