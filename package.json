@@ -40,6 +40,7 @@
         "@types/lodash": "^4.14.150",
         "@types/node": "^13.13.0",
         "@types/pg": "^7.14.3",
+        "@types/uuid": "^7.0.3",
         "@types/xml2js": "^0.4.5",
         "app-root-path": "^3.0.0",
         "jest": "^25.3.0",
@@ -50,6 +51,7 @@
         "tslint": "^6.1.1",
         "tslint-config-prettier": "^1.18.0",
         "typescript": "^3.8.3",
+        "uuid": "^7.0.3",
         "xml2js": "^0.4.23"
     },
     "dependencies": {

@@ -19,8 +19,13 @@ export default class Dialog extends Module {
 
     /**
      * The same as the but including in the dialog description the associated context from modules sitting on top of the dialog module. This function also prints the dialog's values. In case of binary values, the non-printable chars are represented in hex (e.g. \x00)
+     * @param params.callid - (optional) callid if a single dialog to be listed.
+     * @param params.from_tag - (optional) (cannot be present without the callid parameter) - fromtag (as per initial request) of the dialog to be listed. entry
+     * @param params.index - offset where the dialog listing should start.
+     * @param params.counter - how many dialogs should be listed (starting from the offset)
      */
-    listCtx = () => this.execute('dlg_list_ctx');
+    listCtx = (params: { callid?: string; from_tag?: string; index: string; counter: string }) =>
+        this.execute('dlg_list_ctx', params);
 
     /**
      * Terminates an ongoing dialog. If dialog is established, BYEs are sent in both directions. If dialog is in unconfirmed or early state, a CANCEL will be sent to the callee side, that will trigger a 487 from the callee, which, when relayed, will also end the dialog on the caller's side.
@@ -51,7 +56,7 @@ export default class Dialog extends Module {
 
     /**
      * Terminate all ongoing dialogs from a specified profile, on a single dialog it performs the same operations as the command
-     * @param params.profile - name of the profile that will have its dialogs termianted
+     * @param params.profile - name of the profile that will have its dialogs terminated
      * @param params.value - (optional) if the profile supports values terminate only the dialogs with the specified value
      */
     endDlgs = (params: { profile: string; value?: string }) => this.execute('profile_end_dlgs', params);

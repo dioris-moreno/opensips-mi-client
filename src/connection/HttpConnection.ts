@@ -18,10 +18,11 @@ export default class HttpConnection extends ConnectionBase {
             const url = this.url as string;
             const data = this.getData(command, params);
             const response = await axios.post(url, data);
-            const { result } = response.data;
+            const { result, error } = response.data;
+            if (error) throw new Error(error.message);
             return result;
         } catch (err) {
-            debug(err);
+            debug('http error:', err);
             throw err;
         }
     };
