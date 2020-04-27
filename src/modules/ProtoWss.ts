@@ -9,7 +9,7 @@ export default class ProtoWss extends Module {
 
     /**
      *
-     * @param params.trace_mode - (optional) set wss tracing on and off. This parameter can be missing and the command will show the current tracing status for this module( on or off ); Possible values:
+     * @param params.trace_mode - (optional) Possible values: on / off
      */
     trace = (params?: { trace_mode?: string }) => this.execute('wss_trace', params);
 }

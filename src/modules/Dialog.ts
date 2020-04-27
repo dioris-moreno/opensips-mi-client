@@ -87,7 +87,7 @@ export default class Dialog extends Module {
      * @param params.dlg_val_value - value to be inserted/updated
      * @param params.DID - dialog identifier. Can be either the $DLG_did or the actual Call-ID.
      */
-    pushVar = (params: { dlg_val_name: string; dlg_val_value: string; DID: string }) =>
+    pushVar = (params: { dlg_val_name: string; dlg_val_value: string; DID: string[] }) =>
         this.execute('dlg_push_var', params);
 
     /**

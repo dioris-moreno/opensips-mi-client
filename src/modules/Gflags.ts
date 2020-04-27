@@ -8,22 +8,22 @@ export default class Gflags extends Module {
     }
 
     /**
-     * Set the value of some flags (specified by bitmask) to 1.
-     * @param params.value - undefined
+     * Set the value of the flags specified by bitmask to 1.
+     * @param params.bitmask - a bitmask in decimal or hexa format (32 bit size)
      */
-    setGflag = (params: { value: string }) => this.execute('set_gflag', params);
+    setGflag = (params: { bitmask: number }) => this.execute('set_gflag', params);
 
     /**
      * Reset the value of some flags to 0.
-     * @param params.value - undefined
+     * @param params.bitmask - a bitmask in decimal or hexa format (32 bit size)
      */
-    resetGflag = (params: { value: string }) => this.execute('reset_gflag', params);
+    resetGflag = (params: { bitmask: number }) => this.execute('reset_gflag', params);
 
     /**
-     * Returns true if the all the flags from the bitmask are set.
-     * @param params.value - undefined
+     * Returns true if all the flags from the bitmask are set.
+     * @param params.bitmask - a bitmask in decimal or hexa format (32 bit size)
      */
-    isGflag = (params: { value: string }) => this.execute('is_gflag', params);
+    isGflag = (params: { bitmask: number }) => this.execute('is_gflag', params);
 
     /**
      * Return the bitmap with all flags. The function gets no parameters and returns the bitmap in hexa and decimal format.
