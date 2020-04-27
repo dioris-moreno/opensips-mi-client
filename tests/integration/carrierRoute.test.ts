@@ -25,65 +25,63 @@ describe('CarrierRoute Module', () => {
 
     afterEach(async () => {});
 
-    it('reloadRoutes(): should This command reloads the routing data from the data source.', async () => {
+    it('reloadRoutes(): should reload the routing data from the data source', async () => {
         const response = await client.carrierRoute.reloadRoutes();
-        debug(response);
+        expect(response).toBe(OK);
     });
 
-    it('dumpRoutes(): should This command prints the route rules on the command line.', async () => {
+    it('dumpRoutes(): should return the route rules', async () => {
         const response = await client.carrierRoute.dumpRoutes();
-        debug(response);
+        expect(_.isArray(response['Carriers'])).toBeTruthy();
     });
 
-    it('replaceHost(): should This command can replace the rewrite_host of a route rule, it is only usable in file mode. Following options are possible:', async () => {
-        const d = uuid();
-        const p = uuid();
-        const h = uuid();
-        const t = uuid();
-        const response = await client.carrierRoute.replaceHost({ d, p, h, t });
-        debug(response);
+    it('replaceHost(): should replace the rewrite_host of a route rule (file mode only | test-error).', async () => {
+        // opensips-cli -x mi cr_replace_host "-d proxy -p 49 -h proxy1 -t proxy2"
+        try {
+            const options = '-d proxy -p 49 -h proxy1 -t proxy2';
+            await client.carrierRoute.replaceHost({ options });
+        } catch (err) {
+            expect(err.message).toContain('Not running in config file mode');
+        }
     });
 
-    it('deactivateHost(): should This command deactivates the specified host, i.e. it sets its status to 0. It is only usable in file mode. Following options are possible:', async () => {
-        const d = uuid();
-        const p = uuid();
-        const h = uuid();
-        const t = uuid();
-        const response = await client.carrierRoute.deactivateHost({ d, p, h, t });
-        debug(response);
+    it('deactivateHost(): should deactivate the specified host (file mode only | test-error).', async () => {
+        // opensips-cli -x mi cr_deactivate_host "-d proxy -p 49 -h proxy1"
+        try {
+            const options = '-d proxy -p 49 -h proxy1';
+            await client.carrierRoute.deactivateHost({ options });
+        } catch (err) {
+            expect(err.message).toContain('Not running in config file mode');
+        }
     });
 
-    it('activateHost(): should This command activates the specified host, i.e. it sets its status to 1. It is only usable in file mode. Following options are possible:', async () => {
-        const d = uuid();
-        const p = uuid();
-        const h = uuid();
-        const response = await client.carrierRoute.activateHost({ d, p, h });
-        debug(response);
+    it('activateHost(): should activate the specified host (file mode only | test-error).', async () => {
+        // opensips-cli -x mi cr_activate_host "-d proxy -p 49 -h proxy1"
+        try {
+            const options = '-d proxy -p 49 -h proxy1';
+            await client.carrierRoute.activateHost({ options });
+        } catch (err) {
+            expect(err.message).toContain('Not running in config file mode');
+        }
     });
 
-    it('addHost(): should This command adds a route rule, it is only usable in file mode. Following options are possible:', async () => {
-        const d = uuid();
-        const p = uuid();
-        const h = uuid();
-        const w = uuid();
-        const P = uuid();
-        const S = uuid();
-        const i = uuid();
-        const s = uuid();
-        const response = await client.carrierRoute.addHost({ d, p, h, w, P, S, i, s });
-        debug(response);
+    it('addHost(): should add a route rule (file mode only | test-error).', async () => {
+        // opensips-cli -x mi cr_add_host "-d proxy -p 49 -h proxy1 -w 0.25"
+        try {
+            const options = '-d proxy -p 49 -h proxy1 -w 0.25';
+            await client.carrierRoute.addHost({ options });
+        } catch (err) {
+            expect(err.message).toContain('Not running in config file mode');
+        }
     });
 
-    it('deleteHost(): should This command delete the specified hosts or rules, i.e. remove them from the route tree. It is only usable in file mode. Following options are possible:', async () => {
-        const d = uuid();
-        const p = uuid();
-        const h = uuid();
-        const w = uuid();
-        const P = uuid();
-        const S = uuid();
-        const i = uuid();
-        const s = uuid();
-        const response = await client.carrierRoute.deleteHost({ d, p, h, w, P, S, i, s });
-        debug(response);
+    it('deleteHost(): should This command delete the specified hosts or rules (file mode only | test-error).', async () => {
+        // opensips-cli -x mi cr_delete_host "-d proxy -p 49 -h proxy1 -w 0.25"
+        try {
+            const options = '-d proxy -p 49 -h proxy1 -w 0.25';
+            await client.carrierRoute.deleteHost({ options });
+        } catch (err) {
+            expect(err.message).toContain('Not running in config file mode');
+        }
     });
 });
