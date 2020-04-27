@@ -44,7 +44,6 @@ export default class Client {
     private _protoTls: Modules.ProtoTls | undefined;
     private _protoWs: Modules.ProtoWs | undefined;
     private _protoWss: Modules.ProtoWss | undefined;
-    private _qrouting: Modules.Qrouting | undefined;
     private _ratelimit: Modules.Ratelimit | undefined;
     private _regex: Modules.Regex | undefined;
     private _rls: Modules.Rls | undefined;
@@ -527,14 +526,6 @@ export default class Client {
     get protoWss() {
         if (!this._protoWss) this._protoWss = new Modules.ProtoWss(this);
         return this._protoWss;
-    }
-
-    /**
-     *  Returns a Qrouting object related to the OpenSIPS instance.
-     */
-    get qrouting() {
-        if (!this._qrouting) this._qrouting = new Modules.Qrouting(this);
-        return this._qrouting;
     }
 
     /**
