@@ -12,5 +12,5 @@ export default class XcapClient extends Module {
      * @param params.doc_uri - the uri of the document
      * @param params.port - the port of the xcap server
      */
-    refreshXcapDoc = (params: { doc_uri: string; port: string }) => this.execute('refreshXcapDoc', params);
+    refreshXcapDoc = (params: { doc_uri: string; port: number }) => this.execute('refreshXcapDoc', params);
 }
