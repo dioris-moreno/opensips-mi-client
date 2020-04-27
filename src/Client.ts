@@ -46,7 +46,6 @@ export default class Client {
     private _protoWss: Modules.ProtoWss | undefined;
     private _qrouting: Modules.Qrouting | undefined;
     private _ratelimit: Modules.Ratelimit | undefined;
-    private _rateCacher: Modules.RateCacher | undefined;
     private _regex: Modules.Regex | undefined;
     private _rls: Modules.Rls | undefined;
     private _rtpengine: Modules.Rtpengine | undefined;
@@ -544,14 +543,6 @@ export default class Client {
     get ratelimit() {
         if (!this._ratelimit) this._ratelimit = new Modules.Ratelimit(this);
         return this._ratelimit;
-    }
-
-    /**
-     *  Returns a RateCacher object related to the OpenSIPS instance.
-     */
-    get rateCacher() {
-        if (!this._rateCacher) this._rateCacher = new Modules.RateCacher(this);
-        return this._rateCacher;
     }
 
     /**

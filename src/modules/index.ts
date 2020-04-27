@@ -35,7 +35,6 @@ export { default as ProtoWs } from './ProtoWs';
 export { default as ProtoWss } from './ProtoWss';
 export { default as Qrouting } from './Qrouting';
 export { default as Ratelimit } from './Ratelimit';
-export { default as RateCacher } from './RateCacher';
 export { default as Regex } from './Regex';
 export { default as Rls } from './Rls';
 export { default as Rtpengine } from './Rtpengine';
