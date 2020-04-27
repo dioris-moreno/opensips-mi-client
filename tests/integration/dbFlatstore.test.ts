@@ -27,7 +27,6 @@ describe('DbFlatstore Module', () => {
 
     it('rotate(): should change the name of the files where it is written', async () => {
         const response = await client.dbFlatstore.rotate();
-        debug(response);
         expect(response).toBe(OK);
     });
 });
