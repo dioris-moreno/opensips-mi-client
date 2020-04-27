@@ -19,11 +19,11 @@ export default class Dialplan extends Module {
      * @param params.input - the input string
      * @param params.partition - (optional) the name of the partition when the dpid is located
      */
-    translate = (params: { dpid: string; input: string; partition?: string }) => this.execute('dp_translate', params);
+    translate = (params: { dpid: number; input: string; partition?: string }) => this.execute('dp_translate', params);
 
     /**
      * Display partition(s) details.
      * @param params.partition - (optional) The partition name. If no partition is specified, all known partitions will be listed.
      */
-    showPartiton = (params?: { partition?: string }) => this.execute('dp_show_partiton', params);
+    showPartition = (params?: { partition?: string }) => this.execute('dp_show_partition', params);
 }

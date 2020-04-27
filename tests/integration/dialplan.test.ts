@@ -30,15 +30,18 @@ describe('Dialplan Module', () => {
         expect(response).toBe(OK);
     });
 
-    it('translate(): should It will apply a translation rule identified by a dialplan id on an input string.', async () => {
-        const dpid = '10';
-        const input = '5072023030';
+    it('translate(): should apply a translation rule identified by a dialplan id on an input string.', async () => {
+        const dpid = 1;
+        const input = '0040212023030';
+        const output = '40212023030';
         const response = await client.dialplan.translate({ dpid, input });
-        debug(response);
+        expect(response['Output']).toBe(output);
     });
 
-    it('showPartiton(): should Display partition(s) details.', async () => {
-        const response = await client.dialplan.showPartiton();
-        debug(response);
+    it('showPartition(): should display partition details.', async () => {
+        // No parameter triggers error: Server error
+        const partition = 'pstn';
+        const response = await client.dialplan.showPartition({ partition });
+        expect(response['Partition']).toBe(partition);
     });
 });
