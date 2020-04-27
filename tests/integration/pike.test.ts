@@ -25,14 +25,26 @@ describe('Pike Module', () => {
 
     afterEach(async () => {});
 
-    it('list(): should Lists the nodes in the pike tree.', async () => {
+    it('list(): should list the nodes in the pike tree.', async () => {
         const response = await client.pike.list();
-        debug(response);
+        expect(_.isArray(response['IPs'])).toBeTruthy();
     });
 
-    it('rm(): should Remove a node from the pike tree by IP address.', async () => {
-        const IP = uuid();
-        const response = await client.pike.rm({ IP });
-        debug(response);
+    it('rm(): should try to remove a node from the pike tree by IP address (test-error)', async () => {
+        try {
+            const ip = '10.1.1.10';
+            await client.pike.rm({ ip });
+        } catch (err) {
+            expect(err.message).toBe('Match not found');
+        }
+    });
+
+    it('rm(): should trigger an Bad IP error (invalid IP passed)', async () => {
+        try {
+            const ip = uuid();
+            await client.pike.rm({ ip });
+        } catch (err) {
+            expect(err.message).toBe('Bad IP');
+        }
     });
 });

@@ -14,7 +14,7 @@ export default class Pike extends Module {
 
     /**
      * Remove a node from the pike tree by IP address.
-     * @param params.IP - IP address currently blocked.
+     * @param params.ip - IP address currently blocked.
      */
-    rm = (params: { IP: string }) => this.execute('pike_rm', params);
+    rm = (params: { ip: string }) => this.execute('pike_rm', params);
 }
