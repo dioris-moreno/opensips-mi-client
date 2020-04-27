@@ -22,15 +22,15 @@ export default class Benchmark extends Module {
 
     /**
      * Modifies the benchmarking granularity.
-     * @param params.granularity - See discription of "granularity" parameter.
+     * @param params.granularity - See discription of granularity parameter in module documentation.
      */
-    granularity = (params: { granularity: string }) => this.execute('bm_granularity', params);
+    granularity = (params: { granularity: number }) => this.execute('bm_granularity', params);
 
     /**
      * Modifies the module log level.
-     * @param params.log_level - See discription of "loglevel" parameter.
+     * @param params.log_level - See discription of loglevel parameter in module documentation.
      */
-    loglevel = (params: { log_level: string }) => this.execute('bm_loglevel', params);
+    loglevel = (params: { log_level: number }) => this.execute('bm_loglevel', params);
 
     /**
      * Returns the current and global results for each timer. This command is only available if the "granularity" variable is set to 0. It can be used to get results in stable time intervals instead of every N messages. Each timer will have 2 nodes - the local and the global values. Format of the values is the same as the one normally used in logfile. This way of getting the results allows to interface with external graphing applications like Munin.

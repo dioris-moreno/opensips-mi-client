@@ -10,3 +10,11 @@ export const getRandomInt = (min: number, max: number) => {
 export const getRandomLogLevel = () => {
     return getRandomInt(MIN_LOG_LEVEL, MAX_LOG_LEVEL);
 };
+
+export const L_ALERT = -3;
+export const L_CRIT = -2;
+export const L_ERR = -1;
+export const L_WARN = 1;
+export const L_NOTICE = 2;
+export const L_INFO = 3;
+export const L_DBG = 4;

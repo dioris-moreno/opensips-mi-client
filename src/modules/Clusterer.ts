@@ -27,7 +27,7 @@ export default class Clusterer extends Module {
      * @param params.cluster_id - indicates the id of the cluster.
      * @param params.status - indicates the new status(0 - Disabled, 1 - Enabled).
      */
-    setStatus = (params: { cluster_id: string; status: number }) => this.execute('clusterer_set_status', params);
+    setStatus = (params: { cluster_id: number; status: number }) => this.execute('clusterer_set_status', params);
 
     /**
      * Dispatches a given MI command to be run on a specific node in the cluster.
@@ -36,7 +36,7 @@ export default class Clusterer extends Module {
      * @param params.cmd_name - name of the MI command to be run
      * @param params.cmd_params - (optional) array of parameters for the MI command to be run
      */
-    sendMi = (params: { cluster_id: string; destination: string; cmd_name: string; cmd_params?: string }) =>
+    sendMi = (params: { cluster_id: number; destination: number; cmd_name: string; cmd_params?: string[] }) =>
         this.execute('cluster_send_mi', params);
 
     /**
@@ -45,7 +45,7 @@ export default class Clusterer extends Module {
      * @param params.cmd_name - name of the MI command to be run
      * @param params.cmd_params - (optional) array of parameters for the MI command to be run
      */
-    broadcastMi = (params: { cluster_id: string; cmd_name: string; cmd_params?: string }) =>
+    broadcastMi = (params: { cluster_id: number; cmd_name: string; cmd_params?: string }) =>
         this.execute('cluster_broadcast_mi', params);
 
     /**
@@ -55,8 +55,9 @@ export default class Clusterer extends Module {
 
     /**
      * Set the given sharing tag to the state. The information about this change is also broadcasted in the cluster in order to force any other node that may be active on this tag to step down to backup.
+     * @param params.tag - the name of the tag to be set active and the cluster it belogs to, in the format tag/cluster_id.
      */
-    shtagSetActive = () => this.execute('clusterer_shtag_set_active');
+    shtagSetActive = (params: { tag: string }) => this.execute('clusterer_shtag_set_active', params);
 
     /**
      * Lists all known sharing tags and their states.

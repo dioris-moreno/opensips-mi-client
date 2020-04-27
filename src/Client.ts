@@ -19,7 +19,7 @@ export default class Client {
     private _carrierRoute: Modules.CarrierRoute | undefined;
     private _cfgutils: Modules.Cfgutils | undefined;
     private _clusterer: Modules.Clusterer | undefined;
-    private _cplC: Modules.CplC | undefined;
+    private _cplc: Modules.Cplc | undefined;
     private _dbBerkeley: Modules.DbBerkeley | undefined;
     private _dbFlatstore: Modules.DbFlatstore | undefined;
     private _dbText: Modules.DbText | undefined;
@@ -331,11 +331,11 @@ export default class Client {
     }
 
     /**
-     *  Returns a CplC object related to the OpenSIPS instance.
+     *  Returns a Cplc object related to the OpenSIPS instance.
      */
-    get cplC() {
-        if (!this._cplC) this._cplC = new Modules.CplC(this);
-        return this._cplC;
+    get cplc() {
+        if (!this._cplc) this._cplc = new Modules.Cplc(this);
+        return this._cplc;
     }
 
     /**

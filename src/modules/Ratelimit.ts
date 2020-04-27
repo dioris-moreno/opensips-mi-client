@@ -25,7 +25,7 @@ export default class Ratelimit extends Module {
      * @param params.kp - the proportional parameter.
      * @param params.kd - the derivative parameter.
      */
-    setPid = (params: { ki: string; kp: string; kd: string }) => this.execute('rl_set_pid', params);
+    setPid = (params: { ki: number; kp: number; kd: number }) => this.execute('rl_set_pid', params);
 
     /**
      * Gets the list of in use PID Controller parameters.
