@@ -42,7 +42,7 @@ export default class CarrierRoute extends Module {
     addHost = (params: { options: string }) => this.execute('cr_add_host', params);
 
     /**
-     * This command delete the specified hosts or rules, i.e. remove them from the route tree. It is only usable in file mode. Following options are possible:
+     * This command delete the specified hosts or rules, i.e. remove them from the route tree. It is only usable in file mode.
      * @param params.options - a string including the following options: -d - the domain containing the host, -p - the prefix containing the host, -h - the host to be deleted, -w - the weight of the rule, -P - an optional rewrite prefix, -S - an optional rewrite suffix, -i - an optional hash index, -s - an optional hash index.
      */
     deleteHost = (params: { options: string }) => this.execute('cr_delete_host', params);

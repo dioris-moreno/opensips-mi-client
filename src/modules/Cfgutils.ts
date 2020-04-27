@@ -11,7 +11,7 @@ export default class Cfgutils extends Module {
      * Set the probability value to the given parameter.
      * @param params.prob_proc - the parameter should be a percent value (number from 0 to 99).
      */
-    setProbability = (params: { prob_proc: string }) => this.execute('rand_set_prob', params);
+    setProbability = (params: { prob_proc: number }) => this.execute('rand_set_prob', params);
 
     /**
      * Reset the probability value to the inital start value.
@@ -36,7 +36,7 @@ export default class Cfgutils extends Module {
     /**
      * Set the value of a shared variable ($shv(name)).
      * @param params.name - shared variable name
-     * @param params.type - type of the value - int: integer value, str: string value.
+     * @param params.type - type of the value: int - integer value, str - string value.
      * @param params.value - value to be set
      */
     setSharedVariable = (params: { name: string; type: string; value: string }) => this.execute('shv_set', params);
