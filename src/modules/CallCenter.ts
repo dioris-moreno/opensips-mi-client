@@ -17,7 +17,7 @@ export default class CallCenter extends Module {
      * @param params.agent_id - ID of the agent
      * @param params.state - the new login state (0 - log off, 1 - log in)
      */
-    agentLogin = (params: { agent_id: string; state: string }) => this.execute('cc_agent_login', params);
+    agentLogin = (params: { agent_id: string; state: number }) => this.execute('cc_agent_login', params);
 
     /**
      * Command to list all the calls in queuing - for each call, the following attributes will be printed: the flow of the call, for how long the call is in the queue, the ETW for the call, call priority and the call skill (inherited from the flow).

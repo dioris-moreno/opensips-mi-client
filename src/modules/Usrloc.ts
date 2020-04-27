@@ -17,10 +17,10 @@ export default class Usrloc extends Module {
     /**
      * Deletes a contact from an AOR record.
      * @param params.table_name - table where the AOR is removed from (Ex: location).
-     * @param params.AOR - user AOR in username[@domain] format (domain must be supplied only if use_domain option is on).
+     * @param params.aor - user AOR in username[@domain] format (domain must be supplied only if use_domain option is on).
      * @param params.contact - exact contact to be removed
      */
-    rmContact = (params: { table_name: string; AOR: string; contact: string }) => this.execute('ul_rm_contact', params);
+    rmContact = (params: { table_name: string; aor: string; contact: string }) => this.execute('ul_rm_contact', params);
 
     /**
      * Dumps the entire content of the USRLOC in memory cache
@@ -40,7 +40,7 @@ export default class Usrloc extends Module {
      * @param params.contact - contact string to be added
      * @param params.expires - expires value of the contact
      * @param params.q - Q value of the contact
-     * @param params.unused - unused attribute (kept for backword compatibility)
+     * @param params.unused - (optional) unused attribute (kept for backword compatibility)
      * @param params.flags - internal USRLOC flags of the contact
      * @param params.cflags - per branch flags of the contact
      * @param params.methods - mask with supported requests of the contact
@@ -49,12 +49,12 @@ export default class Usrloc extends Module {
         table_name: string;
         aor: string;
         contact: string;
-        expires: string;
+        expires: number;
         q: string;
-        unused: string;
-        flags: string;
+        unused?: string;
+        flags: number;
         cflags: string;
-        methods: string;
+        methods: number;
     }) => this.execute('ul_add', params);
 
     /**
@@ -67,9 +67,9 @@ export default class Usrloc extends Module {
     /**
      * Empty the location table, then synchronize it with all contacts from memory. Note that this can not be used when no database is specified or with the DB-Only scheme.
      * @param params.table_name - table where the AOR resides (Ex: location).
-     * @param params.AOR - (optional) only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
+     * @param params.aor - (optional) only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
      */
-    sync = (params: { table_name: string; AOR?: string }) => this.execute('ul_sync', params);
+    sync = (params: { table_name: string; aor?: string }) => this.execute('ul_sync', params);
 
     /**
      * This command will only take effect if the module is running under a cluster-enabled .

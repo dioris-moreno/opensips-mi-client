@@ -15,7 +15,7 @@ import { getRandomLogLevel } from '../utils/';
 
 const OK = 'OK';
 
-describe('Tm Module', () => {
+describe('TM Module', () => {
     let client: Client;
 
     beforeEach(async () => {

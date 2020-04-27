@@ -15,6 +15,15 @@ import { getRandomLogLevel } from '../utils/';
 
 const OK = 'OK';
 
+const contactExample = {
+    Contact: 'sip:bob@domain.com',
+    Expires: 3600,
+    Q: '',
+    Flags: 0,
+    Cflags: '',
+    Methods: 4479,
+};
+
 describe('Usrloc Module', () => {
     let client: Client;
 
@@ -25,48 +34,56 @@ describe('Usrloc Module', () => {
 
     afterEach(async () => {});
 
-    it('rm(): should Deletes an entire AOR record (including its contacts).', async () => {
-        const table_name = uuid();
-        const aor = uuid();
-        const response = await client.usrloc.rm({ table_name, aor });
+    it.skip('rm(): should Deletes an entire AOR record (including its contacts).', async () => {
+        const table_name = 'location';
+        let response = await client.usrloc.dump();
+        if (_.isEmpty(response['Domains'][0]['AORs'])) return;
+        const firstAor = response['Domains'][0]['AORs'][0];
+        const aor = firstAor.AOR;
+        response = await client.usrloc.rm({ table_name, aor });
         debug(response);
+        expect(response).toBe(OK);
     });
 
-    it('rmContact(): should Deletes a contact from an AOR record.', async () => {
-        const table_name = uuid();
-        const AOR = uuid();
-        const contact = uuid();
-        const response = await client.usrloc.rmContact({ table_name, AOR, contact });
-        debug(response);
+    it.skip('rmContact(): should delete a contact from an AOR record.', async () => {
+        const table_name = 'location';
+        let response = await client.usrloc.dump();
+        const firstAor = response['Domains'][0]['AORs'][0];
+        const aor = firstAor.AOR;
+        const contact = firstAor['Contacts'][0]['Contact'];
+        response = await client.usrloc.rmContact({ table_name, aor, contact });
+        expect(response).toBe(OK);
+        response = await client.usrloc.sync({ table_name });
+        expect(response).toBe(OK);
     });
 
-    it('dump(): should Dumps the entire content of the USRLOC in memory cache', async () => {
+    it('dump(): should dump the entire content of the USRLOC in memory cache', async () => {
         const response = await client.usrloc.dump();
-        debug(response);
+        // debug(JSON.stringify(response));
+        expect(_.isArray(response['Domains'])).toBeTruthy();
     });
 
-    it('flush(): should Force a flush of all pending usrloc cache changes to the database. Normally, this routine runs every seconds.', async () => {
+    it('flush(): should force a flush of all pending usrloc cache changes to the database', async () => {
         const response = await client.usrloc.flush();
-        debug(response);
+        expect(response).toBe(OK);
     });
 
-    it('add(): should Adds a new contact for an user AOR.', async () => {
-        const table_name = uuid();
-        const aor = uuid();
-        const contact = uuid();
-        const expires = uuid();
-        const q = uuid();
-        const unused = uuid();
-        const flags = uuid();
-        const cflags = uuid();
-        const methods = uuid();
+    it.skip('add(): should Adds a new contact for an user AOR.', async () => {
+        // Trigger error: Invalid parameters.
+        const table_name = 'location';
+        const aor = 'AgentA';
+        const contact = 'sip:sdfdfadf97@asdfasdfasdf.invalid;transport=ws';
+        const expires = 3600;
+        const q = '';
+        const flags = 0;
+        const cflags = '';
+        const methods = 4479;
         const response = await client.usrloc.add({
             table_name,
             aor,
             contact,
             expires,
             q,
-            unused,
             flags,
             cflags,
             methods,
@@ -74,21 +91,24 @@ describe('Usrloc Module', () => {
         debug(response);
     });
 
-    it('showContact(): should Dumps the contacts of an user AOR.', async () => {
-        const table_name = uuid();
-        const aor = uuid();
+    it('showContact(): should dump the contacts of an user AOR (test-error)', async () => {
+        const table_name = 'location';
+        const aor = 'AgentA';
         const response = await client.usrloc.showContact({ table_name, aor });
-        debug(response);
+        expect(response['AOR']).toBe(aor);
     });
 
-    it('sync(): should Empty the location table, then synchronize it with all contacts from memory. Note that this can not be used when no database is specified or with the DB-Only scheme.', async () => {
-        const table_name = uuid();
+    it('sync(): should empty the location table, then synchronize it with all contacts from memory', async () => {
+        const table_name = 'location';
         const response = await client.usrloc.sync({ table_name });
-        debug(response);
+        expect(response).toBe(OK);
     });
 
-    it('clusterSync(): should This command will only take effect if the module is running under a cluster-enabled .', async () => {
-        const response = await client.usrloc.clusterSync();
-        debug(response);
+    it('clusterSync(): should synchronize under a cluster-enabled instance (test-error)', async () => {
+        try {
+            await client.usrloc.clusterSync();
+        } catch (err) {
+            expect(err.message).toBe('Clustering not enabled');
+        }
     });
 });
