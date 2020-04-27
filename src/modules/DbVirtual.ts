@@ -14,11 +14,15 @@ export default class DbVirtual extends Module {
 
     /**
      * Sets the permissions for real dbs access per set per db.
-     * @param params.set_index - undefined
-     * @param params.db_url_index - undefined
-     * @param params.may_use_db_flag - undefined
-     * @param params.ignore_retries - (optional) undefined
+     * @param params.set_index - index of the set, index 0 corresponds to set number 1
+     * @param params.db_url_index - index of the URL of the set, index 0 corresponds to the first URL
+     * @param params.may_use_db_flag - 1 or 0: allow or deny processes to use that URL
+     * @param params.db_max_consec_retrys - (optional) 1 or 0: suppress or not db_max_consec_retrys
      */
-    set = (params: { set_index: number; db_url_index: number; may_use_db_flag: boolean; ignore_retries?: boolean }) =>
-        this.execute('db_set', params);
+    set = (params: {
+        set_index: number;
+        db_url_index: number;
+        may_use_db_flag: number;
+        db_max_consec_retrys?: number;
+    }) => this.execute('db_set', params);
 }
