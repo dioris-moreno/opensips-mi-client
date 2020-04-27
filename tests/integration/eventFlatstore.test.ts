@@ -25,8 +25,12 @@ describe('EventFlatstore Module', () => {
 
     afterEach(async () => {});
 
-    it('flatRotate(): should It makes the processes reopen the file specified as a parameter to the command in order to be compatible with a logrotate command. If the function is not called after the mv command is executed, the module will continue to write in the renamed file.', async () => {
-        const response = await client.eventFlatstore.flatRotate();
-        debug(response);
+    it('flatRotate(): should reopen the file specified (test-error)', async () => {
+        try {
+            const path_to_file = `/etc/opensips/event-flagstore-${uuid()}`;
+            await client.eventFlatstore.flatRotate({ path_to_file });
+        } catch (err) {
+            expect(err.message).toContain('File not found');
+        }
     });
 });

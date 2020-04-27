@@ -9,6 +9,7 @@ export default class EventFlatstore extends Module {
 
     /**
      * It makes the processes reopen the file specified as a parameter to the command in order to be compatible with a logrotate command. If the function is not called after the mv command is executed, the module will continue to write in the renamed file.
+     * @param params.path_to_file - the file path
      */
-    flatRotate = () => this.execute('evi_flat_rotate');
+    flatRotate = (params: { path_to_file: string }) => this.execute('evi_flat_rotate', params);
 }
