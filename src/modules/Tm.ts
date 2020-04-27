@@ -47,7 +47,7 @@ export default class Tm extends Module {
      * @param params.body - (optional) reply body (if present, requires the and headers)
      */
     reply = (params: {
-        code: string;
+        code: number;
         reason: string;
         trans_id: string;
         to_tag: string;
