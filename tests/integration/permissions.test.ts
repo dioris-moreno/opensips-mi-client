@@ -45,14 +45,13 @@ describe('Permissions Module', () => {
         expect(_.isArray(response['Partitions'])).toBeTruthy();
     });
 
-    it('allowUri(): should test if URI-Contact pair is allowed (test-error)', async () => {
-        try {
-            const basename = uuid();
-            const uri = uuid();
-            const contact = uuid();
-            await client.permissions.allowUri({ basename, uri, contact });
-        } catch (err) {
-            expect(err.message).toBe('Forbidden');
-        }
+    it('allowUri(): should return OK, it is allowed', async () => {
+        // permissions.allow file:
+        // ALL : ALL
+        const basename = 'permissions';
+        const uri = 'sip:bob@domain.com';
+        const contact = 'sip:alice@domain.com';
+        const response = await client.permissions.allowUri({ basename, uri, contact });
+        expect(response).toBe(OK);
     });
 });
