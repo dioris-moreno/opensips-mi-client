@@ -9,11 +9,11 @@ export default class Presence extends Module {
 
     /**
      * Triggers sending Notify messages to watchers if a change in watchers authorization or in published state occurred.
-     * @param params.presentity_uri - undefined
-     * @param params.event - undefined
+     * @param params.presentity_uri - the uri of the user who made the change and whose watchers should be informed
+     * @param params.event - the event package
      * @param params.refresh_type - it distinguishes between the two different types of events that can trigger a refresh: a change in watchers authentication: refresh type=0; a statical update in published state (either through direct update in db table or by modifying the pidf manipulation document, if pidf_manipulation parameter is set): refresh_type!= 0.
      */
-    refreshWatchers = (params: { presentity_uri: string; event: string; refresh_type: string }) =>
+    refreshWatchers = (params: { presentity_uri: string; event: string; refresh_type: number }) =>
         this.execute('refresh_watchers', params);
 
     /**
