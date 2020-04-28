@@ -51,7 +51,13 @@ await client.connect();
 ### Function Parameters
 
 All parameters required by OpenSIPS MI functions are passed to each method defined in this library using only one parameter called
-**params**.
+**params**. For each method, **params** type has been defined according to the specifications of the respective MI function.
+
+### Intellisense
+
+In order to get the must from this library, it is recommended to use an IDE that can read JsDoc descriptions. Every single method includes
+its description and the description of its parameters, based on OpenSIPS documentation, in JsDoc format. Parameter types have been
+excluded from JsDoc because they are enforced by TypeScript.
 
 ### Name Conventions
 
@@ -65,7 +71,7 @@ await client.dialog.endDlg({ dialog_id });
 ```
 
 All parameters of all MI functions keep the same name, opensips-mi-client only defines their types. This library does not parse the
-parameters, it only pases to OpenSIPS MI. That is the reason why it keeps exactly the same names along every module code. If you see
+parameters, it only passes them to OpenSIPS MI. That is the reason why it keeps exactly the same names along every module code. If you see
 any parameter name in all caps, it is because that is the name OpenSIPS MI expects, like **DID** parameter in this example:
 
 ```typescript
