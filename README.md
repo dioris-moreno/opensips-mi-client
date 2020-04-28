@@ -12,8 +12,6 @@ only supports **http** transport.
 
 ```sh
 npm install opensips-mi-client --save
-yarn add opensips-mi-client
-bower install pluralize --save
 ```
 
 ## Configuration
@@ -105,18 +103,19 @@ excluded from JsDoc because they are enforced by TypeScript.
 
 ### Name Conventions
 
-The Management interface of OpenSIPS, and must of its code, uses snake_case naming convention. This library has been developed
+The Management Interface of OpenSIPS, and must of its code, uses snake_case naming convention. This library has been developed
 using camelCase and PascalCase naming following the [ESLint Code Conventions](https://eslint.org/docs/developer-guide/code-conventions).
-In order to do that, names of MI functions has been converted to camelCase, however, its parameters were not. For example:
+In order to do that, names of MI functions have been converted to camelCase, but the names of its parameters were not. For example:
 
 ```typescript
 const dialog_id = 'Y2IwYjQ2YmE2ZDg5MWVkNDNkZGIwZjAzNGM1ZDY';
 await client.dialog.endDlg({ dialog_id });
 ```
 
-All parameters of all MI functions keep the same name, opensips-mi-client only defines their types. This library does not parse the
-parameters, it only passes them to OpenSIPS MI. That is the reason why it keeps exactly the same names along every module code. If you see
-any parameter name in all caps, it is because that is the name OpenSIPS MI expects, like **DID** parameter in this example:
+Here MI function **dlg_end_dlg** was camelCased to **endDlg**, but the parameter name keeps the same **dialog_id**. This is because
+OpenSIPS MI needs to receive the parameters with these specific names. This library does not parse the parameters in any way,
+it only defines their types and passes them to OpenSIPS MI. If you see a parameter name in all caps, it is because that is the name
+OpenSIPS MI expects, like **DID** in this example:
 
 ```typescript
 const dlg_val_name = 'var_name';
@@ -124,6 +123,22 @@ const dlg_val_value = 'var_value';
 const DID = ['DID1'];
 const response = await client.dialog.pushVar({ dlg_val_name, dlg_val_value, DID });
 ```
+
+OpenSIPS modules are defined as classes in opensips-mi-client and their names where converted to PascalCase. As noticed in the above
+examples, MI functions prefixes **dlg\_** were removed from the method names for clarity and simplicity.
+
+### Modules
+
+This library defines one class for each OpenSIPS module, and the Client class exposes all possible modules as properties. If the
+OpenSIPS instance we are connected to does not support the MI functions of one module because it is not using it, and we try to
+execute any of its methods, an error like the following will be trigger:
+
+```sh
+'dlg_end_dlg' command is not available in this OpenSIPS instance.
+
+```
+
+> Note: the names of the properties (modules) in Client class are camelCase.
 
 ### Statistics
 
