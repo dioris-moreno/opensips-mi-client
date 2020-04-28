@@ -1,6 +1,6 @@
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
-import ClientConfiguration from './connection/ClientConfiguration';
+import ClientConfiguration, { getDefaults } from './connection/ClientConfiguration';
 import envConfig from './envConfig';
 import * as Modules from './modules';
 import Connection from './connection/Connection';
@@ -58,6 +58,7 @@ export default class Client {
 
     constructor(config?: ClientConfiguration) {
         if (!config) config = envConfig;
+        else config = getDefaults(config);
         this._connection = ConnectionFactory.createConnection(config);
     }
 

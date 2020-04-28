@@ -59,22 +59,23 @@ OS_MI_FIFO_REPLY_DIR=/tmp
 OS_MI_URL=http://127.0.0.1:8888/mi
 ```
 
-It also uses dotenv node module, so you you can create a .env file at the root of the project to set the variables.
-These parameters can be easily retrieved by importing **config** object from the library as follows:
+It also uses dotenv node module, so you can create a .env file at the root of the project to set the variables.
+These variables can be easily retrieved by importing **config** object from the library as follows:
 
 ```typescript
 import { config } from 'opensips-mi-client';
+console.log(config);
 ```
 
-The **config** object has the corresponding properties **communication_type**, **fifo_file**, **fifo_reply_dir** and **url**.
+The **config** object has the properties **communication_type**, **fifo_file**, **fifo_reply_dir** and **url**,
+with the corresponding values read from the .env file.
 
-```typescript
-{
-    communication_type: 'http',
-    fifo_file: '/tmp/opensips_fifo',
-    fifo_reply_dir: '/tmp',
-    url: 'http://127.0.0.1:8888/mi',
-};
+```sh
+{  communication_type: 'http',
+   fifo_file: '/tmp/opensips_fifo',
+   fifo_reply_dir: '/tmp',
+   url: 'http://127.0.0.1:8888/mi',
+   jsonrpcVersion: '2.0' }
 ```
 
 ### Usage
@@ -97,6 +98,18 @@ console.log(version);
 ```sh
 { Server: 'OpenSIPS (3.1.0-dev (x86_64/linux))' }
 ```
+
+Client class constructor supports passing the parameters needed to connect to OpenSIPS, so instead using environment
+variables you can create a client as follows:
+
+```typescript
+import Client from 'opensips-mi-client';
+const client = new Client({ url: 'http://10.10.10.10:8000/mi' });
+const version = client.version();
+console.log(version);
+```
+
+> Note: at this moment opensips-mi-client only supports **http** transport.
 
 ### Function Parameters
 

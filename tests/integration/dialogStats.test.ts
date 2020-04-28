@@ -8,7 +8,7 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import Client, { Dialog } from '../../src';
+import Client, { Dialog, config } from '../../src';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { getRandomLogLevel } from '../utils';
@@ -20,7 +20,7 @@ describe('Dialog Module', () => {
 
     beforeEach(async () => {
         jest.setTimeout(30000);
-        client = new Client();
+        client = new Client({ url: 'http://appa.lsvon.net:8000/mi' });
     });
 
     afterEach(async () => {});
@@ -28,6 +28,7 @@ describe('Dialog Module', () => {
     it('version(): should return all dialog statistics', async () => {
         const version = await client.version();
         console.log(version);
+        console.log(config);
     });
 
     it('getStatistics(): should return all dialog statistics', async () => {
