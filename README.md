@@ -10,44 +10,6 @@ yarn add opensips-mi-client
 bower install pluralize --save
 ```
 
-## Usage
-
-### Javascript
-
-```javascript
-var mi = require('opensips-mi-client');
-var client = new mi.Client();
-client.connect();
-```
-
-```sh
-
-```
-
-### TypeScript
-
-Client class is the default export of the library, so you can just import it as follows:
-
-```typescript
-import Client from 'opensips-mi-client';
-```
-
-or using destructured import
-
-```typescript
-import { Client } from 'opensips-mi-client';
-```
-
-```typescript
-import { Client } from 'opensips-mi-client';
-const client = new Client();
-await client.connect();
-```
-
-```sh
-
-```
-
 ## Configuration
 
 This library supports the following environment variables:
@@ -78,7 +40,9 @@ with the corresponding values read from the .env file.
    jsonrpcVersion: '2.0' }
 ```
 
-### Usage
+## Usage
+
+### TypeScript
 
 Client class is the default export of the library, so you can just import it as follows:
 
@@ -110,6 +74,17 @@ console.log(version);
 ```
 
 > Note: at this moment opensips-mi-client only supports **http** transport.
+
+### Javascript
+
+Use the library in Javascript as follows:
+
+```javascript
+var Client = require('opensips-mi-client');
+var client = new Client();
+var version = client.version();
+console.log(version);
+```
 
 ### Function Parameters
 
@@ -203,15 +178,18 @@ and get
 }
 ```
 
-the group name is removed from
-
-### AMD
-
-```javascript
-```
-
 ## Test
 
+This project include a series of integration tests that can be run against the OpenSIPS instance defined in .env file as follows:
+
 ```sh
-npm run test
+npm run integrationTest
 ```
+
+#### IMPORTANT: Do not run these tests against a production OpenSIPS box.
+
+The results of this tests will depend a lot on the configuration of the OpenSIPS instance. Some of the test definitions include
+a **test-error** note at the end of their descriptions. These particular tests are validating that OpenSIPS received all required
+parameters by checking specific returned error messages, not by evaluating the functionality of the MI method. This library is
+only a client that wraps all MI functions in a comprehensive and easy to use way. It is not intended to verify or handled the
+functionality of OpenSIPS modules in any way.
