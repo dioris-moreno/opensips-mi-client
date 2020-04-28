@@ -66,6 +66,7 @@ export class Tm extends Module {
 }
 
 export namespace Tm {
+    export type AllStats = 'all';
     export type ReceivedRepliesStat = 'received_replies';
     export type RelayedRepliesStat = 'relayed_replies';
     export type LocalRepliesStat = 'local_replies';
@@ -78,6 +79,7 @@ export namespace Tm {
     export type T6xxTransactionsStat = '6xx_transactions';
     export type InuseTransactionsStat = 'inuse_transactions';
     export type StatsTypes =
+        | AllStats
         | ReceivedRepliesStat
         | RelayedRepliesStat
         | LocalRepliesStat
@@ -90,6 +92,7 @@ export namespace Tm {
         | T6xxTransactionsStat
         | InuseTransactionsStat;
     export enum Stats {
+        All = 'all',
         ReceivedReplies = 'received_replies',
         RelayedReplies = 'relayed_replies',
         LocalReplies = 'local_replies',

@@ -4,6 +4,8 @@ import Debug from 'debug';
 import _ from 'lodash';
 const debug = Debug('opensips-mi-client');
 
+const ALL_STATS = 'all';
+
 export default class Module {
     private _client: Client;
     private _name: string;
@@ -45,6 +47,7 @@ export default class Module {
      */
     protected getModuleStats = async (name?: string, options?: { keepGroupName: boolean }) => {
         try {
+            if (name === ALL_STATS) name = undefined;
             const groupName = `${this.name}:`;
             let filter = name ? name : groupName;
             const response = await this.client.getStatistics({ statistics: [filter] });

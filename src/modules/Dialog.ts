@@ -111,6 +111,7 @@ export class Dialog extends Module {
 }
 
 export namespace Dialog {
+    export type AllStats = 'all';
     export type ActiveDialogsStat = 'active_dialogs';
     export type EarlyDialogsStat = 'early_dialogs';
     export type ProcessedDialogsStat = 'processed_dialogs';
@@ -123,6 +124,7 @@ export namespace Dialog {
     export type UpdateRecvStat = 'update_recv';
     export type DeleteRecvStat = 'delete_recv';
     export type StatsTypes =
+        | AllStats
         | ActiveDialogsStat
         | EarlyDialogsStat
         | ProcessedDialogsStat
@@ -135,6 +137,7 @@ export namespace Dialog {
         | UpdateRecvStat
         | DeleteRecvStat;
     export enum Stats {
+        All = 'all',
         ActiveDialogs = 'active_dialogs',
         EarlyDialogs = 'early_dialogs',
         ProcessedDialogs = 'processed_dialogs',

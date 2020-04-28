@@ -5,7 +5,7 @@ OpenSIPS 3.0 Management Interface Client
 ## Introduction
 
 This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy to use way.
-It is not intended to verify or handled the functionality of OpenSIPS modules. At this moment opensips-mi-client
+It is not intended to verify or handle the functionality of OpenSIPS modules. At this moment opensips-mi-client
 only supports **http** transport.
 
 ## Installation
@@ -142,11 +142,11 @@ execute any of its methods, an error like the following will be trigger:
 
 ### Statistics
 
-The Clien class exposes all core MI functions, including listStatistics and getStatistics functions. These functions work in the way
+The Client class exposes all core MI functions, including listStatistics and getStatistics methods. These methods work in the way
 documented in OpenSIPS MI: listStatistics returns a list of all available statistics in the OpenSIPS instance, and getStatistics
-returns their realtime values. getStatistics allows to filter statistics using a group or an specific name. This feature is used
-by opensips-mi-client to expose both functions in every module that has available statistics. These functions can be used to obtain
-the statistics of the module from they are called. For example:
+returns their realtime values. getStatistics allows to filter statistics using a group or an specific name. This library also exposes
+a getStatistics method in every module that has available statistics. This function can be used to obtain the realtime values
+of the statistics of the module from where it is called. For example:
 
 ```typescript
 const response = await client.dialog.getStatistics();
@@ -171,13 +171,56 @@ will print
 }
 ```
 
+To facilitate getting statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
+For exmple, in order to only get the value of the **update_recv** statistic, call the getStatistics method of client.dialog
+using the corresponding enum member.
+
+```typescript
+const response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv);
+console.log(response);
+```
+
+it will print
+
+```sh
+{ update_recv: 0 }
+```
+
+All enums include an **All** member that can be used to obtain the values of all the statistics. It gives the same result
+than calling getStatistics without passing any parameter. It is not mandatory to call getStatistics using the enum, you can
+also get stats values by name using strings:
+
+```typescript
+const response = await client.dialog.getStatistics('update_recv');
+console.log(response);
+```
+
+This library defines as types the names of all the statistics of every module to enforce the use of valid names in TypeScript.
+So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
+
+```typescript
+const response = await client.dialog.getStatistics('invalid_update_recv');
+console.log(response);
+```
+
+There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
+The letter **T** was added in front of these names in order to define the corresponding members in Stats enum of this module as follows:
+
+```sh
+Tm.Stats.T2xxTransactions
+Tm.Stats.T3xxTransactions
+Tm.Stats.T4xxTransactions
+Tm.Stats.T5xxTransactions
+Tm.Stats.T6xxTransactions
+```
+
 Note that the statistics are returned without the group name. This functionality is implemented in opensips-mi-client by default
 to make easier to manipulate the statistics values. If you want to get the original names returned by OpenSIPS, you can pass
 the keepGroupName option to getStatistics as follows:
 
 ```typescript
 const options = { keepGroupName: true };
-const response = await client.dialog.getStatistics(options);
+const response = await client.dialog.getStatistics(Dialog.Stats.All, options);
 console.log(response);
 ```
 
@@ -196,55 +239,3 @@ and get
     'dialog:update_recv': 0,
     'dialog:delete_recv': 0 }
 ```
-
-To facilitate getting statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
-For exmple, in order to get the value of the **dialog:update_recv** statistic, just call the getStatistics method of client.dialog
-using the corresponding enum member.
-
-```typescript
-const response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv);
-console.log(response);
-```
-
-You can also get statistics values by name using strings:
-
-```typescript
-const response = await client.dialog.getStatistics('update_recv');
-console.log(response);
-```
-
-This library contains all the names of the statistics of the modules defined as types. These types are exposed by the class of each
-OpenSIPS module that has statistics. A type that includes all possible stats of the module, called StatsTypes, is exposed by the
-class of the module too. So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
-
-```typescript
-const response = await client.dialog.getStatistics('update_recv_invalid');
-console.log(response);
-```
-
-There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
-The letter **T** was added in front of these names in order to define the corresponding the Stats enum of this module as follows:
-
-```sh
-Tm.Stats.T2xxTransactions
-Tm.Stats.T3xxTransactions
-Tm.Stats.T4xxTransactions
-Tm.Stats.T5xxTransactions
-Tm.Stats.T6xxTransactions
-```
-
-## Test
-
-This project include a series of integration tests that can be run against the OpenSIPS instance defined in .env file as follows:
-
-```sh
-npm run integrationTest
-```
-
-#### IMPORTANT: Do not run these tests against a production OpenSIPS box.
-
-The results of this tests will depend a lot on the configuration of the OpenSIPS instance. Some of the test definitions include
-a **test-error** note at the end of their descriptions. These particular tests are validating that OpenSIPS received all required
-parameters by checking specific returned error messages, not by evaluating the functionality of the MI method. This library is
-only a client that wraps all MI functions in a comprehensive and easy to use way. It is not intended to verify or handled the
-functionality of OpenSIPS modules.
