@@ -2,6 +2,12 @@
 
 OpenSIPS 3.0 Management Interface Client
 
+## Introduction
+
+This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy to use way.
+It is not intended to verify or handled the functionality of OpenSIPS modules. At this moment opensips-mi-client
+only supports **http** transport.
+
 ## Installation
 
 ```sh
@@ -192,4 +198,4 @@ The results of this tests will depend a lot on the configuration of the OpenSIPS
 a **test-error** note at the end of their descriptions. These particular tests are validating that OpenSIPS received all required
 parameters by checking specific returned error messages, not by evaluating the functionality of the MI method. This library is
 only a client that wraps all MI functions in a comprehensive and easy to use way. It is not intended to verify or handled the
-functionality of OpenSIPS modules in any way.
+functionality of OpenSIPS modules.
