@@ -34,7 +34,6 @@ export default class Client {
     private _httpd: Modules.Httpd | undefined;
     private _imc: Modules.Imc | undefined;
     private _loadBalancer: Modules.LoadBalancer | undefined;
-    private _mediaExchange: Modules.MediaExchange | undefined;
     private _nathelper: Modules.Nathelper | undefined;
     private _permissions: Modules.Permissions | undefined;
     private _pike: Modules.Pike | undefined;
@@ -445,14 +444,6 @@ export default class Client {
     get loadBalancer() {
         if (!this._loadBalancer) this._loadBalancer = new Modules.LoadBalancer(this);
         return this._loadBalancer;
-    }
-
-    /**
-     *  Returns a MediaExchange object related to the OpenSIPS instance.
-     */
-    get mediaExchange() {
-        if (!this._mediaExchange) this._mediaExchange = new Modules.MediaExchange(this);
-        return this._mediaExchange;
     }
 
     /**

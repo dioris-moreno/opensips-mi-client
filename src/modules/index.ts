@@ -23,7 +23,6 @@ export { default as Gflags } from './Gflags';
 export { default as Httpd } from './Httpd';
 export { default as Imc } from './Imc';
 export { default as LoadBalancer } from './LoadBalancer';
-export { default as MediaExchange } from './MediaExchange';
 export { default as Nathelper } from './Nathelper';
 export { default as Permissions } from './Permissions';
 export { default as Pike } from './Pike';
