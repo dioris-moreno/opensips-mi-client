@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'dispatcher';
 
-export default class Dispatcher extends Module {
+export class Dispatcher extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -27,3 +27,5 @@ export default class Dispatcher extends Module {
      */
     reload = (params?: { partition?: string }) => this.execute('ds_reload', params);
 }
+
+export default Dispatcher;

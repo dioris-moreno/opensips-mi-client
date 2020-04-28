@@ -142,10 +142,10 @@ execute any of its methods, an error like the following will be trigger:
 
 ### Statistics
 
-The client exposes all core MI functions, including listStatistics and getStatistics functions. These functions work in the way
-documented in OpenSIPS MI. listStatistics returns a list of all available statistics in the OpenSIPS instance, and getStatistics
-returns their realtime values. getStatistics allows to filter statistics using a group or an specific name. This is feature is used
-by opensips-mi-client to expose both functions in every module that has available statistics. These functions can be use to obtain
+The Clien class exposes all core MI functions, including listStatistics and getStatistics functions. These functions work in the way
+documented in OpenSIPS MI: listStatistics returns a list of all available statistics in the OpenSIPS instance, and getStatistics
+returns their realtime values. getStatistics allows to filter statistics using a group or an specific name. This feature is used
+by opensips-mi-client to expose both functions in every module that has available statistics. These functions can be used to obtain
 the statistics of the module from they are called. For example:
 
 ```typescript
@@ -172,8 +172,8 @@ will print
 ```
 
 Note that the statistics are returned without the group name. This functionality is implemented in opensips-mi-client by default
-to make more clean and easier to manipulate the statistics values. If you want to get the original names returned by OpenSIPS you
-can pass the keepGroupName option to getStatistics as follows:
+to make easier to manipulate the statistics values. If you want to get the original names returned by OpenSIPS, you can pass
+the keepGroupName option to getStatistics as follows:
 
 ```typescript
 const options = { keepGroupName: true };
@@ -184,47 +184,53 @@ console.log(response);
 and get
 
 ```sh
-{
-    dialog:active_dialogs: 0,
-    dialog:early_dialogs: 0,
-    dialog:processed_dialogs: 0,
-    dialog:expired_dialogs: 0,
-    dialog:failed_dialogs: 0,
-    dialog:create_sent: 0,
-    dialog:update_sent: 0,
-    dialog:delete_sent: 0,
-    dialog:create_recv: 0,
-    dialog:update_recv: 0,
-    dialog:delete_recv: 0,
-}
+{   'dialog:active_dialogs': 0,
+    'dialog:early_dialogs': 0,
+    'dialog:processed_dialogs': 0,
+    'dialog:expired_dialogs': 0,
+    'dialog:failed_dialogs': 0,
+    'dialog:create_sent': 0,
+    'dialog:update_sent': 0,
+    'dialog:delete_sent': 0,
+    'dialog:create_recv': 0,
+    'dialog:update_recv': 0,
+    'dialog:delete_recv': 0 }
 ```
 
-To facilitate getting of statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
-In order to get the value of the **dialog:update_recv** statistic, just call the getStatistics method of client.dialog using
-the corresponding enum member.
+To facilitate getting statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
+For exmple, in order to get the value of the **dialog:update_recv** statistic, just call the getStatistics method of client.dialog
+using the corresponding enum member.
 
 ```typescript
-const response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecvStat);
+const response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv);
 console.log(response);
 ```
 
-You can also get statistics values by name using strings. Note that it is not necessary to include the group prefix of the module,
-**dialog:update_recv** could just be passed as **update_recv**.
+You can also get statistics values by name using strings:
 
 ```typescript
-const name = 'update_recv';
-const response = await client.dialog.getStatistics(name);
+const response = await client.dialog.getStatistics('update_recv');
 console.log(response);
 ```
 
-All the names of the statistics of the modules are defined as types. These types are exposed by the class of the module. A type that includes
-all possible stats of the module, called StatsTypes, is exposed by the class of the module too. So, if you try to pass an invalid statistic
-name, TypeScript will give you an error, like in the following example:
+This library contains all the names of the statistics of the modules defined as types. These types are exposed by the class of each
+OpenSIPS module that has statistics. A type that includes all possible stats of the module, called StatsTypes, is exposed by the
+class of the module too. So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
 
 ```typescript
-const name = 'update_recv_invalid';
-const response = await client.dialog.getStatistics(name);
+const response = await client.dialog.getStatistics('update_recv_invalid');
 console.log(response);
+```
+
+There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
+The letter T was added in front of these names to be able to define the corresponding enum as follows:
+
+```sh
+Tm.Stats.T2xxTransactions
+Tm.Stats.T3xxTransactions
+Tm.Stats.T4xxTransactions
+Tm.Stats.T5xxTransactions
+Tm.Stats.T6xxTransactions
 ```
 
 ## Test

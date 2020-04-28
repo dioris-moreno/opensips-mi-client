@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'dialplan';
 
-export default class Dialplan extends Module {
+export class Dialplan extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -27,3 +27,5 @@ export default class Dialplan extends Module {
      */
     showPartition = (params?: { partition?: string }) => this.execute('dp_show_partition', params);
 }
+
+export default Dialplan;

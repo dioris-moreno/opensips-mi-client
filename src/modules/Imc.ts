@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'imc';
 
-export default class Imc extends Module {
+export class Imc extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -18,3 +18,5 @@ export default class Imc extends Module {
      */
     listMembers = (params: { room: string }) => this.execute('imc_list_members', params);
 }
+
+export default Imc;

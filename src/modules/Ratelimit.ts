@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'ratelimit';
 
-export default class Ratelimit extends Module {
+export class Ratelimit extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -37,3 +37,5 @@ export default class Ratelimit extends Module {
      */
     binStatus = () => this.execute('rl_bin_status');
 }
+
+export default Ratelimit;

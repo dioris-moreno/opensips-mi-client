@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'cachedb_local';
 
-export default class CachedbLocal extends Module {
+export class CachedbLocal extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -14,3 +14,5 @@ export default class CachedbLocal extends Module {
      */
     removeChunk = (params: { collection?: string; glob: string }) => this.execute('cache_remove_chunk', params);
 }
+
+export default CachedbLocal;

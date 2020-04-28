@@ -8,10 +8,11 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import Client, { Dialog, config } from '../../src';
+import Client, { Dialog, Tm, config } from '../../src';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { getRandomLogLevel } from '../utils';
+import { tmpdir } from 'os';
 
 const OK = 'OK';
 
@@ -28,7 +29,7 @@ describe('Dialog Module', () => {
     it('version(): should return all dialog statistics', async () => {
         const version = await client.version();
         console.log(version);
-        console.log(config);
+        // console.log(config);
     });
 
     it('getStatistics(): should return all dialog statistics', async () => {
@@ -37,9 +38,12 @@ describe('Dialog Module', () => {
     });
 
     it('getStatistics(): should return one dialog statistics', async () => {
-        const name = 'update_recv';
-        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecvStat);
-        response = await client.dialog.getStatistics(name);
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv);
         debug(response);
+        response = await client.dialog.getStatistics('early_dialogs');
+        debug(response);
+        const options = { keepGroupName: true };
+        response = await client.dialog.getStatistics(undefined, options);
+        console.log(response);
     });
 });

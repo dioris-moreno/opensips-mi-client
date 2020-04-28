@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'b2b_logic';
 
-export default class B2bLogic extends Module {
+export class B2bLogic extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -30,3 +30,5 @@ export default class B2bLogic extends Module {
      */
     list = () => this.execute('b2b_list');
 }
+
+export default B2bLogic;

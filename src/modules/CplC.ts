@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'cpl_c';
 
-export default class Cplc extends Module {
+export class Cplc extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -26,3 +26,5 @@ export default class Cplc extends Module {
      */
     get = (params: { username: string }) => this.execute('GET_CPL', params);
 }
+
+export default Cplc;

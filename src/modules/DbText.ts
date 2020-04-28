@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'db_text';
 
-export default class DbText extends Module {
+export class DbText extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -19,3 +19,5 @@ export default class DbText extends Module {
      */
     reload = (params?: { db_name?: string; table_name?: string }) => this.execute('dbt_reload', params);
 }
+
+export default DbText;

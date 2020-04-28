@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'tracer';
 
-export default class Tracer extends Module {
+export class Tracer extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -31,3 +31,5 @@ export default class Tracer extends Module {
      */
     stop = (params: { id: string }) => this.execute('trace_stop', params);
 }
+
+export default Tracer;

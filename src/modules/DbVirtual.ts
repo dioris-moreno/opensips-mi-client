@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'db_virtual';
 
-export default class DbVirtual extends Module {
+export class DbVirtual extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -26,3 +26,5 @@ export default class DbVirtual extends Module {
         db_max_consec_retrys?: number;
     }) => this.execute('db_set', params);
 }
+
+export default DbVirtual;

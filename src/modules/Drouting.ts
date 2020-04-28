@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'drouting';
 
-export default class Drouting extends Module {
+export class Drouting extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -52,3 +52,5 @@ export default class Drouting extends Module {
      */
     enableProbing = (params?: { status?: number }) => this.execute('dr_enable_probing', params);
 }
+
+export default Drouting;

@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'pike';
 
-export default class Pike extends Module {
+export class Pike extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -18,3 +18,5 @@ export default class Pike extends Module {
      */
     rm = (params: { ip: string }) => this.execute('pike_rm', params);
 }
+
+export default Pike;

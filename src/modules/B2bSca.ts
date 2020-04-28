@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'b2b_sca';
 
-export default class B2bSca extends Module {
+export class B2bSca extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -12,3 +12,5 @@ export default class B2bSca extends Module {
      */
     list = () => this.execute('sca_list');
 }
+
+export default B2bSca;

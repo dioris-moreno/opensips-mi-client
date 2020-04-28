@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'httpd';
 
-export default class Httpd extends Module {
+export class Httpd extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -12,3 +12,5 @@ export default class Httpd extends Module {
      */
     listRootPath = () => this.execute('httpd_list_root_path');
 }
+
+export default Httpd;

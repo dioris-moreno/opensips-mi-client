@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'usrloc';
 
-export default class Usrloc extends Module {
+export class Usrloc extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -75,4 +75,29 @@ export default class Usrloc extends Module {
      * This command will only take effect if the module is running under a cluster-enabled .
      */
     clusterSync = () => this.execute('ul_cluster_sync');
+
+    /**
+     * Returns the statistics of the module.
+     * @param name - (optional) get only the statistic named "name".
+     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     */
+    getStatistics = async (name?: Usrloc.Stats | Usrloc.StatsTypes, options?: { keepGroupName: boolean }) => {
+        return this.getModuleStats(name, options);
+    };
 }
+
+export namespace Usrloc {
+    export type UsersStat = 'users';
+    export type ContactsStat = 'contacts';
+    export type ExpiresStat = 'expires';
+    export type RegisteredUsersStat = 'registered_users';
+    export type StatsTypes = UsersStat | ContactsStat | ExpiresStat | RegisteredUsersStat;
+    export enum Stats {
+        Users = 'users',
+        Contacts = 'contacts',
+        Expires = 'expires',
+        RegisteredUsers = 'registered_users',
+    }
+}
+
+export default Usrloc;

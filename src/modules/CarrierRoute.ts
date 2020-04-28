@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'carrierroute';
 
-export default class CarrierRoute extends Module {
+export class CarrierRoute extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -47,3 +47,5 @@ export default class CarrierRoute extends Module {
      */
     deleteHost = (params: { options: string }) => this.execute('cr_delete_host', params);
 }
+
+export default CarrierRoute;

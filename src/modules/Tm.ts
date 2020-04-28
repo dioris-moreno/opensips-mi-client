@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'tm';
 
-export default class Tm extends Module {
+export class Tm extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -54,4 +54,54 @@ export default class Tm extends Module {
         new_headers?: string;
         body?: string;
     }) => this.execute('t_reply', params);
+
+    /**
+     * Returns the statistics of the module.
+     * @param name - (optional) get only the statistic named "name".
+     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     */
+    getStatistics = async (name?: Tm.Stats | Tm.StatsTypes, options?: { keepGroupName: boolean }) => {
+        return this.getModuleStats(name, options);
+    };
 }
+
+export namespace Tm {
+    export type ReceivedRepliesStat = 'received_replies';
+    export type RelayedRepliesStat = 'relayed_replies';
+    export type LocalRepliesStat = 'local_replies';
+    export type UASTransactionsStat = 'UAS_transactions';
+    export type UACTransactionsStat = 'UAC_transactions';
+    export type T2xxTransactionsStat = '2xx_transactions';
+    export type T3xxTransactionsStat = '3xx_transactions';
+    export type T4xxTransactionsStat = '4xx_transactions';
+    export type T5xxTransactionsStat = '5xx_transactions';
+    export type T6xxTransactionsStat = '6xx_transactions';
+    export type InuseTransactionsStat = 'inuse_transactions';
+    export type StatsTypes =
+        | ReceivedRepliesStat
+        | RelayedRepliesStat
+        | LocalRepliesStat
+        | UASTransactionsStat
+        | UACTransactionsStat
+        | T2xxTransactionsStat
+        | T3xxTransactionsStat
+        | T4xxTransactionsStat
+        | T5xxTransactionsStat
+        | T6xxTransactionsStat
+        | InuseTransactionsStat;
+    export enum Stats {
+        ReceivedReplies = 'received_replies',
+        RelayedReplies = 'relayed_replies',
+        LocalReplies = 'local_replies',
+        UASTransactions = 'UAS_transactions',
+        UACTransactions = 'UAC_transactions',
+        T2xxTransactions = '2xx_transactions',
+        T3xxTransactions = '3xx_transactions',
+        T4xxTransactions = '4xx_transactions',
+        T5xxTransactions = '5xx_transactions',
+        T6xxTransactions = '6xx_transactions',
+        InuseTransactions = 'inuse_transactions',
+    }
+}
+
+export default Tm;

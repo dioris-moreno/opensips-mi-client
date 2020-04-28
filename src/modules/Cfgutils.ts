@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'cfgutils';
 
-export default class Cfgutils extends Module {
+export class Cfgutils extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -47,3 +47,5 @@ export default class Cfgutils extends Module {
      */
     get = (params: { name: string }) => this.execute('shv_get', params);
 }
+
+export default Cfgutils;

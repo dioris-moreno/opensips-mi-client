@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'event_flatstore';
 
-export default class EventFlatstore extends Module {
+export class EventFlatstore extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -13,3 +13,5 @@ export default class EventFlatstore extends Module {
      */
     flatRotate = (params: { path_to_file: string }) => this.execute('evi_flat_rotate', params);
 }
+
+export default EventFlatstore;

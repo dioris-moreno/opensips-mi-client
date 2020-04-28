@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'rtpengine';
 
-export default class Rtpengine extends Module {
+export class Rtpengine extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -30,3 +30,5 @@ export default class Rtpengine extends Module {
      */
     teardown = (params: { callid: string }) => this.execute('teardown', params);
 }
+
+export default Rtpengine;

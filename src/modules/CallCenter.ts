@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'call_center';
 
-export default class CallCenter extends Module {
+export class CallCenter extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -44,3 +44,5 @@ export default class CallCenter extends Module {
      */
     resetStats = () => this.execute('cc_reset_stats');
 }
+
+export default CallCenter;

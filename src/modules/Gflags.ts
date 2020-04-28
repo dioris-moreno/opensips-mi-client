@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'gflags';
 
-export default class Gflags extends Module {
+export class Gflags extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -30,3 +30,5 @@ export default class Gflags extends Module {
      */
     getGflags = () => this.execute('get_gflags');
 }
+
+export default Gflags;

@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'nathelper';
 
-export default class Nathelper extends Module {
+export class Nathelper extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -13,3 +13,5 @@ export default class Nathelper extends Module {
      */
     enablePing = (params?: { status?: number }) => this.execute('nh_enable_ping', params);
 }
+
+export default Nathelper;

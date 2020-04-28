@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'core';
 
-export default class Core extends Module {
+export class Core extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -159,3 +159,5 @@ export default class Core extends Module {
      */
     xlogLevel = (params?: { level?: number }) => this.execute('xlog_level', params);
 }
+
+export default Core;

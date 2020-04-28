@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'clusterer';
 
-export default class Clusterer extends Module {
+export class Clusterer extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -64,3 +64,5 @@ export default class Clusterer extends Module {
      */
     listShtags = () => this.execute('clusterer_list_shtags');
 }
+
+export default Clusterer;

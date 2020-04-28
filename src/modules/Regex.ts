@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'regex';
 
-export default class Regex extends Module {
+export class Regex extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -12,3 +12,5 @@ export default class Regex extends Module {
      */
     reload = () => this.execute('regex_reload');
 }
+
+export default Regex;

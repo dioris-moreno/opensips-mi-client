@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'b2b_entities';
 
-export default class B2bEntities extends Module {
+export class B2bEntities extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -12,3 +12,5 @@ export default class B2bEntities extends Module {
      */
     list = () => this.execute('b2be_list');
 }
+
+export default B2bEntities;

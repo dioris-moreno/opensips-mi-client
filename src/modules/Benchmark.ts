@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'benchmark';
 
-export default class Benchmark extends Module {
+export class Benchmark extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -37,3 +37,5 @@ export default class Benchmark extends Module {
      */
     pollResults = () => this.execute('bm_poll_results');
 }
+
+export default Benchmark;

@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'xcap_client';
 
-export default class XcapClient extends Module {
+export class XcapClient extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -14,3 +14,5 @@ export default class XcapClient extends Module {
      */
     refreshXcapDoc = (params: { doc_uri: string; port: number }) => this.execute('refreshXcapDoc', params);
 }
+
+export default XcapClient;

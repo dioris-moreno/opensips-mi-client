@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'permissions';
 
-export default class Permissions extends Module {
+export class Permissions extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -33,3 +33,5 @@ export default class Permissions extends Module {
      */
     allowUri = (params: { basename: string; uri: string; contact: string }) => this.execute('allow_uri', params);
 }
+
+export default Permissions;

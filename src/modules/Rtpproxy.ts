@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'rtpproxy';
 
-export default class Rtpproxy extends Module {
+export class Rtpproxy extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -25,3 +25,5 @@ export default class Rtpproxy extends Module {
      */
     reload = () => this.execute('rtpproxy_reload');
 }
+
+export default Rtpproxy;

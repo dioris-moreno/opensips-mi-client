@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'domain';
 
-export default class Domain extends Module {
+export class Domain extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -17,3 +17,5 @@ export default class Domain extends Module {
      */
     dump = () => this.execute('domain_dump');
 }
+
+export default Domain;

@@ -1,7 +1,5 @@
 import Module from './Module';
 import { Client } from '../';
-import _ from 'lodash';
-
 const MODULE_NAME = 'dialog';
 
 export class Dialog extends Module {
@@ -103,29 +101,52 @@ export class Dialog extends Module {
         this.execute('dlg_send_sequential', params);
 
     /**
-     * Returns the statistics of this module.
+     * Returns the statistics of the module.
      * @param name - (optional) get only the statistic named "name".
+     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
      */
-    getStatistics = async (name?: Dialog.Stats | Dialog.StatsTypes) => {
-        return this.getModuleStats(name);
+    getStatistics = async (name?: Dialog.Stats | Dialog.StatsTypes, options?: { keepGroupName: boolean }) => {
+        return this.getModuleStats(name, options);
     };
 }
 
 export namespace Dialog {
     export type ActiveDialogsStat = 'active_dialogs';
     export type EarlyDialogsStat = 'early_dialogs';
+    export type ProcessedDialogsStat = 'processed_dialogs';
+    export type ExpiredDialogsStat = 'expired_dialogs';
+    export type FailedDialogsStat = 'failed_dialogs';
+    export type CreateSentStat = 'create_sent';
+    export type UpdateSentStat = 'update_sent';
+    export type DeleteSentStat = 'delete_sent';
+    export type CreateRecvStat = 'create_recv';
     export type UpdateRecvStat = 'update_recv';
-    export type StatsTypes = ActiveDialogsStat | EarlyDialogsStat | UpdateRecvStat;
+    export type DeleteRecvStat = 'delete_recv';
+    export type StatsTypes =
+        | ActiveDialogsStat
+        | EarlyDialogsStat
+        | ProcessedDialogsStat
+        | ExpiredDialogsStat
+        | FailedDialogsStat
+        | CreateSentStat
+        | UpdateSentStat
+        | DeleteSentStat
+        | CreateRecvStat
+        | UpdateRecvStat
+        | DeleteRecvStat;
     export enum Stats {
-        ActiveDialogsStat = 'active_dialogs',
-        EarlyDialogsStat = 'early_dialogs',
-        UpdateRecvStat = 'update_recv',
+        ActiveDialogs = 'active_dialogs',
+        EarlyDialogs = 'early_dialogs',
+        ProcessedDialogs = 'processed_dialogs',
+        ExpiredDialogs = 'expired_dialogs',
+        FailedDialogs = 'failed_dialogs',
+        CreateSent = 'create_sent',
+        UpdateSent = 'update_sent',
+        DeleteSent = 'delete_sent',
+        CreateRecv = 'create_recv',
+        UpdateRecv = 'update_recv',
+        DeleteRecv = 'delete_recv',
     }
-    // export const Enum
-    // export type
-    // export type
-    // export type
-    //
 }
 
 export default Dialog;

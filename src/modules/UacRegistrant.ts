@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'uac_registrant';
 
-export default class UacRegistrant extends Module {
+export class UacRegistrant extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -17,3 +17,5 @@ export default class UacRegistrant extends Module {
      */
     reload = () => this.execute('reg_reload');
 }
+
+export default UacRegistrant;

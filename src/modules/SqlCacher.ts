@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'sql_cacher';
 
-export default class SqlCacher extends Module {
+export class SqlCacher extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -14,3 +14,5 @@ export default class SqlCacher extends Module {
      */
     cacherReload = (params: { id: string; key?: string }) => this.execute('sql_cacher_reload', params);
 }
+
+export default SqlCacher;

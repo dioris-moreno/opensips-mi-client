@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'proto_ws';
 
-export default class ProtoWs extends Module {
+export class ProtoWs extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -13,3 +13,5 @@ export default class ProtoWs extends Module {
      */
     trace = (params?: { trace_mode?: string }) => this.execute('ws_trace', params);
 }
+
+export default ProtoWs;

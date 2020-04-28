@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'rls';
 
-export default class Rls extends Module {
+export class Rls extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -13,3 +13,5 @@ export default class Rls extends Module {
      */
     updateSubscriptions = (params: { presentity_uri: string }) => this.execute('rls_update_subscriptions', params);
 }
+
+export default Rls;

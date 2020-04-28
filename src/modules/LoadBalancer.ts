@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'load_balancer';
 
-export default class LoadBalancer extends Module {
+export class LoadBalancer extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -33,3 +33,5 @@ export default class LoadBalancer extends Module {
      */
     status = (params: { destination_id: number; new_status?: number }) => this.execute('lb_status', params);
 }
+
+export default LoadBalancer;

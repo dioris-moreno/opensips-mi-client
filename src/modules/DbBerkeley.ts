@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'db_berkeley';
 
-export default class DbBerkeley extends Module {
+export class DbBerkeley extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -13,3 +13,5 @@ export default class DbBerkeley extends Module {
      */
     reload = (params: { table_path: string }) => this.execute('bdb_reload', params);
 }
+
+export default DbBerkeley;

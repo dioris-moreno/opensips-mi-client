@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'presence';
 
-export default class Presence extends Module {
+export class Presence extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -40,3 +40,5 @@ export default class Presence extends Module {
      */
     expose = (params: { event: string; filter?: string }) => this.execute('pres_expose', params);
 }
+
+export default Presence;

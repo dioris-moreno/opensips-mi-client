@@ -2,7 +2,7 @@ import Module from './Module';
 import { Client } from '../';
 const MODULE_NAME = 'tls_mgm';
 
-export default class TlsMgm extends Module {
+export class TlsMgm extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -17,3 +17,5 @@ export default class TlsMgm extends Module {
      */
     reload = () => this.execute('tls_reload');
 }
+
+export default TlsMgm;
