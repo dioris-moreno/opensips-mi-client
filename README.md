@@ -32,7 +32,7 @@ Client class is the default export of the library, so you can just import it as 
 import Client from 'opensips-mi-client';
 ```
 
-Or using destructured import:
+or using destructured import
 
 ```typescript
 import { Client } from 'opensips-mi-client';
@@ -48,6 +48,56 @@ await client.connect();
 
 ```
 
+## Configuration
+
+This library supports the following environment variables:
+
+```sh
+OS_MI_COMM_TYPE=http
+OS_MI_FIFO_FILE=/tmp/opensips_fifo
+OS_MI_FIFO_REPLY_DIR=/tmp
+OS_MI_URL=http://127.0.0.1:8888/mi
+```
+
+It also uses dotenv node module, so you you can create a .env file at the root of the project to set the variables.
+These parameters can be easily retrieved by importing **config** object from the library as follows:
+
+```typescript
+import { config } from 'opensips-mi-client';
+```
+
+The **config** object has the corresponding properties **communication_type**, **fifo_file**, **fifo_reply_dir** and **url**.
+
+```typescript
+{
+    communication_type: 'http',
+    fifo_file: '/tmp/opensips_fifo',
+    fifo_reply_dir: '/tmp',
+    url: 'http://127.0.0.1:8888/mi',
+};
+```
+
+### Usage
+
+Client class is the default export of the library, so you can just import it as follows:
+
+```typescript
+import Client from 'opensips-mi-client';
+```
+
+You are able to connect to the OpenSIPS instance defined in .env and get its version as easy as this:
+
+```typescript
+import Client from 'opensips-mi-client';
+const client = new Client();
+const version = client.version();
+console.log(version);
+```
+
+```sh
+{ Server: 'OpenSIPS (3.1.0-dev (x86_64/linux))' }
+```
+
 ### Function Parameters
 
 All parameters required by OpenSIPS MI functions are passed to each method defined in this library using only one parameter called
@@ -56,7 +106,7 @@ All parameters required by OpenSIPS MI functions are passed to each method defin
 ### Intellisense
 
 In order to get the must from this library, it is recommended to use an IDE that can read JsDoc descriptions. Every single method includes
-its description and the description of its parameters, based on OpenSIPS documentation, in JsDoc format. Parameter types have been
+its description and the description of its parameters in JsDoc format, based on OpenSIPS documentation. Parameter types have been
 excluded from JsDoc because they are enforced by TypeScript.
 
 ### Name Conventions
