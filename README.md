@@ -204,14 +204,14 @@ console.log(response);
 ```
 
 There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
-The letter **T** was added in front of these names in order to define the corresponding members in Stats enum of this module as follows:
+The letter **C** (code) was added in front of these names in order to define the corresponding members in Stats enum of this module as follows:
 
 ```sh
-Tm.Stats.T2xxTransactions
-Tm.Stats.T3xxTransactions
-Tm.Stats.T4xxTransactions
-Tm.Stats.T5xxTransactions
-Tm.Stats.T6xxTransactions
+Tm.Stats.C2xxTransactions
+Tm.Stats.C3xxTransactions
+Tm.Stats.C4xxTransactions
+Tm.Stats.C5xxTransactions
+Tm.Stats.C6xxTransactions
 ```
 
 Note that the statistics are returned without the group name. This functionality is implemented in opensips-mi-client by default

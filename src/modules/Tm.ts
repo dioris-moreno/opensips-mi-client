@@ -72,11 +72,11 @@ export namespace Tm {
     export type LocalRepliesStat = 'local_replies';
     export type UASTransactionsStat = 'UAS_transactions';
     export type UACTransactionsStat = 'UAC_transactions';
-    export type T2xxTransactionsStat = '2xx_transactions';
-    export type T3xxTransactionsStat = '3xx_transactions';
-    export type T4xxTransactionsStat = '4xx_transactions';
-    export type T5xxTransactionsStat = '5xx_transactions';
-    export type T6xxTransactionsStat = '6xx_transactions';
+    export type C2xxTransactionsStat = '2xx_transactions';
+    export type C3xxTransactionsStat = '3xx_transactions';
+    export type C4xxTransactionsStat = '4xx_transactions';
+    export type C5xxTransactionsStat = '5xx_transactions';
+    export type C6xxTransactionsStat = '6xx_transactions';
     export type InuseTransactionsStat = 'inuse_transactions';
     export type StatsTypes =
         | AllStats
@@ -85,11 +85,11 @@ export namespace Tm {
         | LocalRepliesStat
         | UASTransactionsStat
         | UACTransactionsStat
-        | T2xxTransactionsStat
-        | T3xxTransactionsStat
-        | T4xxTransactionsStat
-        | T5xxTransactionsStat
-        | T6xxTransactionsStat
+        | C2xxTransactionsStat
+        | C3xxTransactionsStat
+        | C4xxTransactionsStat
+        | C5xxTransactionsStat
+        | C6xxTransactionsStat
         | InuseTransactionsStat;
     export enum Stats {
         All = 'all',
@@ -98,11 +98,11 @@ export namespace Tm {
         LocalReplies = 'local_replies',
         UASTransactions = 'UAS_transactions',
         UACTransactions = 'UAC_transactions',
-        T2xxTransactions = '2xx_transactions',
-        T3xxTransactions = '3xx_transactions',
-        T4xxTransactions = '4xx_transactions',
-        T5xxTransactions = '5xx_transactions',
-        T6xxTransactions = '6xx_transactions',
+        C2xxTransactions = '2xx_transactions',
+        C3xxTransactions = '3xx_transactions',
+        C4xxTransactions = '4xx_transactions',
+        C5xxTransactions = '5xx_transactions',
+        C6xxTransactions = '6xx_transactions',
         InuseTransactions = 'inuse_transactions',
     }
 }
