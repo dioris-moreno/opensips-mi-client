@@ -66,12 +66,12 @@ await client.dialog.endDlg({ dialog_id });
 
 All parameters of all MI functions keep the same name, opensips-mi-client only defines their types. This library does not parse the
 parameters, it only pases to OpenSIPS MI. That is the reason why it keeps exactly the same names along every module code. If you see
-any parameter name in all caps, it is because that is the name OpenSIPS MI expects, like in this example:
+any parameter name in all caps, it is because that is the name OpenSIPS MI expects, like **DID** parameter in this example:
 
 ```typescript
 const dlg_val_name = 'var_name';
 const dlg_val_value = 'var_value';
-**const DID = ['DID1'];**
+const DID = ['DID1'];
 const response = await client.dialog.pushVar({ dlg_val_name, dlg_val_value, DID });
 ```
 
