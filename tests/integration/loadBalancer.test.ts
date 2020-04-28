@@ -25,27 +25,38 @@ describe('LoadBalancer Module', () => {
 
     afterEach(async () => {});
 
-    it('reload(): should Trigers the reload of the load balancing data from the DB.', async () => {
+    it('reload(): should reload the load balancing data from the DB', async () => {
         const response = await client.loadBalancer.reload();
         expect(response).toBe(OK);
     });
 
     it('resize(): should Changes the capacity for a resource of a destination.', async () => {
-        const destination_id = uuid();
-        const res_name = uuid();
-        const new_capacity = uuid();
-        const response = await client.loadBalancer.resize({ destination_id, res_name, new_capacity });
-        debug(response);
+        try {
+            // opensips-cli -x mi lb_resize 11 voicemail 56
+            const destination_id = 1;
+            const res_name = 'voicemail';
+            const new_capacity = 56;
+            const response = await client.loadBalancer.resize({ destination_id, res_name, new_capacity });
+            debug(response);
+        } catch (err) {
+            expect(err.message).toContain('Destination ID not found');
+        }
     });
 
-    it('list(): should Lists all the destinations and the maximum and current load for each resource of the destination.', async () => {
+    it('list(): should return a list of all the destinations and the maximum and current load for each resource of the destination', async () => {
         const response = await client.loadBalancer.list();
-        debug(response);
+        expect(_.isArray(response['Destinations'])).toBeTruthy();
     });
 
-    it('status(): should Gets or sets the status (enabled or disabled) of a destination.', async () => {
-        const destination_id = uuid();
-        const response = await client.loadBalancer.status({ destination_id });
-        debug(response);
+    it('status(): should get or set the status (enabled or disabled) of a destination', async () => {
+        try {
+            // opensips-cli -x mi lb_status 2 1
+            const destination_id = 2;
+            const new_status = 1;
+            const response = await client.loadBalancer.status({ destination_id, new_status });
+            debug(response);
+        } catch (err) {
+            expect(err.message).toContain('Destination ID not found');
+        }
     });
 });

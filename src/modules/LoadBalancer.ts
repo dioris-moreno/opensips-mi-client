@@ -18,7 +18,7 @@ export default class LoadBalancer extends Module {
      * @param params.res_name - name of the resource you want to resize.
      * @param params.new_capacity - new resource capacity.
      */
-    resize = (params: { destination_id: string; res_name: string; new_capacity: string }) =>
+    resize = (params: { destination_id: number; res_name: string; new_capacity: number }) =>
         this.execute('lb_resize', params);
 
     /**
@@ -31,5 +31,5 @@ export default class LoadBalancer extends Module {
      * @param params.destination_id - the ID (as per DB) of the destination.
      * @param params.new_status - (optional) If no new status is given, the function will return the current status. If a new status is given (0 - disable, 1 - enable), this status will be forced for the destination.
      */
-    status = (params: { destination_id: string; new_status?: string }) => this.execute('lb_status', params);
+    status = (params: { destination_id: number; new_status?: number }) => this.execute('lb_status', params);
 }
