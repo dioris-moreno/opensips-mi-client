@@ -29,7 +29,6 @@ export { default as Permissions } from './Permissions';
 export { default as Pike } from './Pike';
 export { default as PiHttp } from './PiHttp';
 export { default as Presence } from './Presence';
-export { default as PresenceDfks } from './PresenceDfks';
 export { default as ProtoTls } from './ProtoTls';
 export { default as ProtoWs } from './ProtoWs';
 export { default as ProtoWss } from './ProtoWss';

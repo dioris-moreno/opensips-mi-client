@@ -40,7 +40,6 @@ export default class Client {
     private _pike: Modules.Pike | undefined;
     private _piHttp: Modules.PiHttp | undefined;
     private _presence: Modules.Presence | undefined;
-    private _presenceDfks: Modules.PresenceDfks | undefined;
     private _protoTls: Modules.ProtoTls | undefined;
     private _protoWs: Modules.ProtoWs | undefined;
     private _protoWss: Modules.ProtoWss | undefined;
@@ -494,14 +493,6 @@ export default class Client {
     get presence() {
         if (!this._presence) this._presence = new Modules.Presence(this);
         return this._presence;
-    }
-
-    /**
-     *  Returns a PresenceDfks object related to the OpenSIPS instance.
-     */
-    get presenceDfks() {
-        if (!this._presenceDfks) this._presenceDfks = new Modules.PresenceDfks(this);
-        return this._presenceDfks;
     }
 
     /**

@@ -8,8 +8,8 @@ export default class ProtoTls extends Module {
     }
 
     /**
-     *
-     * @param params.trace_mode - (optional) set tls tracing on and off. This parameter can be missing and the command will show the current tracing status for this module( on or off ); Possible values:
+     * Returns or set the current tracing status.
+     * @param params.trace_mode - (optional) Possible values: on / off
      */
     trace = (params?: { trace_mode?: string }) => this.execute('tls_trace', params);
 }
