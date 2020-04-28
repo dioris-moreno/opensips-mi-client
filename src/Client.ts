@@ -3,11 +3,11 @@ const debug = Debug('opensips-mi-client');
 import ClientConfiguration from './connection/ClientConfiguration';
 import envConfig from './envConfig';
 import * as Modules from './modules';
-import IConnection from './connection/IConnection';
+import Connection from './connection/Connection';
 import ConnectionFactory from './connection/ConnectionFactory';
 
 export default class Client {
-    private _connection: IConnection;
+    private _connection: Connection;
     private _availableCommands: string[] = [];
     private _core: Modules.Core | undefined;
     private _b2bEntities: Modules.B2bEntities | undefined;
@@ -64,7 +64,7 @@ export default class Client {
     /**
      * Returns the connection object of the OpenSIPS instance.
      */
-    get connection(): IConnection {
+    get connection(): Connection {
         return this._connection;
     }
 

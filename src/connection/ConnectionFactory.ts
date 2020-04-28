@@ -2,11 +2,11 @@ import Debug from 'debug';
 import Configuration, { CommunicationTypeEnum } from './ClientConfiguration';
 import HttpConnection from './HttpConnection';
 import FifoConnection from './FifoConnection';
-import IConnection from './IConnection';
+import Connection from './Connection';
 const debug = Debug('opensips-mi-client');
 
 export default class ConnectionFactory {
-    static createConnection(config: Configuration): IConnection {
+    static createConnection(config: Configuration): Connection {
         const { communication_type: type } = config;
         switch (type) {
             case CommunicationTypeEnum.Http:

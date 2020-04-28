@@ -1,6 +1,7 @@
 import { Client } from '../index';
 import { CommandParameters } from '../connection/ClientConfiguration';
 import Debug from 'debug';
+import _ from 'lodash';
 const debug = Debug('opensips-mi-client');
 
 export default class Module {
@@ -16,6 +17,11 @@ export default class Module {
         return this._name;
     }
 
+    /**
+     * Execute the MI command against OpenSIPS, using the transport of "connection".
+     * @param command - the MI command.
+     * @param params - (optional) parameters required by the command.
+     */
     execute(command: string, params?: CommandParameters): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
@@ -28,6 +34,28 @@ export default class Module {
             }
         });
     }
+
+    /**
+     * Return the statistics of the module.
+     * @param name - (optional) get only the statistic named "name".
+     * @param options - (optional) use keepGroupName=true to get the original names.
+     */
+    protected getModuleStats = async (name?: string, options?: { keepGroupName: boolean }) => {
+        try {
+            const groupName = `${this.name}:`;
+            let filter = name ? name : groupName;
+            const response = await this.client.getStatistics({ statistics: [filter] });
+            if (options && options.keepGroupName) return response;
+            const ret: { [key: string]: any } = {};
+            for (const key of _.keys(response)) {
+                const statName = key.replace(groupName, '');
+                ret[statName] = response[key];
+            }
+            return ret;
+        } catch (err) {
+            throw err;
+        }
+    };
 
     protected get client() {
         return this._client;

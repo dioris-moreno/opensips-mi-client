@@ -1,8 +1,8 @@
 import Configuration from './ClientConfiguration';
-import IConnection from './IConnection';
+import Connection from './Connection';
 import { CommunicationTypeEnum, CommandParameters } from './ClientConfiguration';
 
-export default abstract class ConnectionBase implements IConnection {
+export default abstract class ConnectionBase implements Connection {
     private _configuration: Configuration;
 
     constructor(config: Configuration) {

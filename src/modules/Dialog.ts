@@ -1,8 +1,10 @@
 import Module from './Module';
 import { Client } from '../';
+import _ from 'lodash';
+
 const MODULE_NAME = 'dialog';
 
-export default class Dialog extends Module {
+export class Dialog extends Module {
     constructor(client: Client) {
         super(client, MODULE_NAME);
     }
@@ -99,4 +101,27 @@ export default class Dialog extends Module {
      */
     sendSequential = (params: { callid: string; method?: string; mode?: string; body?: string }) =>
         this.execute('dlg_send_sequential', params);
+
+    /**
+     * Return the statistics of this module.
+     * @param params.name - (optional) only the statistic named "name".
+     */
+    getStatistics = async (name?: Dialog.Stats) => {
+        return this.getModuleStats(name);
+    };
 }
+
+export namespace Dialog {
+    export enum Stats {
+        ActiveDialogsStat = 'active_dialogs',
+        EarlyDialogsStat = 'early_dialogs',
+        UpdateRecvStat = 'update_recv',
+    }
+    // export const Enum
+    // export type
+    // export type
+    // export type
+    // export type DialogStats = ActiveDialogsStat | EarlyDialogsStat | UpdateRecvStat;
+}
+
+export default Dialog;
