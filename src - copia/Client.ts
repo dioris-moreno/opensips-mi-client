@@ -59,7 +59,6 @@ export default class Client {
     constructor(config?: ClientConfiguration) {
         if (!config) config = envConfig;
         else config = getDefaults(config);
-        debug(config);
         this._connection = ConnectionFactory.createConnection(config);
     }
 

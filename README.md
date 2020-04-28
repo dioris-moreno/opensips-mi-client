@@ -223,7 +223,7 @@ console.log(response);
 ```
 
 There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
-The letter T was added in front of these names to be able to define the corresponding enum as follows:
+The letter **T** was added in front of these names in order to define the corresponding the Stats enum of this module as follows:
 
 ```sh
 Tm.Stats.T2xxTransactions
