@@ -103,15 +103,19 @@ export class Dialog extends Module {
         this.execute('dlg_send_sequential', params);
 
     /**
-     * Return the statistics of this module.
-     * @param params.name - (optional) only the statistic named "name".
+     * Returns the statistics of this module.
+     * @param name - (optional) get only the statistic named "name".
      */
-    getStatistics = async (name?: Dialog.Stats) => {
+    getStatistics = async (name?: Dialog.Stats | Dialog.StatsTypes) => {
         return this.getModuleStats(name);
     };
 }
 
 export namespace Dialog {
+    export type ActiveDialogsStat = 'active_dialogs';
+    export type EarlyDialogsStat = 'early_dialogs';
+    export type UpdateRecvStat = 'update_recv';
+    export type StatsTypes = ActiveDialogsStat | EarlyDialogsStat | UpdateRecvStat;
     export enum Stats {
         ActiveDialogsStat = 'active_dialogs',
         EarlyDialogsStat = 'early_dialogs',
@@ -121,7 +125,7 @@ export namespace Dialog {
     // export type
     // export type
     // export type
-    // export type DialogStats = ActiveDialogsStat | EarlyDialogsStat | UpdateRecvStat;
+    //
 }
 
 export default Dialog;

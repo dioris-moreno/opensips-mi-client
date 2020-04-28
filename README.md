@@ -199,6 +199,34 @@ and get
 }
 ```
 
+To facilitate getting of statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
+In order to get the value of the **dialog:update_recv** statistic, just call the getStatistics method of client.dialog using
+the corresponding enum member.
+
+```typescript
+const response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecvStat);
+console.log(response);
+```
+
+You can also get statistics values by name using strings. Note that it is not necessary to include the group prefix of the module,
+**dialog:update_recv** could just be passed as **update_recv**.
+
+```typescript
+const name = 'update_recv';
+const response = await client.dialog.getStatistics(name);
+console.log(response);
+```
+
+All the names of the statistics of the modules are defined as types. These types are exposed by the class of the module. A type that includes
+all possible stats of the module, called StatsTypes, is exposed by the class of the module too. So, if you try to pass an invalid statistic
+name, TypeScript will give you an error, like in the following example:
+
+```typescript
+const name = 'update_recv_invalid';
+const response = await client.dialog.getStatistics(name);
+console.log(response);
+```
+
 ## Test
 
 This project include a series of integration tests that can be run against the OpenSIPS instance defined in .env file as follows:

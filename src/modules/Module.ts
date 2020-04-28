@@ -13,12 +13,15 @@ export default class Module {
         this._name = name;
     }
 
+    /**
+     * Returns the name of the module.
+     */
     get name() {
         return this._name;
     }
 
     /**
-     * Execute the MI command against OpenSIPS, using the transport of "connection".
+     * Executes the MI command against OpenSIPS, using the transport of "connection".
      * @param command - the MI command.
      * @param params - (optional) parameters required by the command.
      */
@@ -36,7 +39,7 @@ export default class Module {
     }
 
     /**
-     * Return the statistics of the module.
+     * Returns the statistics of the module.
      * @param name - (optional) get only the statistic named "name".
      * @param options - (optional) use keepGroupName=true to get the original names.
      */
@@ -57,6 +60,9 @@ export default class Module {
         }
     };
 
+    /**
+     * Returns the client instance.
+     */
     protected get client() {
         return this._client;
     }

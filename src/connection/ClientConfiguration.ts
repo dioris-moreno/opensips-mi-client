@@ -39,8 +39,5 @@ export const getDefaults = (config: ClientConfiguration) => {
     if (config.fifo_file) ret.fifo_file = config.fifo_file;
     if (config.fifo_reply_dir) ret.fifo_reply_dir = config.fifo_reply_dir;
     if (config.url) ret.url = config.url;
-    debug('defaultConfiguration', defaultConfiguration);
-    debug('config', config);
-    debug('ret', ret);
     return ret;
 };

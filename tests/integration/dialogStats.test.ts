@@ -38,7 +38,8 @@ describe('Dialog Module', () => {
 
     it('getStatistics(): should return one dialog statistics', async () => {
         const name = 'update_recv';
-        const response = await client.dialog.getStatistics(Dialog.Stats.ActiveDialogsStat);
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecvStat);
+        response = await client.dialog.getStatistics(name);
         debug(response);
     });
 });
