@@ -1,9 +1,9 @@
 import ConnectionBase from './ConnectionBase';
-import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
+import { CommunicationType, CommandParameters } from './ClientConfiguration';
 
 export default class FifoConnection extends ConnectionBase {
     get communicationType() {
-        return ClientConfiguration.CommunicationType.Fifo;
+        return CommunicationType.Fifo;
     }
 
     get replyDirectory() {

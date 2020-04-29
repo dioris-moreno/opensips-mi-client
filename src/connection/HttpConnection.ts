@@ -1,5 +1,5 @@
 import ConnectionBase from './ConnectionBase';
-import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
+import { CommunicationType, CommandParameters } from './ClientConfiguration';
 import axios from 'axios';
 import url from 'url';
 import Debug from 'debug';
@@ -7,7 +7,7 @@ const debug = Debug('opensips-mi-client');
 
 export default class HttpConnection extends ConnectionBase {
     get communicationType() {
-        return ClientConfiguration.CommunicationType.Http;
+        return CommunicationType.Http;
     }
 
     get url() {

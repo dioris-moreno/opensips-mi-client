@@ -1,5 +1,5 @@
 import Connection from './Connection';
-import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
+import ClientConfiguration, { CommunicationType, CommandParameters } from './ClientConfiguration';
 
 export default abstract class ConnectionBase implements Connection {
     private _configuration: ClientConfiguration;
@@ -20,7 +20,7 @@ export default abstract class ConnectionBase implements Connection {
         return { jsonrpc, method: command, id, params };
     }
 
-    abstract get communicationType(): ClientConfiguration.CommunicationType;
+    abstract get communicationType(): CommunicationType;
     abstract execute(command: string, params: CommandParameters): any;
     abstract validate(): void;
 
