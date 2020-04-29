@@ -1,6 +1,6 @@
 {
     "name": "opensips-mi-client",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "OpenSIPS 3.0 Management Interface Client",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
