@@ -1,0 +1,64 @@
+{
+    "name": "opensips-mi-client",
+    "version": "3.0.0",
+    "description": "OpenSIPS 3.0 Management Interface Client",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "lib/**/*"
+    ],
+    "scripts": {
+        "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"tests/**/*.json\"",
+        "lint": "tslint -p tsconfig.json",
+        "test": "jest --config jestconfig.json",
+        "build": "tsc",
+        "unitTest": "jest unit --watchAll --verbose --config jestconfig.json",
+        "integrationTest": "jest integration --watchAll --coverage --verbose --runInBand --config jestconfig.json",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm test && npm run lint",
+        "preversion": "npm run lint",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && git push --tags"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dioris-moreno/opensips-mi-client.git"
+    },
+    "keywords": [
+        "OpenSIPS"
+    ],
+    "author": "Dioris Moreno",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dioris-moreno/opensips-mi-client/issues"
+    },
+    "homepage": "https://github.com/dioris-moreno/opensips-mi-client#readme",
+    "devDependencies": {
+        "@types/app-root-path": "^1.2.4",
+        "@types/debug": "^4.1.5",
+        "@types/jest": "^25.2.1",
+        "@types/lodash": "^4.14.150",
+        "@types/node": "^13.13.0",
+        "@types/pg": "^7.14.3",
+        "@types/uuid": "^7.0.3",
+        "@types/xml2js": "^0.4.5",
+        "app-root-path": "^3.0.0",
+        "jest": "^25.3.0",
+        "net": "^1.0.2",
+        "prettier": "^2.0.4",
+        "ts-jest": "^25.4.0",
+        "ts-node": "^8.9.0",
+        "tslint": "^6.1.1",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.8.3",
+        "uuid": "^7.0.3",
+        "xml2js": "^0.4.23"
+    },
+    "dependencies": {
+        "axios": "^0.19.2",
+        "debug": "^4.1.1",
+        "dotenv": "^8.2.0",
+        "lodash": "^4.17.15",
+        "pg": "^8.0.3"
+    }
+}
