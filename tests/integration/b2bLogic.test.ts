@@ -25,10 +25,11 @@ describe('B2bLogic Module', () => {
 
     afterEach(async () => {});
 
-    it('triggerScenario(): should instantiate a B2B scenario', async () => {
+    it.skip('triggerScenario(): should instantiate a B2B scenario (test-error)', async () => {
         try {
-            const senario_id = uuid();
-            const scenario_params = uuid();
+            // opensips-cli -x mi b2b_trigger_scenario marketing sip:bob@opensips.org sip:322@opensips.org:5070 sip:alice@opensips.org
+            const senario_id = 'marketing';
+            const scenario_params = ['sip:bob@opensips.org', 'sip:322@opensips.org:5070', 'sip:alice@opensips.org'];
             const response = await client.b2bLogic.triggerScenario({ senario_id, scenario_params });
             debug(response);
         } catch (err) {
@@ -36,10 +37,11 @@ describe('B2bLogic Module', () => {
         }
     });
 
-    it('bridge(): should tell B2BUA to bridge a call party from an on going dialog to another destination', async () => {
+    it.skip('bridge(): should tell B2BUA to bridge a call party from an on going dialog to another destination (test-error)', async () => {
         try {
-            const dialog_id = uuid();
-            const new_uri = uuid();
+            // opensips-cli -x mi b2b_bridge 1020.30 sip:alice@opensips.org
+            const dialog_id = '1020.30';
+            const new_uri = 'sip:alice@opensips.org';
             const response = await client.b2bLogic.bridge({ dialog_id, new_uri });
             debug(response);
         } catch (err) {
