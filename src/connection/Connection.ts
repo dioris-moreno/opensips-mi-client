@@ -1,7 +1,7 @@
-import { CommunicationTypeEnum, CommandParameters } from './ClientConfiguration';
+import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
 
 export default interface Connection {
-    readonly communicationType: CommunicationTypeEnum;
+    readonly communicationType: ClientConfiguration.CommunicationType;
     execute(command: string, params?: CommandParameters): any;
-    isValid(): boolean;
+    validate(): void;
 }

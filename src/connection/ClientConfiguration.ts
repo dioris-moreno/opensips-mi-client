@@ -1,11 +1,6 @@
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-export enum CommunicationTypeEnum {
-    Http = 'http',
-    Fifo = 'fifo',
-}
-
 export interface CommandParameters {
     [key: string]: any;
 }
@@ -17,8 +12,8 @@ export interface CommandParameters {
  * url: The default URL used when `http` `communication_type` is used (default: http://127.0.0.1:8888/mi).
  * jsonrpcVersion: The default JSON-RPC protocol version used.
  */
-export default interface ClientConfiguration {
-    communication_type?: CommunicationTypeEnum | string;
+export interface ClientConfiguration {
+    communication_type?: ClientConfiguration.CommunicationType | string;
     fifo_file?: string;
     fifo_reply_dir?: string;
     url?: string;
@@ -26,7 +21,7 @@ export default interface ClientConfiguration {
 }
 
 export const defaultConfiguration: ClientConfiguration = {
-    communication_type: CommunicationTypeEnum.Http,
+    communication_type: ClientConfiguration.CommunicationType.Http,
     fifo_file: '/tmp/opensips_fifo',
     fifo_reply_dir: '/tmp',
     url: 'http://127.0.0.1:8888/mi',
@@ -41,3 +36,12 @@ export const getDefaults = (config: ClientConfiguration) => {
     if (config.url) ret.url = config.url;
     return ret;
 };
+
+export namespace ClientConfiguration {
+    export enum CommunicationType {
+        Http = 'http',
+        Fifo = 'fifo',
+    }
+}
+
+export default ClientConfiguration;

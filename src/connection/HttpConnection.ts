@@ -1,12 +1,13 @@
 import ConnectionBase from './ConnectionBase';
-import { CommunicationTypeEnum, CommandParameters } from './ClientConfiguration';
+import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
 import axios from 'axios';
+import url from 'url';
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
 export default class HttpConnection extends ConnectionBase {
     get communicationType() {
-        return CommunicationTypeEnum.Http;
+        return ClientConfiguration.CommunicationType.Http;
     }
 
     get url() {
@@ -22,12 +23,15 @@ export default class HttpConnection extends ConnectionBase {
             if (error) throw new Error(error.message);
             return result;
         } catch (err) {
-            debug('http error:', err);
+            debug('HttpConnection:', err);
             throw err;
         }
     };
 
-    isValid(): boolean {
-        return true;
+    validate(): void {
+        if (!this.url) throw new Error('OpenSIPS instance url required.');
+        const parsedUrl = url.parse(this.url, true);
+        if (parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:') return;
+        throw new Error('Only http and https protocols are supported.');
     }
 }

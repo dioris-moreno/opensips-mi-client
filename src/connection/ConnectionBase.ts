@@ -1,15 +1,15 @@
-import Configuration from './ClientConfiguration';
 import Connection from './Connection';
-import { CommunicationTypeEnum, CommandParameters } from './ClientConfiguration';
+import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
 
 export default abstract class ConnectionBase implements Connection {
-    private _configuration: Configuration;
+    private _configuration: ClientConfiguration;
 
-    constructor(config: Configuration) {
+    constructor(config: ClientConfiguration) {
         this._configuration = config;
+        this.validate();
     }
 
-    protected get configuration(): Configuration {
+    protected get configuration(): ClientConfiguration {
         return this._configuration;
     }
 
@@ -20,9 +20,9 @@ export default abstract class ConnectionBase implements Connection {
         return { jsonrpc, method: command, id, params };
     }
 
-    abstract get communicationType(): CommunicationTypeEnum;
+    abstract get communicationType(): ClientConfiguration.CommunicationType;
     abstract execute(command: string, params: CommandParameters): any;
-    abstract isValid(): boolean;
+    abstract validate(): void;
 
     protected getRandomId = () => {
         const min = 1;

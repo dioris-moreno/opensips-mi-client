@@ -1,9 +1,9 @@
 import ConnectionBase from './ConnectionBase';
-import Configuration, { CommunicationTypeEnum, CommandParameters } from './ClientConfiguration';
+import ClientConfiguration, { CommandParameters } from './ClientConfiguration';
 
 export default class FifoConnection extends ConnectionBase {
     get communicationType() {
-        return CommunicationTypeEnum.Fifo;
+        return ClientConfiguration.CommunicationType.Fifo;
     }
 
     get replyDirectory() {
@@ -18,7 +18,7 @@ export default class FifoConnection extends ConnectionBase {
         return null;
     }
 
-    isValid(): boolean {
-        return true;
+    validate(): void {
+        // return true;
     }
 }
