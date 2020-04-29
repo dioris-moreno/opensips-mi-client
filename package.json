@@ -16,7 +16,7 @@
         "unitTest": "jest unit --watchAll --verbose --config jestconfig.json",
         "integrationTest": "jest integration --watchAll --coverage --verbose --runInBand --config jestconfig.json",
         "prepare": "npm run build",
-        "prepublishOnly": "npm prepublishTest && npm run lint",
+        "prepublishOnly": "npm run prepublishTest && npm run lint",
         "preversion": "npm run lint",
         "version": "npm run format && git add -A src",
         "postversion": "git push && git push --tags"
