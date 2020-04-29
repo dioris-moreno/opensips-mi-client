@@ -30,6 +30,27 @@ export class Tracer extends Module {
      * @param params.id - the name of the tracing instance to be stopped.
      */
     stop = (params: { id: string }) => this.execute('trace_stop', params);
+
+    /**
+     * Returns the statistics of the module.
+     * @param name - (optional) get only the statistic named "name".
+     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     */
+    getStatistics = async (name?: Tracer.Stats | Tracer.StatsTypes, options?: { keepGroupName: boolean }) => {
+        return this.getModuleStats(name, options);
+    };
+}
+
+export namespace Tracer {
+    export type AllStats = 'all';
+    export type TracedRequestsStat = 'traced_requests';
+    export type TracedRepliesStat = 'traced_replies';
+    export type StatsTypes = AllStats | TracedRequestsStat | TracedRepliesStat;
+    export enum Stats {
+        All = 'all',
+        TracedRequests = 'traced_requests',
+        TracedReplies = 'traced_replies',
+    }
 }
 
 export default Tracer;
