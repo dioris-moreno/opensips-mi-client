@@ -28,7 +28,7 @@ describe('B2bLogic Module', () => {
     it('triggerScenario(): should instantiate a B2B scenario', async () => {
         try {
             const senario_id = uuid();
-            const scenario_params = uuid();
+            const scenario_params = [uuid(), uuid()];
             const response = await client.b2bLogic.triggerScenario({ senario_id, scenario_params });
             debug(response);
         } catch (err) {
