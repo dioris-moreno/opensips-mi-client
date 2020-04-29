@@ -26,8 +26,11 @@ describe('Dialog Module Stats', () => {
     afterEach(async () => {});
 
     it('getStatistics(): should return all dialog statistics', async () => {
-        const response = await client.dialog.getStatistics();
+        let response = await client.dialog.getStatistics();
         expect(_.isEmpty(response)).toBeFalsy();
+
+        response = await client.listStatistics();
+        debug(response);
     });
 
     it('getStatistics(): should return one dialog statistic', async () => {

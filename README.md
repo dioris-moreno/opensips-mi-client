@@ -4,7 +4,7 @@ OpenSIPS 3.0 Management Interface Client
 
 ## Introduction
 
-This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy to use way.
+This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy-to-use way.
 It is not intended to verify or handle the functionality of OpenSIPS modules. At this moment opensips-mi-client
 only supports **http** transport.
 
@@ -54,7 +54,7 @@ Client class is the default export of the library, so you can import it as follo
 import Client from 'opensips-mi-client';
 ```
 
-You now are able to connect to the OpenSIPS instance defined in .env and get its version with just a few lines of code:
+Now you are able to connect to the OpenSIPS instance defined in .env and get its version with just a few lines of code:
 
 ```typescript
 import Client from 'opensips-mi-client';
@@ -188,7 +188,7 @@ will print
 ```
 
 To facilitate getting statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
-For exmple, in order to only get the value of the **update_recv** statistic, call the getStatistics method of client.dialog
+For example, in order to get only the value of the **update_recv** statistic, call the getStatistics method of client.dialog
 using the corresponding enum member.
 
 ```typescript
