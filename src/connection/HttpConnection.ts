@@ -16,9 +16,9 @@ export default class HttpConnection extends ConnectionBase {
 
     execute = async (command: string, params?: CommandParameters) => {
         try {
-            const url = this.url as string;
+            const miUrl = this.url as string;
             const data = this.getData(command, params);
-            const response = await axios.post(url, data);
+            const response = await axios.post(miUrl, data);
             const { result, error } = response.data;
             if (error) throw new Error(error.message);
             return result;

@@ -137,7 +137,6 @@ export namespace Dialog {
         | UpdateRecvStat
         | DeleteRecvStat;
     export enum Stats {
-        All = 'all',
         ActiveDialogs = 'active_dialogs',
         EarlyDialogs = 'early_dialogs',
         ProcessedDialogs = 'processed_dialogs',

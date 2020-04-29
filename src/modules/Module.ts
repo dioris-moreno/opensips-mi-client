@@ -49,7 +49,7 @@ export default class Module {
         try {
             if (name === ALL_STATS) name = undefined;
             const groupName = `${this.name}:`;
-            let filter = name ? name : groupName;
+            const filter = name ? name : groupName;
             const response = await this.client.getStatistics({ statistics: [filter] });
             if (options && options.keepGroupName) return response;
             const ret: { [key: string]: any } = {};
