@@ -98,8 +98,6 @@ const showVersion = async () => {
 showVersion();
 ```
 
-It will print something like:
-
 ```sh
 { Server: 'OpenSIPS (3.1.0-dev (x86_64/linux))' }
 ```
@@ -149,7 +147,7 @@ examples, MI functions prefixes **dlg\_** were removed from the method names for
 ### Modules
 
 This library defines one class for each OpenSIPS module, and the Client class exposes all possible modules as properties. If the
-OpenSIPS instance we are connected to does not support the MI functions of one module (maybe because it is not using it), and we try to
+OpenSIPS instance we are connected to does not support the MI functions of one module (maybe because it is not loaded), and we try to
 execute any of its methods, an error like the following will be trigger:
 
 ```sh
@@ -216,12 +214,7 @@ console.log(response);
 > Note: **Stats** enum can only be used in TypeScript. For Javascript you should get stats values by their names.
 
 This library defines as types the names of all the statistics of every module to enforce the use of valid names in TypeScript.
-So, if you try to pass an invalid statistic name, TypeScript will trigger a compilation error, like in the following example:
-
-```typescript
-const response = await client.dialog.getStatistics('invalid_parameter_name');
-console.log(response);
-```
+So, if you try to pass an invalid statistic name, TypeScript will trigger a compilation error.
 
 There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
 The letter **C** (code) was added in front of these names in order to define the corresponding members in Stats enum of this module as follows:
