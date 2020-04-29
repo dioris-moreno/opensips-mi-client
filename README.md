@@ -11,7 +11,7 @@ only supports **http** transport.
 ## Installation
 
 ```sh
-npm install opensips-mi-client --save
+npm install opensips-mi-client
 ```
 
 ## Configuration
@@ -58,9 +58,14 @@ You now are able to connect to the OpenSIPS instance defined in .env and get its
 
 ```typescript
 import Client from 'opensips-mi-client';
-const client = new Client();
-const version = client.version();
-console.log(version);
+
+const showVersion = async () => {
+    const client = new Client();
+    const version = await client.version();
+    console.log(version);
+};
+
+showVersion();
 ```
 
 ```sh
@@ -73,22 +78,36 @@ variables you can create a client as follows:
 ```typescript
 import Client from 'opensips-mi-client';
 const client = new Client({ url: 'http://10.10.10.10:8000/mi' });
-const version = client.version();
-console.log(version);
 ```
 
 > Note: at this moment opensips-mi-client only supports **http** transport.
 
 ### Javascript
 
-Use the library in Javascript in the following way:
+Use the library in Javascript as follows:
 
 ```javascript
-var Client = require('opensips-mi-client');
-var client = new Client();
-var version = client.version();
-console.log(version);
+const Client = require('opensips-mi-client').default;
+
+const showVersion = async () => {
+    const client = new Client();
+    const version = await client.version();
+    console.log(version);
+};
+
+showVersion();
 ```
+
+It will print something like:
+
+```sh
+{ Server: 'OpenSIPS (3.1.0-dev (x86_64/linux))' }
+```
+
+### Promises
+
+Most of the methods exposed by the classes of this library are asynchronous, so they return promises. You should use await/async syntax as
+shown in the examples above to handle those promises, or then() catch() methods if you prefer.
 
 ### Function Parameters
 
@@ -194,8 +213,10 @@ const response = await client.dialog.getStatistics('update_recv');
 console.log(response);
 ```
 
+> Note: **Stats** enum can only be used in TypeScript. For Javascript you should get stats values by their names.
+
 This library defines as types the names of all the statistics of every module to enforce the use of valid names in TypeScript.
-So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
+So, if you try to pass an invalid statistic name, TypeScript will trigger a compilation error, like in the following example:
 
 ```typescript
 const response = await client.dialog.getStatistics('invalid_parameter_name');
