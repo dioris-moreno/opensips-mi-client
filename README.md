@@ -48,13 +48,13 @@ with the corresponding values read from the .env file.
 
 ### TypeScript
 
-Client class is the default export of the library, so you can just import it as follows:
+Client class is the default export of the library, so you can import it as follows:
 
 ```typescript
 import Client from 'opensips-mi-client';
 ```
 
-You are able to connect to the OpenSIPS instance defined in .env and get its version as easy as this:
+You now are able to connect to the OpenSIPS instance defined in .env and get its version with just a few lines of code:
 
 ```typescript
 import Client from 'opensips-mi-client';
@@ -67,7 +67,7 @@ console.log(version);
 { Server: 'OpenSIPS (3.1.0-dev (x86_64/linux))' }
 ```
 
-Client class constructor supports passing the parameters needed to connect to OpenSIPS, so instead using environment
+Client class constructor supports passing the parameters needed to connect to OpenSIPS, so instead of using environment
 variables you can create a client as follows:
 
 ```typescript
@@ -81,7 +81,7 @@ console.log(version);
 
 ### Javascript
 
-Use the library in Javascript as follows:
+Use the library in Javascript in the following way:
 
 ```javascript
 var Client = require('opensips-mi-client');
@@ -98,21 +98,21 @@ All parameters required by OpenSIPS MI functions are passed to each method defin
 ### Intellisense
 
 In order to get the must from this library, it is recommended to use an IDE that can read JsDoc descriptions. Every single method includes
-its description and the description of its parameters in JsDoc format, based on OpenSIPS documentation. Parameter types have been
+its explanation and the description of its parameters in JsDoc format, based on the OpenSIPS documentation. Parameter types have been
 excluded from JsDoc because they are enforced by TypeScript.
 
 ### Name Conventions
 
-The Management Interface of OpenSIPS, and must of its code, uses snake_case naming convention. This library has been developed
-using camelCase and PascalCase naming following the [ESLint Code Conventions](https://eslint.org/docs/developer-guide/code-conventions).
-In order to do that, names of MI functions have been converted to camelCase, but the names of its parameters were not. For example:
+The OpenSIPS Management Interface, and must of its code, uses **snake_case** naming convention. This library has been developed
+using **camelCase** and **PascalCase** naming following the [ESLint Code Conventions](https://eslint.org/docs/developer-guide/code-conventions).
+In order to do that, names of MI functions have been converted to **camelCase**, but the names of its parameters have not been changed. For example:
 
 ```typescript
 const dialog_id = 'Y2IwYjQ2YmE2ZDg5MWVkNDNkZGIwZjAzNGM1ZDY';
 await client.dialog.endDlg({ dialog_id });
 ```
 
-Here MI function **dlg_end_dlg** was camelCased to **endDlg**, but the parameter name keeps the same **dialog_id**. This is because
+Here MI function name **dlg_end_dlg** was converted to **endDlg** (camelCase), but the parameter keeps the same name **dialog_id**. This is because
 OpenSIPS MI needs to receive the parameters with these specific names. This library does not parse the parameters in any way,
 it only defines their types and passes them to OpenSIPS MI. If you see a parameter name in all caps, it is because that is the name
 OpenSIPS MI expects, like **DID** in this example:
@@ -130,22 +130,21 @@ examples, MI functions prefixes **dlg\_** were removed from the method names for
 ### Modules
 
 This library defines one class for each OpenSIPS module, and the Client class exposes all possible modules as properties. If the
-OpenSIPS instance we are connected to does not support the MI functions of one module because it is not using it, and we try to
+OpenSIPS instance we are connected to does not support the MI functions of one module (maybe because it is not using it), and we try to
 execute any of its methods, an error like the following will be trigger:
 
 ```sh
 'dlg_end_dlg' command is not available in this OpenSIPS instance.
-
 ```
 
-> Note: the names of the properties (modules) in Client class are camelCase.
+> Note: the names of the properties (modules) in Client class use camelCase naming convention.
 
 ### Statistics
 
 The Client class exposes all core MI functions, including listStatistics and getStatistics methods. These methods work in the way
-documented in OpenSIPS MI: listStatistics returns a list of all available statistics in the OpenSIPS instance, and getStatistics
+documented in OpenSIPS: listStatistics returns a list of all available statistics in the instance, and getStatistics
 returns their realtime values. getStatistics allows to filter statistics using a group or an specific name. This library also exposes
-a getStatistics method in every module that has available statistics. This function can be used to obtain the realtime values
+a getStatistics method in every module that has statistics. This method can be used to obtain the realtime values
 of the statistics of the module from where it is called. For example:
 
 ```typescript
@@ -186,9 +185,9 @@ it will print
 { update_recv: 0 }
 ```
 
-All enums include an **All** member that can be used to obtain the values of all the statistics. It gives the same result
-than calling getStatistics without passing any parameter. It is not mandatory to call getStatistics using the enum, you can
-also get stats values by name using strings:
+All Stats enums include an **All** member that can be used to obtain the values of all the statistics. You will get the same
+result if you call getStatistics method without any parameter. It is not mandatory to call getStatistics using the enum, you
+can get stats values by name using strings:
 
 ```typescript
 const response = await client.dialog.getStatistics('update_recv');
@@ -199,7 +198,7 @@ This library defines as types the names of all the statistics of every module to
 So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
 
 ```typescript
-const response = await client.dialog.getStatistics('invalid_update_recv');
+const response = await client.dialog.getStatistics('invalid_parameter_name');
 console.log(response);
 ```
 
