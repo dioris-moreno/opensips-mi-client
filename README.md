@@ -213,8 +213,10 @@ const response = await client.dialog.getStatistics('update_recv');
 console.log(response);
 ```
 
+> Note: **Stats** enum can only be used in TypeScript. For Javascript you should get stats values by their names.
+
 This library defines as types the names of all the statistics of every module to enforce the use of valid names in TypeScript.
-So, if you try to pass an invalid statistic name, TypeScript will give you an error, like in the following example:
+So, if you try to pass an invalid statistic name, TypeScript will trigger a compilation error, like in the following example:
 
 ```typescript
 const response = await client.dialog.getStatistics('invalid_parameter_name');
