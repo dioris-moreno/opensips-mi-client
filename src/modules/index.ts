@@ -8,6 +8,7 @@ export { default as CallCenter } from './CallCenter';
 export { default as CarrierRoute } from './CarrierRoute';
 export { default as Cfgutils } from './Cfgutils';
 export { default as Clusterer } from './Clusterer';
+export { default as Cplc } from './Cplc';
 export { default as DbBerkeley } from './DbBerkeley';
 export { default as DbFlatstore } from './DbFlatstore';
 export { default as DbText } from './DbText';
