@@ -8,7 +8,7 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import { Client } from '../../src/';
+import { Client, Dialog } from '../../src/';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { getRandomLogLevel } from '../utils/';
@@ -122,5 +122,305 @@ describe('Dialog Module', () => {
         } catch (err) {
             expect(err.message).toBe('Dialog Not Found');
         }
+    });
+
+    it('getStatistics(): should return all statistics', async () => {
+        // Without parameters
+        let response = await client.dialog.getStatistics();
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using Stats.All
+        response = await client.dialog.getStatistics(Dialog.Stats.All);
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using 'all' string
+        response = await client.dialog.getStatistics('all');
+        expect(_.isEmpty(response)).toBeFalsy();
+    });
+
+    it('getStatistics(): should return active_dialogs statistic', async () => {
+        const stat = 'active_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ActiveDialogs);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return active_dialogs statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'active_dialogs';
+        const valueName = 'dialog:active_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ActiveDialogs, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return early_dialogs statistic', async () => {
+        const stat = 'early_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.EarlyDialogs);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return early_dialogs statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'early_dialogs';
+        const valueName = 'dialog:early_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.EarlyDialogs, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return processed_dialogs statistic', async () => {
+        const stat = 'processed_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ProcessedDialogs);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return processed_dialogs statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'processed_dialogs';
+        const valueName = 'dialog:processed_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ProcessedDialogs, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return expired_dialogs statistic', async () => {
+        const stat = 'expired_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ExpiredDialogs);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return expired_dialogs statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'expired_dialogs';
+        const valueName = 'dialog:expired_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.ExpiredDialogs, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return failed_dialogs statistic', async () => {
+        const stat = 'failed_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.FailedDialogs);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return failed_dialogs statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'failed_dialogs';
+        const valueName = 'dialog:failed_dialogs';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.FailedDialogs, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return create_sent statistic', async () => {
+        const stat = 'create_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.CreateSent);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return create_sent statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'create_sent';
+        const valueName = 'dialog:create_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.CreateSent, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return update_sent statistic', async () => {
+        const stat = 'update_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateSent);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return update_sent statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'update_sent';
+        const valueName = 'dialog:update_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateSent, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return delete_sent statistic', async () => {
+        const stat = 'delete_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.DeleteSent);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return delete_sent statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'delete_sent';
+        const valueName = 'dialog:delete_sent';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.DeleteSent, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return create_recv statistic', async () => {
+        const stat = 'create_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.CreateRecv);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return create_recv statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'create_recv';
+        const valueName = 'dialog:create_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.CreateRecv, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return update_recv statistic', async () => {
+        const stat = 'update_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return update_recv statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'update_recv';
+        const valueName = 'dialog:update_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.UpdateRecv, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return delete_recv statistic', async () => {
+        const stat = 'delete_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.DeleteRecv);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return delete_recv statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'delete_recv';
+        const valueName = 'dialog:delete_recv';
+
+        // Using Stats enum member
+        let response = await client.dialog.getStatistics(Dialog.Stats.DeleteRecv, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.dialog.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
     });
 });
