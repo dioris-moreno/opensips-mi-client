@@ -1,6 +1,5 @@
 import Module from './Module';
 import { Client } from '../';
-
 const MODULE_NAME = 'cpl_c';
 
 export class Cplc extends Module {

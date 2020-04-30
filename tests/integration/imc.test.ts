@@ -8,7 +8,7 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import { Client } from '../../src/';
+import { Client, Imc } from '../../src/';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { getRandomLogLevel } from '../utils/';
@@ -40,5 +40,45 @@ describe('Imc Module', () => {
         } catch (err) {
             expect(err.message).toContain('no such room');
         }
+    });
+
+    it('getStatistics(): should return all statistics', async () => {
+        // Without parameters
+        let response = await client.imc.getStatistics();
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using Stats.All
+        response = await client.imc.getStatistics(Imc.Stats.All);
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using 'all' string
+        response = await client.imc.getStatistics('all');
+        expect(_.isEmpty(response)).toBeFalsy();
+    });
+
+    it('getStatistics(): should return active_rooms statistic', async () => {
+        const stat = 'active_rooms';
+
+        // Using Stats enum member
+        let response = await client.imc.getStatistics(Imc.Stats.ActiveRooms);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.imc.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return active_rooms statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'active_rooms';
+        const valueName = 'imc:active_rooms';
+
+        // Using Stats enum member
+        let response = await client.imc.getStatistics(Imc.Stats.ActiveRooms, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.imc.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
     });
 });

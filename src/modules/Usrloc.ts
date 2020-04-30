@@ -88,16 +88,21 @@ export class Usrloc extends Module {
 
 export namespace Usrloc {
     export type AllStats = 'all';
-    export type UsersStat = 'users';
-    export type ContactsStat = 'contacts';
-    export type ExpiresStat = 'expires';
+    export type LocationUsersStat = 'location-users';
+    export type LocationContactsStat = 'location-contacts';
+    export type LocationExpiresStat = 'location-expires';
     export type RegisteredUsersStat = 'registered_users';
-    export type StatsTypes = AllStats | UsersStat | ContactsStat | ExpiresStat | RegisteredUsersStat;
+    export type StatsTypes =
+        | AllStats
+        | LocationUsersStat
+        | LocationContactsStat
+        | LocationExpiresStat
+        | RegisteredUsersStat;
     export enum Stats {
         All = 'all',
-        Users = 'users',
-        Contacts = 'contacts',
-        Expires = 'expires',
+        LocationUsers = 'location-users',
+        LocationContacts = 'location-contacts',
+        LocationExpires = 'location-expires',
         RegisteredUsers = 'registered_users',
     }
 }

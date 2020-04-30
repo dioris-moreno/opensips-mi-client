@@ -35,6 +35,7 @@ export default class Client {
     private _imc: Modules.Imc | undefined;
     private _loadBalancer: Modules.LoadBalancer | undefined;
     private _nathelper: Modules.Nathelper | undefined;
+    private _natTraversal: Modules.NatTraversal | undefined;
     private _permissions: Modules.Permissions | undefined;
     private _pike: Modules.Pike | undefined;
     private _piHttp: Modules.PiHttp | undefined;
@@ -44,10 +45,13 @@ export default class Client {
     private _protoWss: Modules.ProtoWss | undefined;
     private _ratelimit: Modules.Ratelimit | undefined;
     private _regex: Modules.Regex | undefined;
+    private _registrar: Modules.Registrar | undefined;
     private _rls: Modules.Rls | undefined;
     private _rtpengine: Modules.Rtpengine | undefined;
     private _rtpproxy: Modules.Rtpproxy | undefined;
+    private _sl: Modules.Sl | undefined;
     private _sqlCacher: Modules.SqlCacher | undefined;
+    private _sst: Modules.Sst | undefined;
     private _tlsMgm: Modules.TlsMgm | undefined;
     private _tm: Modules.Tm | undefined;
     private _tracer: Modules.Tracer | undefined;
@@ -456,6 +460,14 @@ export default class Client {
     }
 
     /**
+     *  Returns a NatTraversal object related to the OpenSIPS instance.
+     */
+    get natTraversal() {
+        if (!this._natTraversal) this._natTraversal = new Modules.NatTraversal(this);
+        return this._natTraversal;
+    }
+
+    /**
      *  Returns a Permissions object related to the OpenSIPS instance.
      */
     get permissions() {
@@ -528,6 +540,14 @@ export default class Client {
     }
 
     /**
+     *  Returns a Registrar object related to the OpenSIPS instance.
+     */
+    get registrar() {
+        if (!this._registrar) this._registrar = new Modules.Registrar(this);
+        return this._registrar;
+    }
+
+    /**
      *  Returns a Rls object related to the OpenSIPS instance.
      */
     get rls() {
@@ -552,11 +572,27 @@ export default class Client {
     }
 
     /**
+     *  Returns a Sl object related to the OpenSIPS instance.
+     */
+    get sl() {
+        if (!this._sl) this._sl = new Modules.Sl(this);
+        return this._sl;
+    }
+
+    /**
      *  Returns a SqlCacher object related to the OpenSIPS instance.
      */
     get sqlCacher() {
         if (!this._sqlCacher) this._sqlCacher = new Modules.SqlCacher(this);
         return this._sqlCacher;
+    }
+
+    /**
+     *  Returns a Sst object related to the OpenSIPS instance.
+     */
+    get sst() {
+        if (!this._sst) this._sst = new Modules.Sst(this);
+        return this._sst;
     }
 
     /**

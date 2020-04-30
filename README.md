@@ -4,7 +4,7 @@ OpenSIPS 3.0 Management Interface Client
 
 ## Introduction
 
-This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy to use way.
+This is a client library that wraps all OpenSIPS 3.0 MI Functions in a comprehensive and easy-to-use way.
 It is not intended to verify or handle the functionality of OpenSIPS modules. At this moment opensips-mi-client
 only supports **http** transport.
 
@@ -54,7 +54,7 @@ Client class is the default export of the library, so you can import it as follo
 import Client from 'opensips-mi-client';
 ```
 
-You now are able to connect to the OpenSIPS instance defined in .env and get its version with just a few lines of code:
+Now you are able to connect to the OpenSIPS instance defined in .env and get its version with just a few lines of code:
 
 ```typescript
 import Client from 'opensips-mi-client';
@@ -188,7 +188,7 @@ will print
 ```
 
 To facilitate getting statistics by name, all possible statistics of a module are exposed in an enum of the class called **Stats**.
-For exmple, in order to only get the value of the **update_recv** statistic, call the getStatistics method of client.dialog
+For example, in order to get only the value of the **update_recv** statistic, call the getStatistics method of client.dialog
 using the corresponding enum member.
 
 ```typescript
@@ -216,8 +216,8 @@ console.log(response);
 This library defines as types the names of all the statistics of every module to enforce the use of valid names in TypeScript.
 So, if you try to pass an invalid statistic name, TypeScript will trigger a compilation error.
 
-There are some statistics in TM module with names that cannot be used to define enums (**2xx_transactions**, **3xx_transactions**, etc.).
-The letter **C** (code) was added in front of these names in order to define the corresponding members in Stats enum of this module as follows:
+There are some statistics in TM and SL modules with names that cannot be used to define enums (**2xx_transactions**, **1xx_replies**, etc.).
+The letter **C** (code) was added in front of these names in order to define the corresponding members in Stats enums as follows:
 
 ```sh
 Tm.Stats.C2xxTransactions
@@ -225,6 +225,13 @@ Tm.Stats.C3xxTransactions
 Tm.Stats.C4xxTransactions
 Tm.Stats.C5xxTransactions
 Tm.Stats.C6xxTransactions
+
+Sl.Stats.C1xxReplies
+Sl.Stats.C2xxReplies
+Sl.Stats.C3xxReplies
+Sl.Stats.C4xxReplies
+Sl.Stats.C5xxReplies
+Sl.Stats.C6xxReplies
 ```
 
 Note that the statistics are returned without the group name. This functionality is implemented in opensips-mi-client by default
@@ -252,3 +259,39 @@ and get
     'dialog:update_recv': 0,
     'dialog:delete_recv': 0 }
 ```
+
+### Statistics of Call Center Module
+
+The Call Center module has three types of statistics: global, per-flow and per-agent. Global statistics follow the same schema used
+by other modules where each realtime value has a fixed name. However, per-flow and per-agent statistics use parametrized names that
+include the flow ID or the agent ID. For example, get_statistics call_center:ccf_incalls-**sales** returns the number of received
+calls of the flow with ID **sales**, and get_statistics call_center:cca_att-**agentX** returns the average talk time of the agent
+with ID **agentX**.
+
+The CallCenter class of opensips-mi-client has the getStatistics method that can be used to retrieve realtime values of the
+global statistics. The **Stats** enum of this class only includes the global statistics names. To get per-flow of per-agent
+statistics values you have to use the getFlowStatistic and getAgentStatistic methods, respectively. These methods need
+an additional parameter: the flow ID or the agent ID. Following the examples mentioned above, if we want to get the received
+calls of **sales** flow, we should call getFlowStatistic in this way:
+
+```typescript
+const incalls = await client.callCenter.getFlowStatistic(CallCenter.FlowStats.Incalls, 'sales');
+```
+
+The CallCenter class has a FlowStats enum that lists the per-flow statistics. It also includes an AgentStats enum with the
+collection of per-agent statistics. The average talk time of **agentX** could be retrieved as follows:
+
+```typescript
+const att = await client.callCenter.getAgentStatistic(CallCenter.AgentStats.Att, 'agentX');
+```
+
+You can pass the name of the per-flow or per-agent statistic you want as a string, just take into account that statistic
+names do not include the hyphen before the ID. The equivalent of the examples above would be:
+
+```typescript
+const incalls = await client.callCenter.getFlowStatistic('ccf_incalls', 'sales');
+const att = await client.callCenter.getAgentStatistic('cca_att', 'agentX');
+```
+
+The keepGroupName option could be passed to getFlowStatistic or getAgentStatistic in order to get the original names
+returned by OpenSIPS, as in getStatistics.
