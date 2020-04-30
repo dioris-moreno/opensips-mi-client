@@ -53,7 +53,7 @@ export class CallCenter extends Module {
      * @param options - (optional) use keepGroupName=true to get the original names of the stats.
      */
     getStatistics = async (
-        name?: CallCenter.GlobalStats | CallCenter.GlobalStatsTypes,
+        name?: CallCenter.Stats | CallCenter.GlobalStatsTypes,
         options?: { keepGroupName: boolean },
     ) => {
         return this.getModuleStats(name, options);
@@ -147,7 +147,7 @@ export namespace CallCenter {
         | AgentAbandonnedIncallsStat
         | AgentAttStat;
 
-    export enum GlobalStats {
+    export enum Stats {
         All = 'all',
         Incalls = 'ccg_incalls',
         Awt = 'ccg_awt',
