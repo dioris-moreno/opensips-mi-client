@@ -21,21 +21,21 @@ export namespace Registrar {
     export type AllStats = 'all';
     export type MaxExpiresStat = 'max_expires';
     export type MaxContactsStat = 'max_contacts';
-    export type DefaultsExpiresStat = 'defaults_expires';
+    export type DefaultExpiresStat = 'default_expire';
     export type AcceptedRegsStat = 'accepted_regs';
     export type RejectedRegsStat = 'rejected_regs';
     export type StatsTypes =
         | AllStats
         | MaxExpiresStat
         | MaxContactsStat
-        | DefaultsExpiresStat
+        | DefaultExpiresStat
         | AcceptedRegsStat
         | RejectedRegsStat;
     export enum Stats {
         All = 'all',
         MaxExpires = 'max_expires',
         MaxContacts = 'max_contacts',
-        DefaultsExpires = 'defaults_expires',
+        DefaultExpires = 'default_expire',
         AcceptedRegs = 'accepted_regs',
         RejectedRegs = 'rejected_regs',
     }
