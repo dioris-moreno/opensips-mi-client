@@ -76,7 +76,7 @@ describe('CallCenter Module', () => {
         expect(_.isEmpty(response)).toBeFalsy();
 
         // Using Stats.All
-        response = await client.callCenter.getStatistics(CallCenter.GlobalStats.All);
+        response = await client.callCenter.getStatistics(CallCenter.Stats.All);
         expect(_.isEmpty(response)).toBeFalsy();
 
         // Using 'all' string
@@ -88,7 +88,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Incalls);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Incalls);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -102,7 +102,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Incalls, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Incalls, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -114,7 +114,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_awt';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Awt);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Awt);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -128,7 +128,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_awt';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Awt, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Awt, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -140,7 +140,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_load';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Load);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Load);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -154,7 +154,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_load';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.Load, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.Load, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -166,7 +166,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_distributed_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.DistributedIncalls);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.DistributedIncalls);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -180,7 +180,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_distributed_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.DistributedIncalls, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.DistributedIncalls, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -192,7 +192,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_answered_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.AnsweredIncalls);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.AnsweredIncalls);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -206,7 +206,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_answered_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.AnsweredIncalls, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.AnsweredIncalls, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -218,7 +218,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_abandonned_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.AbandonnedIncalls);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.AbandonnedIncalls);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -232,7 +232,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_abandonned_incalls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.AbandonnedIncalls, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.AbandonnedIncalls, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -244,7 +244,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_onhold_calls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.OnholdCalls);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.OnholdCalls);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -258,7 +258,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_onhold_calls';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.OnholdCalls, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.OnholdCalls, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
@@ -270,7 +270,7 @@ describe('CallCenter Module', () => {
         const stat = 'ccg_free_agents';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.FreeAgents);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.FreeAgents);
         expect(_.keys(response).includes(stat)).toBeTruthy();
 
         // Using statistic name
@@ -284,7 +284,7 @@ describe('CallCenter Module', () => {
         const valueName = 'call_center:ccg_free_agents';
 
         // Using Stats enum member
-        let response = await client.callCenter.getStatistics(CallCenter.GlobalStats.FreeAgents, options);
+        let response = await client.callCenter.getStatistics(CallCenter.Stats.FreeAgents, options);
         expect(_.keys(response).includes(valueName)).toBeTruthy();
 
         // Using statistic name
