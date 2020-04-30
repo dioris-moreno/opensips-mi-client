@@ -25,13 +25,15 @@ describe('TlsMgm Module', () => {
 
     afterEach(async () => {});
 
-    it.skip('list(): should return all domains information.', async () => {
+    it('list(): should return all domains information.', async () => {
         const response = await client.tlsMgm.list();
-        debug(response);
+        expect(_.isArray(response['Domains'])).toBeTruthy();
     });
 
     it.skip('reload(): should reload the TLS domains information from the database', async () => {
+        // It requires database configuration.
         const response = await client.tlsMgm.reload();
+        debug(response);
         expect(response).toBe(OK);
     });
 });

@@ -25,8 +25,28 @@ describe('ProtoTls Module', () => {
 
     afterEach(async () => {});
 
-    it.skip('trace(): should returns the current tracing status', async () => {
+    it('trace(): should get the current tracing status', async () => {
+        // { 'TLS tracing': 'off' }
+        const key = 'TLS tracing';
         const response = await client.protoTls.trace();
-        debug(response);
+        expect(response[key] === 'on' || response[key] === 'off').toBeTruthy();
+    });
+
+    it('trace(): should turn on tracing', async () => {
+        const key = 'TLS tracing';
+        const trace_mode = 'on';
+        let response = await client.protoTls.trace({ trace_mode });
+        expect(response).toBe(OK);
+        response = await client.protoTls.trace();
+        expect(response[key]).toBe(trace_mode);
+    });
+
+    it('trace(): should turn off tracing', async () => {
+        const key = 'TLS tracing';
+        const trace_mode = 'off';
+        let response = await client.protoTls.trace({ trace_mode });
+        expect(response).toBe(OK);
+        response = await client.protoTls.trace();
+        expect(response[key]).toBe(trace_mode);
     });
 });
