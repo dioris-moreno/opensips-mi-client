@@ -14,7 +14,7 @@
         "prepublishTest": "jest integration --verbose --runInBand --config jestconfig.json",
         "build": "tsc",
         "unitTest": "jest unit --watchAll --verbose --config jestconfig.json",
-        "integrationTest": "jest integration --watchAll --coverage --verbose --config jestconfig.json",
+        "integrationTest": "jest integration --watchAll --coverage --verbose --runInBand --config jestconfig.json",
         "prepare": "npm run build",
         "prepublishOnly": "npm run prepublishTest && npm run lint",
         "preversion": "npm run lint",
