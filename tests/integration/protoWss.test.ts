@@ -16,6 +16,7 @@ import { getRandomLogLevel } from '../utils/';
 const OK = 'OK';
 
 describe('ProtoWss Module', () => {
+    const key = 'WSS tracing';
     let client: Client;
 
     beforeEach(async () => {
@@ -25,8 +26,25 @@ describe('ProtoWss Module', () => {
 
     afterEach(async () => {});
 
-    it.skip('trace(): should return the current tracing status', async () => {
+    it('trace(): should get the current tracing status', async () => {
+        // { 'WSS tracing': 'off' }
         const response = await client.protoWss.trace();
-        debug(response);
+        expect(response[key] === 'on' || response[key] === 'off').toBeTruthy();
+    });
+
+    it('trace(): should turn on tracing', async () => {
+        const trace_mode = 'on';
+        let response = await client.protoWss.trace({ trace_mode });
+        expect(response).toBe(OK);
+        response = await client.protoWss.trace();
+        expect(response[key]).toBe(trace_mode);
+    });
+
+    it('trace(): should turn off tracing', async () => {
+        const trace_mode = 'off';
+        let response = await client.protoWss.trace({ trace_mode });
+        expect(response).toBe(OK);
+        response = await client.protoWss.trace();
+        expect(response[key]).toBe(trace_mode);
     });
 });
