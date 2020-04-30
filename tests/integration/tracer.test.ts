@@ -8,7 +8,7 @@ dotenv.config(); // SET UP ENVIROMENTAL VARIABLES BEFORE IMPORTING MODULES.
 import Debug from 'debug';
 const debug = Debug('opensips-mi-client');
 
-import { Client } from '../../src/';
+import { Client, Tracer } from '../../src/';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { getRandomLogLevel } from '../utils/';
@@ -95,5 +95,71 @@ describe('Tracer Module', () => {
         // Stop the created trace.
         response = await client.tracer.stop({ id });
         expect(response).toBe(OK);
+    });
+
+    it('getStatistics(): should return all statistics', async () => {
+        // Without parameters
+        let response = await client.tracer.getStatistics();
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using Stats.All
+        response = await client.tracer.getStatistics(Tracer.Stats.All);
+        expect(_.isEmpty(response)).toBeFalsy();
+
+        // Using 'all' string
+        response = await client.tracer.getStatistics('all');
+        expect(_.isEmpty(response)).toBeFalsy();
+    });
+
+    it('getStatistics(): should return traced_requests statistic', async () => {
+        const stat = 'traced_requests';
+
+        // Using Stats enum member
+        let response = await client.tracer.getStatistics(Tracer.Stats.TracedRequests);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.tracer.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return traced_requests statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'traced_requests';
+        const valueName = 'tracer:traced_requests';
+
+        // Using Stats enum member
+        let response = await client.tracer.getStatistics(Tracer.Stats.TracedRequests, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.tracer.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return traced_replies statistic', async () => {
+        const stat = 'traced_replies';
+
+        // Using Stats enum member
+        let response = await client.tracer.getStatistics(Tracer.Stats.TracedReplies);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.tracer.getStatistics(stat);
+        expect(_.keys(response).includes(stat)).toBeTruthy();
+    });
+
+    it('getStatistics(): should return traced_replies statistic keeping the group name', async () => {
+        const options = { keepGroupName: true };
+        const stat = 'traced_replies';
+        const valueName = 'tracer:traced_replies';
+
+        // Using Stats enum member
+        let response = await client.tracer.getStatistics(Tracer.Stats.TracedReplies, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
+
+        // Using statistic name
+        response = await client.tracer.getStatistics(stat, options);
+        expect(_.keys(response).includes(valueName)).toBeTruthy();
     });
 });
