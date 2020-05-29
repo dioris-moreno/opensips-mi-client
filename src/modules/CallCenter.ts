@@ -49,8 +49,8 @@ export class CallCenter extends Module {
 
     /**
      * Returns the statistics of the module.
-     * @param name - (optional) get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [name] - get only the statistic named "name".
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getStatistics = async (
         name?: CallCenter.Stats | CallCenter.GlobalStatsTypes,
@@ -63,7 +63,7 @@ export class CallCenter extends Module {
      * Returns the realtime value of the statistic (per flow)
      * @param name - get only the statistic named "name".
      * @param flowId - get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getFlowStatistic = async (
         name: CallCenter.FlowStats | CallCenter.FlowStatsTypes,
@@ -78,7 +78,7 @@ export class CallCenter extends Module {
      * Returns the realtime value of the statistic (per agent)
      * @param name - get only the statistic named "name".
      * @param agentId - get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getAgentStatistic = async (
         name: CallCenter.AgentStats | CallCenter.AgentStatsTypes,
