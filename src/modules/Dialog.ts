@@ -21,10 +21,10 @@ export class Dialog extends Module {
      * The same as the but including in the dialog description the associated context from modules sitting on top of the dialog module. This function also prints the dialog's values. In case of binary values, the non-printable chars are represented in hex (e.g. \x00)
      * @param params.callid - (optional) callid if a single dialog to be listed.
      * @param params.from_tag - (optional) (cannot be present without the callid parameter) - fromtag (as per initial request) of the dialog to be listed. entry
-     * @param params.index - offset where the dialog listing should start.
-     * @param params.counter - how many dialogs should be listed (starting from the offset)
+     * @param params.index - (optional) offset where the dialog listing should start.
+     * @param params.counter - (optional) how many dialogs should be listed (starting from the offset)
      */
-    listCtx = (params: { callid?: string; from_tag?: string; index: string; counter: string }) =>
+    listCtx = (params?: { callid?: string; from_tag?: string; index?: string; counter?: string }) =>
         this.execute('dlg_list_ctx', params);
 
     /**
