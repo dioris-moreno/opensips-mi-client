@@ -9,7 +9,7 @@ export class CachedbLocal extends Module {
 
     /**
      * Removes all local cache entries that match the provided glob param.
-     * @param params.collection - (optional) collection from which the keys shall be removed; if no collection set, the default collection will be used;
+     * @param [params.collection] - collection from which the keys shall be removed; if no collection set, the default collection will be used;
      * @param params.glob - keys that match glob will be removed
      */
     removeChunk = (params: { collection?: string; glob: string }) => this.execute('cache_remove_chunk', params);

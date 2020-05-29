@@ -20,8 +20,8 @@ export class Imc extends Module {
 
     /**
      * Returns the statistics of the module.
-     * @param name - (optional) get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [name] - get only the statistic named "name".
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getStatistics = async (name?: Imc.Stats | Imc.StatsTypes, options?: { keepGroupName: boolean }) => {
         return this.getModuleStats(name, options);

@@ -9,7 +9,7 @@ export class ProtoWss extends Module {
 
     /**
      *
-     * @param params.trace_mode - (optional) Possible values: on / off
+     * @param [params.trace_mode] - Possible values: on / off
      */
     trace = (params?: { trace_mode?: string }) => this.execute('wss_trace', params);
 }

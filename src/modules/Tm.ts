@@ -12,9 +12,9 @@ export class Tm extends Module {
      * @param params.method - request method
      * @param params.ruri - request SIP URI
      * @param params.headers - set of additional headers to be added to the request; at least and headers must be specified)
-     * @param params.next_hop - (optional) next hop SIP URI (OBP).
-     * @param params.socket - (optional) local socket to be used for sending the request.
-     * @param params.body - (optional) request body (if present, requires the and headers)
+     * @param [params.next_hop] - next hop SIP URI (OBP).
+     * @param [params.socket] - local socket to be used for sending the request.
+     * @param [params.body] - request body (if present, requires the and headers)
      */
     uacDlg = (params: {
         method: string;
@@ -43,8 +43,8 @@ export class Tm extends Module {
      * @param params.reason - reason phrase.
      * @param params.trans_id - transaction identifier (has the hash_entry:label format)
      * @param params.to_tag - To tag to be added to TO header
-     * @param params.new_headers - (optional) extra headers to be appended to the reply.
-     * @param params.body - (optional) reply body (if present, requires the and headers)
+     * @param [params.new_headers] - extra headers to be appended to the reply.
+     * @param [params.body] - reply body (if present, requires the and headers)
      */
     reply = (params: {
         code: number;
@@ -57,8 +57,8 @@ export class Tm extends Module {
 
     /**
      * Returns the statistics of the module.
-     * @param name - (optional) get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [name] - get only the statistic named "name".
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getStatistics = async (name?: Tm.Stats | Tm.StatsTypes, options?: { keepGroupName: boolean }) => {
         return this.getModuleStats(name, options);
