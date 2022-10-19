@@ -35,6 +35,7 @@ export default class Client {
     private _imc: Modules.Imc | undefined;
     private _loadBalancer: Modules.LoadBalancer | undefined;
     private _nathelper: Modules.Nathelper | undefined;
+    private _natTraversal: Modules.NatTraversal | undefined;
     private _permissions: Modules.Permissions | undefined;
     private _pike: Modules.Pike | undefined;
     private _piHttp: Modules.PiHttp | undefined;
@@ -44,10 +45,13 @@ export default class Client {
     private _protoWss: Modules.ProtoWss | undefined;
     private _ratelimit: Modules.Ratelimit | undefined;
     private _regex: Modules.Regex | undefined;
+    private _registrar: Modules.Registrar | undefined;
     private _rls: Modules.Rls | undefined;
     private _rtpengine: Modules.Rtpengine | undefined;
     private _rtpproxy: Modules.Rtpproxy | undefined;
+    private _sl: Modules.Sl | undefined;
     private _sqlCacher: Modules.SqlCacher | undefined;
+    private _sst: Modules.Sst | undefined;
     private _tlsMgm: Modules.TlsMgm | undefined;
     private _tm: Modules.Tm | undefined;
     private _tracer: Modules.Tracer | undefined;
@@ -118,8 +122,8 @@ export default class Client {
 
     /**
      * Get or set the logging level of one or all OpenSIPS processes. If no argument is passed to the log_level command, it will print a table with the current logging levels of all processes. If a logging level is given, it will be set for each process. If pid is also given, the logging level will change only for that process.
-     * @param params.level - (optional) logging level (-3...4)
-     * @param params.pid - (optional) Unix pid (validated by OpenSIPS)
+     * @param [params.level] - logging level (-3...4)
+     * @param [params.pid] - Unix pid (validated by OpenSIPS)
      */
     logLevel = (params?: { level?: number; pid?: number }) => this.core.logLevel(params);
 
@@ -161,13 +165,13 @@ export default class Client {
 
     /**
      * Prints a list of available statistics in the current configuration of OpenSIPS.
-     * @param params.statistics - (optional) an array of the same possible values as for get_statistics MI command, with the exception of all. Omitting the parameter will list all available statistics.
+     * @param [params.statistics] - an array of the same possible values as for get_statistics MI command, with the exception of all. Omitting the parameter will list all available statistics.
      */
     listStatistics = (params?: { statistics?: string[] }) => this.core.listStatistics(params);
 
     /**
      * Reset (to zero) the value of a statistic variable. Note that not all variables allow reset (depending of the nature of the information they carry - example 'shmem:used_size').
-     * @param params.statistics - (optional) an array of the names of the variables to be reset.
+     * @param [params.statistics] - an array of the names of the variables to be reset.
      */
     resetStatistics = (params?: { statistics?: string[] }) => this.core.resetStatistics(params);
 
@@ -176,7 +180,7 @@ export default class Client {
      * @param params.system - cache system to use - for the cache system implemented by OpenSIPS module localcache the value of this parameter should be local;
      * @param params.attr - the label to be associated with this value;
      * @param params.value - the string to be stored;
-     * @param params.expire - (optional) expire time for the stored value;
+     * @param [params.expire] - expire time for the stored value;
      */
     cacheStore = (params: { system: string; attr: string; value: string; expire?: string }) =>
         this.core.cacheStore(params);
@@ -199,7 +203,7 @@ export default class Client {
      * Subscribes an external application to a certain event.
      * @param params.event - event name
      * @param params.socket - external application socket
-     * @param params.expire - (optional) expire time, in seconds - if absent, the subscription is valid only one hour (3600 s)
+     * @param [params.expire] - expire time, in seconds - if absent, the subscription is valid only one hour (3600 s)
      */
     eventSubscribe = (params: { event: string; socket: string; expire?: number }) => this.core.eventSubscribe(params);
 
@@ -211,7 +215,7 @@ export default class Client {
     /**
      * Raises an event through the Event Interface using an MI command.
      * @param params.event - event name
-     * @param params.params - (optional) array of elements, or a JSON object containing key-value pairs
+     * @param [params.params] - array of elements, or a JSON object containing key-value pairs
      */
     raiseEvent = (params: { event: string; params?: string[] | { [key: string]: any } }) =>
         this.core.raiseEvent(params);
@@ -219,20 +223,20 @@ export default class Client {
     /**
      * Lists information about the subscribers
      * @param params.event - event name
-     * @param params.socket - (optional) external application socket
+     * @param [params.socket] - external application socket
      */
     subscribersList = (params: { event: string; socket?: string }) => this.core.subscribersList(params);
 
     /**
      * Triggers a pkg memory dump for a given process. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
      * @param params.pid - the PID of the process to perform the pkg dump
-     * @param params.level - (optional) a log level to be used for this dump
+     * @param [params.level] - a log level to be used for this dump
      */
     memPkgDump = (params: { pid: number; level?: number }) => this.core.memPkgDump(params);
 
     /**
      * Triggers a shm memory dump. The memory dump will written to OpenSIPS's log (syslog or stderr) using the 'memdump' logging level. The global 'memdump' log level may be overwritten by a custom value provided as argument to this command.
-     * @param params.level - (optional) a log level to be used for this dump
+     * @param [params.level] - a log level to be used for this dump
      */
     memShmDump = (params?: { level?: number }) => this.core.memShmDump(params);
 
@@ -243,7 +247,7 @@ export default class Client {
 
     /**
      * Get or set the global xlogging level in OpenSIPS processes. If no argument is passed to the xlog_level command, it will print the current xlog_level. If a logging level is given, it will be globally set for all OpenSIPS processes.
-     * @param params.level - (optional) a log level to be used
+     * @param [params.level] - a log level to be used
      */
     xlogLevel = (params?: { level?: number }) => this.core.xlogLevel(params);
 
@@ -456,6 +460,14 @@ export default class Client {
     }
 
     /**
+     *  Returns a NatTraversal object related to the OpenSIPS instance.
+     */
+    get natTraversal() {
+        if (!this._natTraversal) this._natTraversal = new Modules.NatTraversal(this);
+        return this._natTraversal;
+    }
+
+    /**
      *  Returns a Permissions object related to the OpenSIPS instance.
      */
     get permissions() {
@@ -528,6 +540,14 @@ export default class Client {
     }
 
     /**
+     *  Returns a Registrar object related to the OpenSIPS instance.
+     */
+    get registrar() {
+        if (!this._registrar) this._registrar = new Modules.Registrar(this);
+        return this._registrar;
+    }
+
+    /**
      *  Returns a Rls object related to the OpenSIPS instance.
      */
     get rls() {
@@ -552,11 +572,27 @@ export default class Client {
     }
 
     /**
+     *  Returns a Sl object related to the OpenSIPS instance.
+     */
+    get sl() {
+        if (!this._sl) this._sl = new Modules.Sl(this);
+        return this._sl;
+    }
+
+    /**
      *  Returns a SqlCacher object related to the OpenSIPS instance.
      */
     get sqlCacher() {
         if (!this._sqlCacher) this._sqlCacher = new Modules.SqlCacher(this);
         return this._sqlCacher;
+    }
+
+    /**
+     *  Returns a Sst object related to the OpenSIPS instance.
+     */
+    get sst() {
+        if (!this._sst) this._sst = new Modules.Sst(this);
+        return this._sst;
     }
 
     /**

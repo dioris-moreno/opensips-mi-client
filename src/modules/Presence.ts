@@ -28,15 +28,15 @@ export class Presence extends Module {
 
     /**
      * Lists all the subscription records, or the subscriptions for which the "To" and "From" URIs match the given parameters.
-     * @param params.from - (optional) wildcard for "From" URI
-     * @param params.to - (optional) wildcard for "To" URI
+     * @param [params.from] - wildcard for "From" URI
+     * @param [params.to] - wildcard for "To" URI
      */
     subscriptionList = (params?: { from?: string; to?: string }) => this.execute('subs_phtable_list', params);
 
     /**
      * Exposes in the script, by rasing an event, all the presentities of a specific event that match a specified filter.
      * @param params.event - the desired presence event.
-     * @param params.filter - (optional) a regular expression (REGEXP) used for filtering the presentities for that event. Only the presentities that match will be exposed. If not specified, all presentities for that event are exposed.
+     * @param [params.filter] - a regular expression (REGEXP) used for filtering the presentities for that event. Only the presentities that match will be exposed. If not specified, all presentities for that event are exposed.
      */
     expose = (params: { event: string; filter?: string }) => this.execute('pres_expose', params);
 }

@@ -24,7 +24,7 @@ export class Usrloc extends Module {
 
     /**
      * Dumps the entire content of the USRLOC in memory cache
-     * @param params.brief - (optional) if equals to string , a brief dump will be done (only AOR and contacts, with no other details)
+     * @param [params.brief] - if equals to string , a brief dump will be done (only AOR and contacts, with no other details)
      */
     dump = (params?: { brief?: string }) => this.execute('ul_dump', params);
 
@@ -40,7 +40,7 @@ export class Usrloc extends Module {
      * @param params.contact - contact string to be added
      * @param params.expires - expires value of the contact
      * @param params.q - Q value of the contact
-     * @param params.unused - (optional) unused attribute (kept for backword compatibility)
+     * @param [params.unused] - unused attribute (kept for backword compatibility)
      * @param params.flags - internal USRLOC flags of the contact
      * @param params.cflags - per branch flags of the contact
      * @param params.methods - mask with supported requests of the contact
@@ -67,7 +67,7 @@ export class Usrloc extends Module {
     /**
      * Empty the location table, then synchronize it with all contacts from memory. Note that this can not be used when no database is specified or with the DB-Only scheme.
      * @param params.table_name - table where the AOR resides (Ex: location).
-     * @param params.aor - (optional) only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
+     * @param [params.aor] - only delete/sync this user AOR, not the whole table. Format: "username[@domain]" ( is required only if option is on).
      */
     sync = (params: { table_name: string; aor?: string }) => this.execute('ul_sync', params);
 
@@ -78,8 +78,8 @@ export class Usrloc extends Module {
 
     /**
      * Returns the statistics of the module.
-     * @param name - (optional) get only the statistic named "name".
-     * @param options - (optional) use keepGroupName=true to get the original names of the stats.
+     * @param [name] - get only the statistic named "name".
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
      */
     getStatistics = async (name?: Usrloc.Stats | Usrloc.StatsTypes, options?: { keepGroupName: boolean }) => {
         return this.getModuleStats(name, options);
@@ -88,16 +88,21 @@ export class Usrloc extends Module {
 
 export namespace Usrloc {
     export type AllStats = 'all';
-    export type UsersStat = 'users';
-    export type ContactsStat = 'contacts';
-    export type ExpiresStat = 'expires';
+    export type LocationUsersStat = 'location-users';
+    export type LocationContactsStat = 'location-contacts';
+    export type LocationExpiresStat = 'location-expires';
     export type RegisteredUsersStat = 'registered_users';
-    export type StatsTypes = AllStats | UsersStat | ContactsStat | ExpiresStat | RegisteredUsersStat;
+    export type StatsTypes =
+        | AllStats
+        | LocationUsersStat
+        | LocationContactsStat
+        | LocationExpiresStat
+        | RegisteredUsersStat;
     export enum Stats {
         All = 'all',
-        Users = 'users',
-        Contacts = 'contacts',
-        Expires = 'expires',
+        LocationUsers = 'location-users',
+        LocationContacts = 'location-contacts',
+        LocationExpires = 'location-expires',
         RegisteredUsers = 'registered_users',
     }
 }

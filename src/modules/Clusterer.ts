@@ -34,7 +34,7 @@ export class Clusterer extends Module {
      * @param params.cluster_id - id of the cluster.
      * @param params.destination - id of the destination node
      * @param params.cmd_name - name of the MI command to be run
-     * @param params.cmd_params - (optional) array of parameters for the MI command to be run
+     * @param [params.cmd_params] - array of parameters for the MI command to be run
      */
     sendMi = (params: { cluster_id: number; destination: number; cmd_name: string; cmd_params?: string[] }) =>
         this.execute('cluster_send_mi', params);
@@ -43,7 +43,7 @@ export class Clusterer extends Module {
      * Dispatches a given MI command to be run on all the nodes in a cluster. The command is also executed locally.
      * @param params.cluster_id - id of the cluster.
      * @param params.cmd_name - name of the MI command to be run
-     * @param params.cmd_params - (optional) array of parameters for the MI command to be run
+     * @param [params.cmd_params] - array of parameters for the MI command to be run
      */
     broadcastMi = (params: { cluster_id: number; cmd_name: string; cmd_params?: string }) =>
         this.execute('cluster_broadcast_mi', params);

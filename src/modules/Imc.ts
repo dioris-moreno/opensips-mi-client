@@ -17,6 +17,25 @@ export class Imc extends Module {
      * @param params.room - the room for which you want to list the members
      */
     listMembers = (params: { room: string }) => this.execute('imc_list_members', params);
+
+    /**
+     * Returns the statistics of the module.
+     * @param [name] - get only the statistic named "name".
+     * @param [options] - use keepGroupName=true to get the original names of the stats.
+     */
+    getStatistics = async (name?: Imc.Stats | Imc.StatsTypes, options?: { keepGroupName: boolean }) => {
+        return this.getModuleStats(name, options);
+    };
+}
+
+export namespace Imc {
+    export type AllStats = 'all';
+    export type ActiveRoomsStat = 'active_rooms';
+    export type StatsTypes = AllStats | ActiveRoomsStat;
+    export enum Stats {
+        All = 'all',
+        ActiveRooms = 'active_rooms',
+    }
 }
 
 export default Imc;

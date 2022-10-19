@@ -1,9 +1,9 @@
 {
     "name": "opensips-mi-client",
-    "version": "3.0.0",
+    "version": "3.0.6",
     "description": "OpenSIPS 3.0 Management Interface Client",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "files": [
         "lib/**/*"
     ],
@@ -11,11 +11,12 @@
         "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"tests/**/*.json\"",
         "lint": "tslint -p tsconfig.json",
         "test": "jest --config jestconfig.json",
+        "prepublishTest": "jest integration --verbose --runInBand --config jestconfig.json",
         "build": "tsc",
         "unitTest": "jest unit --watchAll --verbose --config jestconfig.json",
         "integrationTest": "jest integration --watchAll --coverage --verbose --runInBand --config jestconfig.json",
         "prepare": "npm run build",
-        "prepublishOnly": "npm test && npm run lint",
+        "prepublishOnly": "npm run lint",
         "preversion": "npm run lint",
         "version": "npm run format && git add -A src",
         "postversion": "git push && git push --tags"
@@ -39,7 +40,6 @@
         "@types/jest": "^25.2.1",
         "@types/lodash": "^4.14.150",
         "@types/node": "^13.13.0",
-        "@types/pg": "^7.14.3",
         "@types/uuid": "^7.0.3",
         "@types/xml2js": "^0.4.5",
         "app-root-path": "^3.0.0",
@@ -55,10 +55,9 @@
         "xml2js": "^0.4.23"
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "debug": "^4.1.1",
         "dotenv": "^8.2.0",
-        "lodash": "^4.17.15",
-        "pg": "^8.0.3"
+        "lodash": "^4.17.15"
     }
 }
